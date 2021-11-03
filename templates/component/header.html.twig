@@ -1,9 +1,45 @@
-<header class="bg-blue-600 flex h-16">
-    <div>
-        <img class="w-12" src="{{ asset('img/logo.jpg') }}" alt="logo" />
+<nav class="flex justify-between bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
+    <div class="flex flex-1 text-white font-extrabold">
+        <a class="flex text-white no-underline hover:text-white hover:no-underline" href={{  path('HomePage') }}>
+            <div class="ml-8">
+                <img class="w-8" src="{{ asset('img/logo.jpg') }}" alt="logo" />
+            </div>
+            <div class="text-2xl pl-2 mx-4">My Album Story</div>
+        </a>
     </div>
 
     <div>
-        <button>DECONNEXION</button>
+        <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+            <li class="flex-1 md:flex-none md:mr-3">
+                <a class="inline-block py-2 px-4 text-white hover:text-blue-500" href="#">ALBUMS</a>
+            </li>
+            <li class="flex-1 md:flex-none md:mr-3">
+                <a class="inline-block py-2 px-4 text-white hover:text-blue-500" href="#">PHOTOS</a>
+            </li>
+            <li class="flex-1 md:flex-none md:mr-3">
+                <a class="inline-block py-2 px-4 text-white hover:text-blue-500" href="#">COMMENTAIRES</a>
+            </li>
+            <li class="flex-1 md:flex-none md:mr-3">
+                <a class="inline-block py-2 px-4 text-white hover:text-blue-500" href="#">TAGS</a>
+            </li>
+        </ul>
     </div>
-</header>
+
+
+
+    <div class="flex flex-1 justify-end mr-8">
+        <div class="relative inline-block">
+            <button onclick="toggleDD('myDropdown')" class="drop-button text-white focus:outline-none"> <span class="pr-2"><i class="far fa-user-circle"></i></span> Bonjour, "User" <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg></button>
+            <div id="myDropdown" class="dropdownlist absolute bg-gray-800 text-white right-0 overflow-auto z-30 invisible">
+                <div class="mt-3 rounded-full hover:bg-blue-600">
+                    <a href="#" class="p-2 text-white text-sm no-underline hover:no-underline block"><i class="fas fa-user-shield"></i>  Mon DashBoard</a>
+                </div>
+                <div class="mt-3 rounded-full hover:bg-blue-600">
+                    <a href="#" class="p-2 text-red-500 text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i>  Se déconnecter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
