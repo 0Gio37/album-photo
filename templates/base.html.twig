@@ -23,18 +23,18 @@
         <div class="grid grid-cols-6 md:flex-row">
             <aside>{% include 'component/aside-search.html.twig' %}</aside>
 
-            <div class="col-span-5 main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
-                <div class="bg-gray-800 pt-3">
-                    <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-12 shadow text-2xl">
+            <div class="col-span-5 main-content flex-1 bg-gray-100 mt-12 md:mt-2">
+                <div class="bg-gray-800 pt-6">
+                    <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-12 mx-60 shadow-lg">
                         <a href="#">
-                            <div class="rounded-full p-4 bg-gray-700 hover:bg-gray-600">
-                                <h3 class="font-bold pl-2 text-gray-300">Ajouter des photos ?</h3>
+                            <div class="rounded-full p-4 bg-blue-900 hover:bg-blue-700">
+                                <p class="pl-2 text-gray-400">Ajouter des photos ?</p>
                             </div>
                         </a>
                     </div>
                 </div>
 
-                <div class="bg-gray-700">
+                <div class="bg-gray-800">
                     {% block body %}{% endblock %}
                 </div>
 
