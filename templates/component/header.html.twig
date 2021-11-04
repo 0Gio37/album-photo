@@ -1,10 +1,19 @@
-<nav class="flex justify-between bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
+<nav class="flex justify-between bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0 border-b border-gray-400 shadow-lg">
     <div class="flex flex-1 text-white font-extrabold">
-        <a class="flex text-white no-underline hover:text-white hover:no-underline" href={{  path('HomePage') }}>
-            <div class="ml-8">
+        <a class="flex text-white no-underline hover:text-white hover:no-underline" href="{{ path('HomePage') }}">
+            <div class="flex ml-8">
                 <img class="w-8" src="{{ asset('img/logo.jpg') }}" alt="logo" />
+                <div class="flex flex-1 text-white px-8">
+                    <span class="relative">
+                     <input type="search" placeholder="Rechercher sur le site" class="w-full bg-gray-600 text-gray-400 transition border border-transparent focus:outline-none focus:border-gray-400 rounded-full py-3 px-2 pl-10 appearance-none leading-normal">
+                     <div class="absolute search-icon" style="top: 1rem; left: .8rem;">
+                        <svg class="fill-current pointer-events-none text-blue-500 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                         <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
+                        </svg>
+                     </div>
+                    </span>
+                </div>
             </div>
-            <div class="text-2xl pl-2 mx-4">My Album Story</div>
         </a>
     </div>
 
@@ -36,7 +45,7 @@
                     <a href="#" class="p-2 text-white text-sm no-underline hover:no-underline block"><i class="fas fa-user-shield"></i>  Mon DashBoard</a>
                 </div>
                 <div class="mt-3 rounded-full hover:bg-blue-600">
-                    <a href="#" class="p-2 text-red-500 text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i>  Se déconnecter</a>
+                    <a href="{{ path('app_logout') }}" class="p-2 text-red-500 text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i>  Se déconnecter</a>
                 </div>
             </div>
         </div>
