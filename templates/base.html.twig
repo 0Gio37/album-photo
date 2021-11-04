@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}My Album Photo{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -13,8 +17,65 @@
         {% endblock %}
     </head>
 
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
+        <header>{% include 'component/header.html.twig' %}</header>
 
+        <div class="grid grid-cols-6 md:flex-row">
+            <aside>{% include 'component/aside-search.html.twig' %}</aside>
+
+            <div class="col-span-5 main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+                <div class="bg-gray-800 pt-3">
+                    <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-12 shadow text-2xl">
+                        <a href="#">
+                            <div class="rounded-full p-4 bg-gray-700 hover:bg-gray-600">
+                                <h3 class="font-bold pl-2 text-gray-300">Ajouter des photos ?</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-gray-700">
+                    {% block body %}{% endblock %}
+                </div>
+
+
+
+            </div>
+        </div>
+
+    <script>
+        /*Toggle dropdown list*/
+        function toggleDD(myDropMenu) {
+            document.getElementById(myDropMenu).classList.toggle("invisible");
+        }
+        /*Filter dropdown options*/
+        function filterDD(myDropMenu, myDropMenuSearch) {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById(myDropMenuSearch);
+            filter = input.value.toUpperCase();
+            div = document.getElementById(myDropMenu);
+            a = div.getElementsByTagName("a");
+            for (i = 0; i < a.length; i++) {
+                if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+            }
+        }
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.drop-button') && !event.target.matches('.drop-search')) {
+                var dropdowns = document.getElementsByClassName("dropdownlist");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (!openDropdown.classList.contains('invisible')) {
+                        openDropdown.classList.add('invisible');
+                    }
+                }
+            }
+        }
+    </script>
+
+    </body>
 </html>
