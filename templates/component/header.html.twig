@@ -1,6 +1,6 @@
 <nav class="flex justify-between bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
     <div class="flex flex-1 text-white font-extrabold">
-        <a class="flex text-white no-underline hover:text-white hover:no-underline" href={{  path('HomePage') }}>
+        <a class="flex text-white no-underline hover:text-white hover:no-underline" href="{{ path('HomePage') }}">
             <div class="ml-8">
                 <img class="w-8" src="{{ asset('img/logo.jpg') }}" alt="logo" />
             </div>
@@ -36,7 +36,7 @@
                     <a href="#" class="p-2 text-white text-sm no-underline hover:no-underline block"><i class="fas fa-user-shield"></i>  Mon DashBoard</a>
                 </div>
                 <div class="mt-3 rounded-full hover:bg-blue-600">
-                    <a href="#" class="p-2 text-red-500 text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i>  Se déconnecter</a>
+                    <a href="{{ path('app_logout') }}" class="p-2 text-red-500 text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i>  Se déconnecter</a>
                 </div>
             </div>
         </div>
