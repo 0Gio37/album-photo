@@ -34,11 +34,11 @@
 
                 {% if app.user %}
                     <div class="mb-6 text-xl">
-                        {{ app.user.username }}, tu es toujours connecté (e) !
+                        {{ app.user.prenom }}, tu es toujours connecté (e) !
                     </div>
                     <div class="grid grid-cols-3 gap-4">
-                        <div class="col-span-1"><a href="{{ path('logout') }}"><button class="btn btn-lg btn-primary uppercase block w-full p-2  rounded-full bg-red-900 hover:bg-red-700 focus:outline-none">Deconnexion</button></a></div>
-                        <div class="col-span-2"><a href="{{  path('home') }}"><button class="btn btn-lg btn-primary uppercase block w-full p-2 rounded-full bg-blue-900 hover:bg-blue-700 focus:outline-none">Entrer</button></a></div>
+                        <div class="col-span-1"><a href="{{ path('logout') }}"><button class="btn btn-lg btn-primary uppercase block w-full p-2  rounded-full bg-red-900 hover:bg-red-700 focus:outline-none">Déconnexion</button></a></div>
+                        <div class="col-span-2"><a href="{{  path('home') }}"><button class="btn btn-lg btn-primary uppercase block w-full p-2 rounded-full bg-blue-900 hover:bg-blue-700 focus:outline-none">Page d'accueil</button></a></div>
                     </div>
                 {% else %}
                     <h1 class="my-6">FORMULAIRE DE CONNEXION</h1>
@@ -79,6 +79,7 @@
                             </a>
                         </div>
                     </form>
+                    <p>Pas inscrit ? <a href="#">Créer un compte</a></p>
                 {% endif %}
             </div>
         </div>
