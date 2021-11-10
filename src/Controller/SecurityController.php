@@ -63,6 +63,10 @@ class SecurityController extends AbstractController
             // Encoder le mot de passe
             $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
 
+            //Ajout du role par défaut
+            $user->setRoles(["ROLE_USER"]);
+
+
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
