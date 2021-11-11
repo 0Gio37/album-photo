@@ -4,6 +4,19 @@
 
 {% block body %}
 
+    <section class="bg-gray-800 pt-6">
+        <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-12 mx-60 shadow-lg">
+            <a href="#">
+                <div class="modal-open rounded-full p-4 bg-blue-900 hover:bg-blue-700">
+                    <button class="text-gray-400 pl-2">Ajouter des photos ...</button>
+                </div>
+                <section>
+                    {% include 'modal_photo/index.html.twig' %}
+                </section>
+            </a>
+        </div>
+    </section>
+
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
 
         <div class="text-center pb-12">
