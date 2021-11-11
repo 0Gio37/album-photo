@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une photo{% endblock %}
+
+{% block body %}
+    div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+    <div class="modal-overlay absolute w-full h-full bg-black opacity-95"></div>
+
+    <div class="modal-container fixed w-full h-full z-50 overflow-y-auto">
+
+        <div class="modal-content mx-m h-auto text-left p-24">
+            <div class="flex justify-end pt-2">
+                <button class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">FERMER</button>
+            </div>
+            <!--Title-->
+            <div class="flex justify-between items-center pb-2">
+                <p class="text-2xl font-bold text-gray-200">Nouvelle Photo : Formulaire d'informations</p>
+            </div>
+            <!--Body-->
+            <div>
+                Modal content can go here
+            </div>
+        </div>
+
+    </div>
+    </div>
+{% endblock %}

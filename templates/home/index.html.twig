@@ -6,13 +6,10 @@
 
     <section class="bg-gray-800 pt-6">
         <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-12 mx-60 shadow-lg">
-            <a href="#">
-                <div class="modal-open rounded-full p-4 bg-blue-900 hover:bg-blue-700">
-                    <button class="text-gray-400 pl-2">Ajouter des photos ...</button>
+            <a href="{{ path('add_photo') }}">
+                <div class="rounded-full py-4 bg-blue-900 hover:bg-blue-700 text-gray-400 px-8">
+                  Ajouter des photos ...
                 </div>
-                <section>
-                    {% include 'modal_photo/index.html.twig' %}
-                </section>
             </a>
         </div>
     </section>
