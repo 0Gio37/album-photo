@@ -27,8 +27,7 @@ class AddPhotoController extends AbstractController
      */
     public function addPhoto(Request $request, UserRepository $UserRepository, EntityManagerInterface $em ): Response
     {
-
-
+        $visibleTagBtn = false;
 
         $photo = new Photo();
         $form = $this->createForm(PhotoType::class, $photo);
@@ -42,11 +41,14 @@ class AddPhotoController extends AbstractController
             $data = $form->getData();
             $em->persist($data);
             $em->flush();
+            $visibleTagBtn = true;
+
         }
 
         return $this->render(
             'home/addPhoto.html.twig', [
             'photoForm' => $form->createView(),
+            'visibleTagBtn'=>$visibleTagBtn,
         ]);
     }
 }

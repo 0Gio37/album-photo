@@ -7,18 +7,31 @@
     <section class="bg-gray-800 pt-6">
         <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg">
             <div class="rounded-full py-4 bg-blue-900 text-gray-400 px-8">
-              Nouvelle photo
+                Nouvelle photo
             </div>
             {{ form_start(photoForm) }}
             <div>{{ form_row(photoForm.album) }}</div>
 
             <div>{{ form_row(photoForm.year) }}</div>
 
-            <a href="{{ path('add_photo') }}"><button>Ajouter</button></a>
+            <button>Valider</button>
             {{ form_end(photoForm) }}
         </div>
         <a href="{{ path('home') }}">Retour à la page d'accueil</a>
     </section>
+
+    {% if visibleTagBtn == true %}
+        <p>Identifer des personnes sur la photo ?</p>
+        <button class="modal-open">oui : ouverture modal</button>
+
+        {%  include 'modal/addTaggs.html.twig' %}
+
+        <a href="{{ path('add_photo') }}"><button>Non, je valide</button></a>
+
+    {% endif %}
+
+
+
 
 
 
