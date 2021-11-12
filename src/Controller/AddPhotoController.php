@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Photo;
 use App\Form\PhotoType;
+use App\Repository\UserRepository;
+
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,13 +25,24 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-photo", name="add_photo")
      */
-    public function addPhoto(Request $request): Response
+    public function addPhoto(Request $request, UserRepository $UserRepository, EntityManagerInterface $em ): Response
     {
+
+
 
         $photo = new Photo();
         $form = $this->createForm(PhotoType::class, $photo);
-        $currentUser = $this->security->getUser();
-        dd($currentUser->getId());
+        $currentUserId = $this->security->getUser()->getId();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
+
+            $photo->setAuteur($currentUserObject);
+            $data = $form->getData();
+            $em->persist($data);
+            $em->flush();
+        }
 
         return $this->render(
             'home/addPhoto.html.twig', [

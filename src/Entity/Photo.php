@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=PhotoRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Photo
 {
@@ -27,16 +28,6 @@ class Photo
 
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $datePublication;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $dateCreation;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="photo")
      */
     private $tags;
@@ -51,6 +42,16 @@ class Photo
      * @ORM\JoinColumn(nullable=false)
      */
     private $auteur;
+
+    /**
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private $createAt;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $year;
 
     public function __construct()
     {
@@ -75,30 +76,6 @@ class Photo
         return $this;
     }
 
-
-    public function getDatePublication(): ?\DateTimeInterface
-    {
-        return $this->datePublication;
-    }
-
-    public function setDatePublication(\DateTimeInterface $datePublication): self
-    {
-        $this->datePublication = $datePublication;
-
-        return $this;
-    }
-
-    public function getDateCreation(): ?\DateTimeInterface
-    {
-        return $this->dateCreation;
-    }
-
-    public function setDateCreation(\DateTimeInterface $dateCreation): self
-    {
-        $this->dateCreation = $dateCreation;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Tag[]
@@ -165,6 +142,36 @@ class Photo
     public function setAuteur(?User $auteur): self
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getCreateAt(): ?\DateTimeInterface
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(\DateTimeInterface $createAt): self
+    {
+        $this->createAt = $createAt;
+
+        return $this;
+    }
+    /**
+     * @ORM\PrePersist
+     */
+    public function seTimesStamps(){
+        $this->setCreateAt(new \DateTime());
+    }
+
+    public function getYear(): ?int
+    {
+        return $this->year;
+    }
+
+    public function setYear(int $year): self
+    {
+        $this->year = $year;
 
         return $this;
     }
