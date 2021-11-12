@@ -15,31 +15,30 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
+        <style>
+            .modal {
+                transition: opacity 0.25s ease;
+            }
+            body.modal-active {
+                overflow-x: hidden;
+                overflow-y: visible !important;
+            }
+            .opacity-95 {opacity: .95;}
+        </style>
     </head>
 
     <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
-        <header>{% include 'component/header.html.twig' %}</header>
+        <header>
+            {% include 'component/header.html.twig' %}
+        </header>
 
-        <div class="grid grid-cols-6 md:flex-row">
-            <aside>{% include 'component/aside-search.html.twig' %}</aside>
-
-            <div class="col-span-5 main-content flex-1 bg-gray-100 mt-12 md:mt-2">
-                <div class="bg-gray-800 pt-6">
-                    <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-12 mx-60 shadow-lg">
-                        <a href="#">
-                            <div class="rounded-full p-4 bg-blue-900 hover:bg-blue-700">
-                                <p class="pl-2 text-gray-400">Ajouter des photos ?</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-gray-800">
-                    {% block body %}{% endblock %}
-                </div>
-
-
-
+        <div class="grid grid-cols-8 md:flex-row">
+            <aside class="col-span-1 border-r border-gray-600 shadow-lg">
+                {% include 'component/aside-search.html.twig' %}
+            </aside>
+            <div class="col-span-7 main-content flex-1 bg-gray-800 mt-12 md:mt-2">
+                {% block body %}{% endblock %}
             </div>
         </div>
 
