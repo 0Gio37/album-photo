@@ -53,10 +53,17 @@ class Photo
      */
     private $year;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LienTagPhoto::class, mappedBy="photo")
+     */
+    private $lienTagPhotos;
+
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->lienTagPhotos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -175,4 +182,35 @@ class Photo
 
         return $this;
     }
+
+    /**
+     * @return Collection|LienTagPhoto[]
+     */
+    public function getLienTagPhotos(): Collection
+    {
+        return $this->lienTagPhotos;
+    }
+
+    public function addLienTagPhoto(LienTagPhoto $lienTagPhoto): self
+    {
+        if (!$this->lienTagPhotos->contains($lienTagPhoto)) {
+            $this->lienTagPhotos[] = $lienTagPhoto;
+            $lienTagPhoto->setPhoto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLienTagPhoto(LienTagPhoto $lienTagPhoto): self
+    {
+        if ($this->lienTagPhotos->removeElement($lienTagPhoto)) {
+            // set the owning side to null (unless already changed)
+            if ($lienTagPhoto->getPhoto() === $this) {
+                $lienTagPhoto->setPhoto(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

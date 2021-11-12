@@ -14,14 +14,14 @@
 
             <div>{{ form_row(photoForm.year) }}</div>
 
-            <button>Valider</button>
+            <button>Ajouter</button>
             {{ form_end(photoForm) }}
         </div>
         <a href="{{ path('home') }}">Retour à la page d'accueil</a>
     </section>
 
     {% if visibleTagBtn == true %}
-        <p>Identifer des personnes sur la photo ?</p>
+        <p>Identifier des personnes sur la photo ?</p>
         <button class="modal-open">oui : ouverture modal</button>
 
         {%  include 'modal/addTaggs.html.twig' %}
