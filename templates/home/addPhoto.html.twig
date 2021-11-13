@@ -21,17 +21,18 @@
                 {{ form_end(photoForm) }}
             </section>
 
+            <section>
+                <div>Un commentaire</div>
+                <div>
+                    {%  include 'home/section/addComment.html.twig' %}
+                </div>
+            </section>
+
         {#  {% if visibleTagSectionBtn == true %} #}
                 <section>
                     <div>Identifier des personnes sur la photo</div>
                     <div>
-                        {#
-                        {% include 'home/section/addTag.html.twig'  with {'tagForm':'tagForm'} %}
-                        #}
                         {%  include 'home/section/addTag.html.twig' %}
-                        {#
-
-                        #}
                     </div>
                 </section>
        {#      {% endif %} #}
