@@ -33,11 +33,12 @@ class AddPhotoController extends AbstractController
      */
     public function addPhoto(Request $request, UserRepository $UserRepository, TagRepository $TagRepository, PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository,  EntityManagerInterface $em ): Response
     {
-        $visibleTagBtn = false;
+        $visibleTaggedPersonnBtn = false;
+       //$visibleTagSectionBtn = false;
+
 
         $photo = new Photo();
         $formPhoto = $this->createForm(PhotoType::class, $photo);
-       // $currentUserId = $this->security->getUser()->getId();
         $formPhoto->handleRequest($request);
 
         $tag = new Tag();
@@ -51,15 +52,20 @@ class AddPhotoController extends AbstractController
 
 
         if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {
+
+            $visibleTagSectionBtn = true;
+
             $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
             $photo->setAuteur($currentUserObject);
             $data = $formPhoto->getData();
             $em->persist($data);
             $em->flush();
-            $visibleTagBtn = true;
         }
 
         if ($formTag->isSubmitted() && $formTag->isValid()) {
+
+            $visibleTaggedPersonnBtn = true;
+
             $dataTag = $formTag->getData();
             $em->persist($dataTag);
             $em->flush();
@@ -72,20 +78,42 @@ class AddPhotoController extends AbstractController
             $photoId = $photoList[0];
             $linkTagPhoto->setPhoto($photoId);
 
-
-
             $dataLinkTagPhoto= $formLinkTagPhoto->getData();
             $em->persist($dataLinkTagPhoto);
             $em->flush();
-
-
         }
 
         return $this->render(
             'home/addPhoto.html.twig', [
             'photoForm' => $formPhoto->createView(),
             'tagForm'=>$formTag->createView(),
-            'visibleTagBtn'=>$visibleTagBtn,
+            //'visibleTagSectionBtn'=>$visibleTagSectionBtn,
+            'visibleTaggedPersonnBtn'=>$visibleTaggedPersonnBtn,
         ]);
     }
+
+        /**
+         * @Route("/display-tag", name="display_tag")
+         */
+        public function displayTag(Request $request, TagRepository $TagRepository, LienTagPhotoRepository $LienTagPhotoRepository, PhotoRepository $PhotoRepository)
+        {
+            $taggedPersonns = [];
+
+            $photoList= $PhotoRepository-> findBy([],['id'=>'DESC'],1);
+            $photoId = $photoList[0];
+
+            $listTagIdEquivalent = $LienTagPhotoRepository->findBy(['photo'=>$photoId]);
+            foreach ($listTagIdEquivalent as $idEquivalent){
+                $personn = $TagRepository->findby(['id'=>$idEquivalent->getTag()->getId()]);
+                array_push($taggedPersonns, $personn);
+            }
+
+            return $this->render(
+                //'home/section/addTag.html.twig', [
+                'home/section/displayTag.html.twig', [
+                    'taggedPersonns' => $taggedPersonns,
+                ]
+            );
+
+        }
 }

@@ -49,7 +49,7 @@
     }
     /*Filter dropdown options*/
     function filterDD(myDropMenu, myDropMenuSearch) {
-        var input, filter, ul, li, a, i;
+        let input, filter, ul, li, a, i;
         input = document.getElementById(myDropMenuSearch);
         filter = input.value.toUpperCase();
         div = document.getElementById(myDropMenu);
@@ -65,9 +65,9 @@
     // Close the dropdown menu if the user clicks outside of it
     window.onclick = function(event) {
         if (!event.target.matches('.drop-button') && !event.target.matches('.drop-search')) {
-            var dropdowns = document.getElementsByClassName("dropdownlist");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
+            let dropdowns = document.getElementsByClassName("dropdownlist");
+            for (let i = 0; i < dropdowns.length; i++) {
+                let openDropdown = dropdowns[i];
                 if (!openDropdown.classList.contains('invisible')) {
                     openDropdown.classList.add('invisible');
                 }
@@ -83,8 +83,8 @@
         })
     }
 
-    const overlay = document.querySelector('.modal-overlay')
-    overlay.addEventListener('click', toggleModal)
+    //const overlay = document.querySelector('.modal-overlay')
+    //document.querySelector('.modal-overlay').addEventListener('click', toggleModal)
 
     let closeModal = document.querySelectorAll('.modal-close')
     for (let i = 0; i < closeModal.length; i++) {
@@ -111,6 +111,21 @@
         modal.classList.toggle('pointer-events-none')
         body.classList.toggle('modal-active')
     }
+
+    {#
+    let tagList =[];
+let displayTagList = document.getElementById('displayTagList');
+function getTagName(e){
+   e.stopPropagation();
+   e.preventDefault();
+
+   const inputLastName = document.getElementById('tag_nom');
+   const inputFirstName = document.getElementById('tag_prenom');
+   tagList.push(inputLastName.value + ' - ' + inputFirstName.value)
+   console.log(tagList)
+}
+document.getElementById('displayTagListBtn').addEventListener('click', getTagName);
+    #}
 
 </script>
 

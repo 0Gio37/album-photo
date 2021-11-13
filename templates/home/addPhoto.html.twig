@@ -4,35 +4,50 @@
 
 {% block body %}
 
-    <section class="bg-gray-800 pt-6">
-        <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg">
-            <div class="rounded-full py-4 bg-blue-900 text-gray-400 px-8">
-                Nouvelle photo
-            </div>
-            {{ form_start(photoForm) }}
-            <div>{{ form_row(photoForm.album) }}</div>
+    <div class="bg-gray-800 pt-6">
+        <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-screen">
 
-            <div>{{ form_row(photoForm.year) }}</div>
+            <section class="rounded-full py-4 bg-blue-900 font-bold text-center text-gray-400 px-8">
+                Ajouter une nouvelle photo
+            </section>
 
-            <button>Ajouter</button>
-            {{ form_end(photoForm) }}
+            <section>
+                {{ form_start(photoForm) }}
+                <div>{{ form_row(photoForm.album) }}</div>
+                <div>{{ form_row(photoForm.year) }}</div>
+                <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                    Ajouter Photo
+                </button>
+                {{ form_end(photoForm) }}
+            </section>
+
+        {#  {% if visibleTagSectionBtn == true %} #}
+                <section>
+                    <div>Identifier des personnes sur la photo</div>
+                    <div>
+                        {#
+                        {% include 'home/section/addTag.html.twig'  with {'tagForm':'tagForm'} %}
+                        #}
+                        {%  include 'home/section/addTag.html.twig' %}
+                        {#
+
+                        #}
+                    </div>
+                </section>
+       {#      {% endif %} #}
+
+            <a href="{{ path('add_photo') }}">
+                <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                    Ajouter une autre photo
+                </button>
+            </a>
+            <a href="{{ path('home') }}">
+                <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                    Retour Page d'accueiL
+                </button>
+            </a>
         </div>
-        <a href="{{ path('home') }}">Retour à la page d'accueil</a>
-    </section>
-
-    {% if visibleTagBtn == true %}
-        <p>Identifier des personnes sur la photo ?</p>
-        <button class="modal-open">oui : ouverture modal</button>
-
-        {%  include 'modal/addTaggs.html.twig' %}
-
-        <a href="{{ path('add_photo') }}"><button>Non, je valide</button></a>
-
-    {% endif %}
-
-
-
-
-
-
+    </div>
 {% endblock %}
+
+
