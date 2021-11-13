@@ -34,9 +34,16 @@ class Tag
      */
     private $photo;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LienTagPhoto::class, mappedBy="tag")
+     */
+    private $lienTagPhotos;
+
+
     public function __construct()
     {
         $this->photo = new ArrayCollection();
+        $this->lienTagPhotos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,4 +98,35 @@ class Tag
 
         return $this;
     }
+
+    /**
+     * @return Collection|LienTagPhoto[]
+     */
+    public function getLienTagPhotos(): Collection
+    {
+        return $this->lienTagPhotos;
+    }
+
+    public function addLienTagPhoto(LienTagPhoto $lienTagPhoto): self
+    {
+        if (!$this->lienTagPhotos->contains($lienTagPhoto)) {
+            $this->lienTagPhotos[] = $lienTagPhoto;
+            $lienTagPhoto->setTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLienTagPhoto(LienTagPhoto $lienTagPhoto): self
+    {
+        if ($this->lienTagPhotos->removeElement($lienTagPhoto)) {
+            // set the owning side to null (unless already changed)
+            if ($lienTagPhoto->getTag() === $this) {
+                $lienTagPhoto->setTag(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

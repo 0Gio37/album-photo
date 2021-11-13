@@ -1,0 +1,30 @@
+<div class="formTag">
+
+    {{ form_start(tagForm) }}
+    {{ form_row(tagForm.nom) }}
+    {{ form_row(tagForm.prenom) }}
+    <button id="displayTagListBtn" class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+        Ajouter cette Personne
+    </button>
+    {{ form_end(tagForm) }}
+
+    {% if visibleTaggedPersonnBtn == true %}
+        <a href="{{ path('display_tag') }}">
+            <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-green-900 hover:bg-green-700">
+                Voir les personnes ajoutées
+            </button>
+      </a>
+
+        {#
+        <div class="h-50 bg-yellow-500">
+            {%  if taggedPersonns is defined %}
+                {% include 'home/section/displayTag.html.twig'  with {'taggedPersonns':'taggedPersonns'} %}
+            {% endif %}
+        </div>
+        #}
+
+    {%  endif %}
+
+
+
+</div>
