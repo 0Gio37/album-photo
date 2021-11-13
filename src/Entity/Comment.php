@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Comment
 {
@@ -28,9 +29,14 @@ class Comment
     private $auteur;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $datePublication;
+    private $Texte;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private $CreateAt;
 
     public function getId(): ?int
     {
@@ -61,15 +67,35 @@ class Comment
         return $this;
     }
 
-    public function getDatePublication(): ?\DateTimeInterface
+
+    public function getTexte(): ?string
     {
-        return $this->datePublication;
+        return $this->Texte;
     }
 
-    public function setDatePublication(\DateTimeInterface $datePublication): self
+    public function setTexte(?string $Texte): self
     {
-        $this->datePublication = $datePublication;
+        $this->Texte = $Texte;
 
         return $this;
+    }
+
+    public function getCreateAt(): ?\DateTimeImmutable
+    {
+        return $this->CreateAt;
+    }
+
+    public function setCreateAt(\DateTimeImmutable $CreateAt): self
+    {
+        $this->CreateAt = $CreateAt;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function seTimesStamps(){
+        $this->setCreateAt(new \DateTimeImmutable());
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Album;
+use App\Entity\Comment;
 use App\Entity\Photo;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
