@@ -58,6 +58,11 @@ class Photo
      */
     private $lienTagPhotos;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $Commentaire;
+
 
     public function __construct()
     {
@@ -209,6 +214,18 @@ class Photo
                 $lienTagPhoto->setPhoto(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->Commentaire;
+    }
+
+    public function setCommentaire(?string $Commentaire): self
+    {
+        $this->Commentaire = $Commentaire;
 
         return $this;
     }
