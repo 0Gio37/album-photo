@@ -42,6 +42,7 @@ class AddPhotoController extends AbstractController
 
         $photo = new Photo();
         $formPhoto = $this->createForm(PhotoType::class, $photo);
+        $currentUserId = $this->security->getUser()->getId();
         $formPhoto->handleRequest($request);
 
         $tag = new Tag();
@@ -51,11 +52,6 @@ class AddPhotoController extends AbstractController
         $linkTagPhoto = new LienTagPhoto();
         $formLinkTagPhoto = $this->createForm(LienTagPhotoType::class, $linkTagPhoto);
         $formLinkTagPhoto->handleRequest($request);
-
-        $comment = new Comment();
-        $formComment = $this->createForm(CommentType::class, $comment);
-        $currentUserId = $this->security->getUser()->getId();
-        $formComment->handleRequest($request);
 
         $album = new Album();
         $formAlbum = $this->createForm(AlbumType::class, $album);
@@ -89,17 +85,6 @@ class AddPhotoController extends AbstractController
             $em->flush();
         }
 
-        if ($formComment->isSubmitted() && $formComment->isValid()) {
-            $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
-            $comment->setAuteur($currentUserObject);
-            $photoList= $PhotoRepository-> findBy([],['id'=>'DESC'],1);
-            $photoId = $photoList[0];
-            $comment->setPhoto($photoId);
-            $data = $formComment->getData();
-            $em->persist($data);
-            $em->flush();
-        }
-
         if ($formAlbum->isSubmitted() && $formAlbum->isValid()) {
             $data = $formAlbum->getData();
             $em->persist($data);
@@ -110,7 +95,6 @@ class AddPhotoController extends AbstractController
             'home/addPhoto.html.twig', [
             'photoForm' => $formPhoto->createView(),
             'tagForm'=>$formTag->createView(),
-            'commentForm'=>$formComment->createView(),
             //'visibleTagSectionBtn'=>$visibleTagSectionBtn,
             'visibleTaggedPersonnBtn'=>$visibleTaggedPersonnBtn,
             'formAlbum'=>$formAlbum->createView(),
