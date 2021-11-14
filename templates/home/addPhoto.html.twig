@@ -12,6 +12,9 @@
             </section>
 
             <section>
+                <p class="text-right hover:text-red-500">Pas dans la liste ? <a href="#" class="underline modal-open">Créez-en un nouveau</a></p>
+                {% include 'modal/addAlbum.html.twig' %}
+
                 {{ form_start(photoForm) }}
                 <div>{{ form_row(photoForm.album) }}</div>
                 <div>{{ form_row(photoForm.year) }}</div>
