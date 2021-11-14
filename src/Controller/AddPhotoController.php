@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Album;
 use App\Entity\Comment;
 use App\Entity\LienTagPhoto;
 use App\Entity\Photo;
 use App\Entity\Tag;
+use App\Form\AlbumType;
 use App\Form\CommentType;
 use App\Form\LienTagPhotoType;
 use App\Form\PhotoType;
@@ -44,7 +46,6 @@ class AddPhotoController extends AbstractController
 
         $tag = new Tag();
         $formTag = $this->createForm(TagType::class, $tag);
-        $currentUserId = $this->security->getUser()->getId();
         $formTag->handleRequest($request);
 
         $linkTagPhoto = new LienTagPhoto();
@@ -56,6 +57,9 @@ class AddPhotoController extends AbstractController
         $currentUserId = $this->security->getUser()->getId();
         $formComment->handleRequest($request);
 
+        $album = new Album();
+        $formAlbum = $this->createForm(AlbumType::class, $album);
+        $formAlbum->handleRequest($request);
 
         if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {
             $visibleTagSectionBtn = true;
@@ -96,6 +100,12 @@ class AddPhotoController extends AbstractController
             $em->flush();
         }
 
+        if ($formAlbum->isSubmitted() && $formAlbum->isValid()) {
+            $data = $formAlbum->getData();
+            $em->persist($data);
+            $em->flush();
+        }
+
         return $this->render(
             'home/addPhoto.html.twig', [
             'photoForm' => $formPhoto->createView(),
@@ -103,6 +113,7 @@ class AddPhotoController extends AbstractController
             'commentForm'=>$formComment->createView(),
             //'visibleTagSectionBtn'=>$visibleTagSectionBtn,
             'visibleTaggedPersonnBtn'=>$visibleTaggedPersonnBtn,
+            'formAlbum'=>$formAlbum->createView(),
         ]);
     }
 
@@ -123,11 +134,9 @@ class AddPhotoController extends AbstractController
             }
 
             return $this->render(
-                //'home/section/addTag.html.twig', [
                 'home/section/displayTag.html.twig', [
                     'taggedPersonns' => $taggedPersonns,
                 ]
             );
-
         }
 }

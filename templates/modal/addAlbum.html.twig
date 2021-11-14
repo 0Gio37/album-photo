@@ -1,20 +1,18 @@
 <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
     <div class="modal-overlay absolute w-full h-full bg-black opacity-95"></div>
     <div class="modal-container fixed w-full h-full z-50 overflow-y-auto">
-        <div class="modal-content mx-m h-auto text-left p-24">
-            <div class="flex justify-end pt-2">
-                <button class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">FERMER</button>
-            </div>
+        <div class="modal-content mx-m h-auto p-60">
+            <div class="bg-gray-700 rounded-lg">
+                <div class="flex justify-end pt-6 pr-6">
+                    <a href="#" class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">FERMER</a>
+                </div>
+                <div class="flex justify-center w-full py-6">
+                    {{ form_start(formAlbum) }}
+                    {{ form_row(formAlbum.titre) }}
+                    <button class="flex justify-center my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Ajouter</button>
+                    {{ form_end(formAlbum) }}
+                </div>
 
-            <!--Title-->
-            <div class="flex justify-between items-center pb-2 bg-gray-700 opacity-95">
-
-            <!--Body-->
-                {{ form_start(tagForm) }}
-                {{ form_row(tagForm.nom) }}
-                {{ form_row(tagForm.prenom) }}
-                <button>Ajouter</button>
-                {{ form_end(tagForm) }}
             </div>
         </div>
     </div>
