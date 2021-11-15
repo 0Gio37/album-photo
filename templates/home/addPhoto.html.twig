@@ -7,34 +7,58 @@
     <div class="bg-gray-800 pt-6">
         <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-screen">
 
+            <div>
+                <a href="{{ path('home') }}">
+                    <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                        Retour Page d'accueiL
+                    </button>
+                </a>
+            </div>
+
             <section class="rounded-full py-4 bg-blue-900 font-bold text-center text-gray-400 px-8">
                 Ajouter une nouvelle photo
             </section>
 
             <section>
+                {% if  visibleTaggedPersonnBtn == false %}
+                {{ form_start(imageForm) }}
+                    <div>{{ form_row(imageForm.fileName) }}</div>
+                    {% if  showCurrentPhotoTwig == false %}
+                        <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                            Sélectionner
+                        </button>
+                    {% endif %}
+
+                {{ form_end(imageForm) }}
+                {% endif %}
+
+            {% if  showCurrentPhotoTwig == true %}
+                <div>
+                    <img class="#" src='{{ asset('uploads/'~currentImageFileName) }}' alt="current-photo" />
+                </div>
+            {% endif %}
+
+            </section>
+
+            <section>
+                {% if  showCurrentPhotoTwig == true %}
                 <p class="text-right hover:text-red-500">L'album n'est pas dans la liste ? <a href="#" class="underline hover:text-white modal-open">Créez-en un nouveau</a></p>
+
                 {% include 'modal/addAlbum.html.twig' %}
 
                 {{ form_start(photoForm) }}
+                    <div>{{ form_row(photoForm.album) }}</div>
+                    <div>{{ form_row(photoForm.year) }}</div>
+                    <div>{{ form_row(photoForm.commentaire) }}</div>
 
-                <div>{{ form_row(photoForm.album) }}</div>
-                <div>{{ form_row(photoForm.file) }}</div>
-                {% if  showCurrentPhotoTwig == true %}
-                    <div>
-                        <img class="#" src='{{ asset('uploads/'~currentPhotoFile) }}' alt="current-photo" />
-                    </div>
-                {% endif %}
-                <div>{{ form_row(photoForm.year) }}</div>
-                <div>{{ form_row(photoForm.commentaire) }}</div>
-                {% if  showCurrentPhotoTwig == false %}
                     <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
                         Ajouter la Photo
                     </button>
-                {% endif %}
                 {{ form_end(photoForm) }}
+                {% endif %}
             </section>
 
-            {% if  showCurrentPhotoTwig == true %}
+            {% if  visibleTaggedPersonnBtn == true %}
                 <section class="flex">
                     <div>
                         <a href="{{ path('add_tag') }}">
@@ -53,11 +77,6 @@
                 </section>
             {% endif %}
 
-            <a href="{{ path('home') }}">
-                <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
-                    Retour Page d'accueiL
-                </button>
-            </a>
         </div>
     </div>
 

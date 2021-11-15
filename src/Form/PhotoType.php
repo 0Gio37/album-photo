@@ -22,23 +22,6 @@ class PhotoType extends AbstractType
         $currentYear = date('Y');
 
         $builder
-            ->add('file', FileType::class,[
-                'label'=>'Charger une photo',
-                'mapped' => false,
-                'multiple'=>false,
-                'required' => true,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/jpg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
-                    ])
-                ],
-    ])
             ->add('album', EntityType::class, [
                 'class'=>Album::class,
                 'choice_label'=>'titre',
