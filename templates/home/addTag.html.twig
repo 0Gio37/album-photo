@@ -16,11 +16,13 @@
             </button>
             {{ form_end(tagForm) }}
 
-            <button class="modal-open px-3 py-2 text-sm rounded-lg text-gray-300 bg-green-900 hover:bg-green-700">
-                Voir les personnes ajoutées
-            </button>
-            {% include 'modal/displayTagg.html.twig' with {'taggedPersonns':taggedPersonns} only %}
-        </div>
+            {% if taggedPersonns %}
+                <button class="modal-open px-3 py-2 text-sm rounded-lg text-gray-300 bg-green-900 hover:bg-green-700">
+                    Voir les personnes ajoutées
+                </button>
+                {% include 'modal/displayTagg.html.twig' with {'taggedPersonns':taggedPersonns} only %}
+            </div>
+        {% endif %}
 
         <a href="{{ path('home') }}">
             <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
