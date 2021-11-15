@@ -1,0 +1,24 @@
+<div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+    <div class="modal-overlay absolute w-full h-full bg-black opacity-95"></div>
+    <div class="modal-container fixed w-full h-full z-50 overflow-y-auto">
+        <div class="modal-content mx-m h-auto p-60">
+            <div class="bg-gray-700 rounded-lg">
+                <div class="flex justify-end pt-6 pr-6">
+                    <a href="#" class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700 mb-6">FERMER</a>
+                </div>
+                <section class="rounded-full py-4 bg-blue-900 font-bold text-center text-gray-400 px-8">
+                    Liste des Personnes Identifiées
+                </section>
+                <section>
+                    <div>
+                        {% for personn in taggedPersonns %}
+                            {% for item in personn %}
+                                <p class="text-white text-center font-bold my-4">{{ item.prenom}} - {{ item.nom }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

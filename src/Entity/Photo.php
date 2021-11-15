@@ -59,9 +59,15 @@ class Photo
     private $lienTagPhotos;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text", nullable=true, options={"default": "AUCUN COMMENTAIRE"})
      */
     private $Commentaire;
+
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $file;
 
 
     public function __construct()
@@ -226,6 +232,18 @@ class Photo
     public function setCommentaire(?string $Commentaire): self
     {
         $this->Commentaire = $Commentaire;
+
+        return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile(string $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }

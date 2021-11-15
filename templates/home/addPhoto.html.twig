@@ -12,34 +12,47 @@
             </section>
 
             <section>
-                <p class="text-right hover:text-red-500">Pas dans la liste ? <a href="#" class="underline modal-open">Créez-en un nouveau</a></p>
+                <p class="text-right hover:text-red-500">L'album n'est pas dans la liste ? <a href="#" class="underline hover:text-white modal-open">Créez-en un nouveau</a></p>
                 {% include 'modal/addAlbum.html.twig' %}
 
                 {{ form_start(photoForm) }}
+
                 <div>{{ form_row(photoForm.album) }}</div>
+                <div>{{ form_row(photoForm.file) }}</div>
+                {% if  showCurrentPhotoTwig == true %}
+                    <div>
+                        <img class="#" src='{{ asset('uploads/'~currentPhotoFile) }}' alt="current-photo" />
+                    </div>
+                {% endif %}
                 <div>{{ form_row(photoForm.year) }}</div>
                 <div>{{ form_row(photoForm.commentaire) }}</div>
-
-                <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
-                    Ajouter la Photo
-                </button>
+                {% if  showCurrentPhotoTwig == false %}
+                    <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                        Ajouter la Photo
+                    </button>
+                {% endif %}
                 {{ form_end(photoForm) }}
             </section>
 
-        {#  {% if visibleTagSectionBtn == true %} #}
-                <section>
-                    <div>Identifier des personnes sur la photo</div>
+            {% if  showCurrentPhotoTwig == true %}
+                <section class="flex">
                     <div>
-                        {%  include 'home/section/addTag.html.twig' %}
+                        <a href="{{ path('add_tag') }}">
+                            <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-green-900 hover:bg-green-700">
+                                Identifier des personnes
+                            </button>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{{ path('add_photo') }}">
+                            <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                                Ajouter une autre photo
+                            </button>
+                        </a>
                     </div>
                 </section>
-       {#      {% endif %} #}
+            {% endif %}
 
-            <a href="{{ path('add_photo') }}">
-                <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
-                    Ajouter une autre photo
-                </button>
-            </a>
             <a href="{{ path('home') }}">
                 <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
                     Retour Page d'accueiL
@@ -47,6 +60,7 @@
             </a>
         </div>
     </div>
+
 {% endblock %}
 
 

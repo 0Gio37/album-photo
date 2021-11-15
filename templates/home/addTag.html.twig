@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter des personnes{% endblock %}
+
+{% block body %}
+
+<div class="bg-gray-800 pt-6">
+    <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-screen">
+
+        <div class="formTag">
+            {{ form_start(tagForm) }}
+            {{ form_row(tagForm.nom) }}
+            {{ form_row(tagForm.prenom) }}
+            <button id="displayTagListBtn" class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                Ajouter cette Personne
+            </button>
+            {{ form_end(tagForm) }}
+
+            <button class="modal-open px-3 py-2 text-sm rounded-lg text-gray-300 bg-green-900 hover:bg-green-700">
+                Voir les personnes ajoutées
+            </button>
+            {% include 'modal/displayTagg.html.twig' with {'taggedPersonns':taggedPersonns} only %}
+        </div>
+
+        <a href="{{ path('home') }}">
+            <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                Retour Page d'accueiL
+            </button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
