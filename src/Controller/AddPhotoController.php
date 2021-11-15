@@ -4,14 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Album;
 use App\Entity\Comment;
+use App\Entity\Image;
 use App\Entity\LienTagPhoto;
 use App\Entity\Photo;
 use App\Entity\Tag;
 use App\Form\AlbumType;
 use App\Form\CommentType;
+use App\Form\ImageType;
 use App\Form\LienTagPhotoType;
 use App\Form\PhotoType;
 use App\Form\TagType;
+use App\Repository\ImageRepository;
 use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
@@ -39,11 +42,15 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-photo", name="add_photo")
      */
-    public function addPhoto(Request $request, SluggerInterface $slugger, UserRepository $UserRepository, TagRepository $TagRepository, PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository,  EntityManagerInterface $em ): Response
+    public function addPhoto(Request $request, SluggerInterface $slugger, ImageRepository $ImageRepository,  UserRepository $UserRepository, TagRepository $TagRepository, PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository,  EntityManagerInterface $em ): Response
     {
         $visibleTaggedPersonnBtn = false;
         $showCurrentPhotoTwig = false;
-        $currentPhotoFile ='';
+        $currentImageFileName = '';
+
+        $image = new Image();
+        $imageForm = $this->createForm(ImageType::class, $image);
+        $imageForm->handleRequest($request);
 
         $photo = new Photo();
         $formPhoto = $this->createForm(PhotoType::class, $photo);
@@ -54,22 +61,36 @@ class AddPhotoController extends AbstractController
         $formAlbum = $this->createForm(AlbumType::class, $album);
         $formAlbum->handleRequest($request);
 
-        if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {
+        if ($imageForm->isSubmitted() && $imageForm->isValid()) {
 
-            $file = $formPhoto->get('file')->getData();
+            $showCurrentPhotoTwig = true;
+
+            $file = $imageForm->get('fileName')->getData();
             $newFilename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('photo_directory'), $newFilename);
-            $photo->setFile($newFilename);
-
-            $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
-            $photo->setAuteur($currentUserObject);
-            $data = $formPhoto->getData();
+            $image->setFileName($newFilename);
+            $data = $imageForm->getData();
             $em->persist($data);
             $em->flush();
 
-            $showCurrentUser = $PhotoRepository-> findBy([],['id'=>'DESC'],1);
-            $currentPhotoFile = $showCurrentUser[0]->getFile();
-            $showCurrentPhotoTwig = true;
+            $currentImage = $ImageRepository->findBy([],['id'=>'DESC'],1);
+            $currentImageFileName = $currentImage[0]->getFileName();
+
+
+        }
+
+        if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {
+
+            $visibleTaggedPersonnBtn = true;
+
+            $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
+            $photo->setAuteur($currentUserObject);
+
+            $photo->setFile($currentImageFileName);
+
+            $data = $formPhoto->getData();
+            $em->persist($data);
+            $em->flush();
         }
 
         if ($formAlbum->isSubmitted() && $formAlbum->isValid()) {
@@ -80,11 +101,12 @@ class AddPhotoController extends AbstractController
 
         return $this->render(
             'home/addPhoto.html.twig', [
+            'imageForm'=>$imageForm->createView(),
             'photoForm' => $formPhoto->createView(),
             'visibleTaggedPersonnBtn'=>$visibleTaggedPersonnBtn,
             'formAlbum'=>$formAlbum->createView(),
             'showCurrentPhotoTwig'=>$showCurrentPhotoTwig,
-            'currentPhotoFile'=>$currentPhotoFile,
+            'currentImageFileName'=>$currentImageFileName,
         ]);
     }
 

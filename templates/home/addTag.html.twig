@@ -7,12 +7,25 @@
 <div class="bg-gray-800 pt-6">
     <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-screen">
 
+        <div>
+            <a href="{{ path('home') }}">
+                <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                    Retour Page d'accueiL
+                </button>
+            </a>
+        </div>
+
+        <section class="rounded-full py-4 bg-blue-900 font-bold text-center text-gray-400 px-8">
+            Identifer des personnes
+        </section>
+
+
         <div class="formTag">
             {{ form_start(tagForm) }}
             {{ form_row(tagForm.nom) }}
             {{ form_row(tagForm.prenom) }}
             <button id="displayTagListBtn" class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
-                Ajouter cette Personne
+                Ajouter
             </button>
             {{ form_end(tagForm) }}
 
@@ -21,14 +34,8 @@
                     Voir les personnes ajoutées
                 </button>
                 {% include 'modal/displayTagg.html.twig' with {'taggedPersonns':taggedPersonns} only %}
-            </div>
-        {% endif %}
-
-        <a href="{{ path('home') }}">
-            <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
-                Retour Page d'accueiL
-            </button>
-        </a>
+            {% endif %}
+        </div>
     </div>
 </div>
 
