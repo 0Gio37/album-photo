@@ -62,4 +62,22 @@ class DisplayAllController extends AbstractController
             'toggleBtn'=> $this->toggleBtn,
         ]);
     }
+
+    /**
+     * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}", name="detailsPhoto")
+     */
+    public function detailsPhoto(PhotoRepository $PhotoRepository, $idPhoto, $titleAlbum): Response
+    {
+        $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
+        $selectedPhoto  = $selectedPhotoArray[0];
+        //dd($selectedPhoto);
+
+
+        return $this->render(
+            'display/detailsPhoto.html.twig',[
+            'selectedPhoto'=>$selectedPhoto,
+            'titleAlbum'=>$titleAlbum,
+
+        ]);
+    }
 }

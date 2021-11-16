@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails Photo{% endblock %}
+
+{% block body %}
+
+<section class="grid grid-cols-6">
+
+    <div class="flex justify-center mt-2 mb-2 col-start-6">
+        <a href="{{ app.request.headers.get('referer') }}">
+            <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                X
+            </button>
+        </a>
+    </div>
+
+    <div class="w-full col-start-2 col-span-4 py-2 px-2 bg-gray-300 rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
+        <div>
+            {% set equi = '' %}
+            {% set equi = selectedPhoto.file %}
+            <img class="object-center object-cover h-auto w-full" src='{{ asset('uploads/'~equi) }}' alt="photo">
+        </div>
+        <div>
+            {% if selectedPhoto.commentaire == '' %}
+                <p class="text-xl italic text-gray-800 font-normal"> "Aucun commentaire ..."</p>
+            {%  else %}
+                <p class="text-xl text-gray-800 font-normal"> {{ selectedPhoto.commentaire }}</p>
+            {% endif %}
+        </div>
+        <div class="text-center py-8 sm:py-6">
+            <p class="text-base text-gray-400 font-normal">Posté le {{ selectedPhoto.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}, par {{ selectedPhoto.auteur.username }}</p>
+            <p class="text-base text-gray-400 font-normal">Album : {{ titleAlbum }} - Année : {{ selectedPhoto.year }}</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
