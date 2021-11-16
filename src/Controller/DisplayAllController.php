@@ -21,7 +21,6 @@ class DisplayAllController extends AbstractController
         $albumList = $AlbumRepository->findBy([], ['titre'=>'ASC']);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
 
-
         return $this->render('display/all-albums.html.twig', [
             'albumList' => $albumList,
             'photoList'=>$photoList,
@@ -35,7 +34,6 @@ class DisplayAllController extends AbstractController
     public function displayOneAlbumAntiChrono(PhotoRepository $PhotoRepository, $idAlbum, $titleAlbum): Response
     {
         $this->toggleBtn =  true;
-
         $listPhotoAlbum = $PhotoRepository->findBy(['album'=>$idAlbum], ['id'=>'DESC']);
 
         return $this->render('display/single-album.html.twig', [
@@ -52,7 +50,6 @@ class DisplayAllController extends AbstractController
     public function displayOneAlbumChrono(PhotoRepository $PhotoRepository, $idAlbum, $titleAlbum): Response
     {
         $this->toggleBtn =  false;
-
         $listPhotoAlbum = $PhotoRepository->findBy(['album'=>$idAlbum], ['id'=>'ASC']);
 
         return $this->render('display/single-album.html.twig', [
@@ -70,14 +67,24 @@ class DisplayAllController extends AbstractController
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $selectedPhoto  = $selectedPhotoArray[0];
-        //dd($selectedPhoto);
-
 
         return $this->render(
             'display/detailsPhoto.html.twig',[
             'selectedPhoto'=>$selectedPhoto,
             'titleAlbum'=>$titleAlbum,
-
         ]);
     }
+
+    /**
+     * @Route("/display/all-photo", name="displayAllPhoto")
+     */
+    public function displayAllPhoto(PhotoRepository $PhotoRepository): Response
+    {
+        $photoAllList = $PhotoRepository->findAll();
+
+        return $this->render('display/all-photos.html.twig', [
+            'photoAllList' => $photoAllList,
+        ]);
+    }
+
 }
