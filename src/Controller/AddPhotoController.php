@@ -76,18 +76,18 @@ class AddPhotoController extends AbstractController
             $currentImage = $ImageRepository->findBy([],['id'=>'DESC'],1);
             $currentImageFileName = $currentImage[0]->getFileName();
 
-
         }
 
         if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {
 
             $visibleTaggedPersonnBtn = true;
 
+            $currentImage = $ImageRepository->findBy([],['id'=>'DESC'],1);
+            $currentImageFileName = $currentImage[0]->getFileName();
+
             $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
             $photo->setAuteur($currentUserObject);
-
             $photo->setFile($currentImageFileName);
-
             $data = $formPhoto->getData();
             $em->persist($data);
             $em->flush();
