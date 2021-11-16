@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All Albums{% endblock %}
+
+{% block body %}
+
+    <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-screen">
+        <div class="flex justify-end mb-2">
+            <a href="{{ path('home') }}">
+                <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                    Retour Page d'accueil
+                </button>
+            </a>
+        </div>
+        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4">
+            <div class="text-center text-3xl font-bold text-gray-300 pb-6">
+                <p> ALBUM</p>
+                <p class="underline">{{ titleAlbum }} </p>
+            </div>
+            <div class="flex justify-end">
+                {% if toggleBtn == true %}
+                    <a href="{{ path('displayOneAlbumChrono', {idAlbum:idAlbum, titleAlbum:titleAlbum} )  }}" >
+                        <div class="text-blue-400 hover:text-gray-300"><i class="fas fa-arrow-circle-up"></i> Du plus ancien au plus recent <i class="fas fa-arrow-circle-up"></i></div>
+                    </a>
+                {% else %}
+                    <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:idAlbum, titleAlbum:titleAlbum} )  }}" >
+                        <div class="text-blue-400 hover:text-gray-300"><i class="fas fa-arrow-circle-down"></i> Du plus récent au plus ancien <i class="fas fa-arrow-circle-down"></i></div>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-5">
+                {% for photo in listPhotoAlbum %}
+                    {% set equi = '' %}
+                    {% set equi = photo.file %}
+                    <div class="w-full bg-gray-300 rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
+                        <div class="w-full h-full bg-gray-300 rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
+                            <div class="h-3/5">
+                                <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:titleAlbum} ) }}" >
+                                    <img class="object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                                </a>
+                            </div>
+                            <div class="text-center py-8 sm:py-6 h-1/5">
+                                <p class="text-base text-gray-400 font-normal">Posté le {{ photo.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}</p>
+                                <p class="text-base text-gray-400 font-normal">Par : {{ photo.auteur.username }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
