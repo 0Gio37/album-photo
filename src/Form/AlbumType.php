@@ -15,6 +15,8 @@ class AlbumType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $currentYear = date('Y');
+
         $builder
             ->add('titre',TextType::class, [
                 'attr' => ['class' => 'w-96 rounded-lg'],
@@ -27,6 +29,7 @@ class AlbumType extends AbstractType
                 'label'=>false
             ])
             ->add('annee', TextType::class,  [
+                'data'=>$currentYear,
                 'attr' => ['class' => 'w-96 rounded-lg'],
                 'label'=>false
             ])

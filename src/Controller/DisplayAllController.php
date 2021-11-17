@@ -20,7 +20,6 @@ class DisplayAllController extends AbstractController
     public function displayAllTheme(ThemeRepository $ThemeRepository): Response
     {
         $themeList = $ThemeRepository->findBy([], ['titre'=>'ASC']);
-        //dd($themeList);
 
         return $this->render('display/all-themes.html.twig', [
             'themeList' => $themeList,
@@ -32,11 +31,8 @@ class DisplayAllController extends AbstractController
      */
     public function displayOneTheme(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository, $idTheme, $titreTheme): Response
     {
-        //dd($idTheme);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
-
         $listAlbumsByTheme = $AlbumRepository->findBy(['theme'=>$idTheme], ['id'=>'ASC']);
-        //dd($listAlbumsByTheme);
 
         return $this->render('display/single-theme.html.twig', [
             'listAlbumsByTheme'=>$listAlbumsByTheme,
