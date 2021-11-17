@@ -30,19 +30,18 @@
             {% endif %}
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {% for photo in photoAllList %}
                 {% set equi = '' %}
                 {% set equi = photo.file %}
-                <div class="w-full bg-gray-300 rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
+                <div class="w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
                     <div class="h-3/5">
                         <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre} ) }}" >
                             <img class="object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
                         </a>
                     </div>
-                    <div class="text-center py-8 sm:py-6 h-1/5">
-                        <p class="text-base text-gray-400 font-normal">Posté le {{ photo.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}</p>
-                        <p class="text-base text-gray-400 font-normal">Par : {{ photo.auteur.username }}</p>
+                    <div class="text-center py-8 sm:py-6 h-2/5">
+                        <p class="text-base text-gray-800 font-normal">Album : {{ photo.album.titre }} - {{ photo.album.annee }}</p>
                     </div>
                 </div>
             {% endfor %}

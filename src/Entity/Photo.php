@@ -49,11 +49,6 @@ class Photo
     private $createAt;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $year;
-
-    /**
      * @ORM\OneToMany(targetEntity=LienTagPhoto::class, mappedBy="photo")
      */
     private $lienTagPhotos;
@@ -182,17 +177,6 @@ class Photo
         $this->setCreateAt(new \DateTime());
     }
 
-    public function getYear(): ?int
-    {
-        return $this->year;
-    }
-
-    public function setYear(int $year): self
-    {
-        $this->year = $year;
-
-        return $this;
-    }
 
     /**
      * @return Collection|LienTagPhoto[]
