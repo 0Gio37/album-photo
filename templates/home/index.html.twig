@@ -21,23 +21,23 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {% for photo in photoList %}
-                <div class="w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
+                <div class="w-full bg-gray-300 rounded-lg py-6 px-2 shadow-lg flex flex-col justify-center items-center">
                     <div class="h-3/5">
                         {% set equi = '' %}
                         {% set equi = photo.file %}
                           <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre} ) }}" >
-                            <img class="object-center object-cover  h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="photo">
+                            <img class="object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="photo">
                         </a>
                     </div>
-                    <div class="text-center py-8 sm:py-6 h-2/5">
+                    <div class="text-center h-2/5">
                         <p class="text-base text-gray-800 font-normal">Posté le {{ photo.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}</p>
                         <p class="text-base text-gray-800 font-normal">par {{ photo.auteur.username }}</p>
                         <p class="text-base text-gray-800 font-normal">
                             <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:photo.album.id, titleAlbum:photo.album.titre} )  }}" >
-                                Album :<span class="underline hover:text-blue-600 font-bold"> {{ photo.album.titre }} </span>
+                                Album :<span class="underline hover:text-blue-600 font-bold"> {{ photo.album.titre }}</span> -
                             </a>
+                            {{ photo.album.annee }}
                         </p>
-                        <p class="text-base text-gray-800 font-normal">Année : {{ photo.year }}</p>
                     </div>
                 </div>
             {% endfor %}
