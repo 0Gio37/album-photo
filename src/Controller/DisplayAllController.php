@@ -27,6 +27,23 @@ class DisplayAllController extends AbstractController
     }
 
     /**
+     * @Route("/display/all-year", name="displayAllYear")
+     */
+    public function displayAllYear(AlbumRepository $AlbumRepository): Response
+    {
+        $yearListSorted =[];
+        $yearListBrut = $AlbumRepository->findBy([], ['annee'=>'ASC']);
+        foreach ($yearListBrut as $year){
+            array_push($yearListSorted, $year->getAnnee());
+    }
+        $yearListSortedUnique = array_unique($yearListSorted);
+
+        return $this->render('display/all-years.html.twig', [
+            'yearListSortedUnique' => $yearListSortedUnique,
+        ]);
+    }
+
+    /**
      * @Route("/display/single-theme/{idTheme}/{titreTheme}", name="displayOneTheme")
      */
     public function displayOneTheme(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository, $idTheme, $titreTheme): Response
@@ -40,7 +57,6 @@ class DisplayAllController extends AbstractController
             'photoList'=>$photoList,
         ]);
     }
-
 
 
     /**
