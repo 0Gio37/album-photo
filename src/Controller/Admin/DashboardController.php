@@ -41,7 +41,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoRoute('Retour au site', 'fas fa-home', 'home');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
+        yield MenuItem::LinkToCrud('Thématiques', 'fas fa-sitemap', Theme::class);
         yield MenuItem::linkToCrud('Albums', 'fas fa-images', Album::class);
-        yield MenuItem::LinkToCrud('Thématique', 'fas fa-sitemap', Theme::class);
     }
 }

@@ -25,7 +25,7 @@
                     <div class="h-3/5">
                         {% set equi = '' %}
                         {% set equi = photo.file %}
-                        <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre} ) }}" >
+                          <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre} ) }}" >
                             <img class="object-center object-cover  h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="photo">
                         </a>
                     </div>
