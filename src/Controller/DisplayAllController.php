@@ -58,6 +58,21 @@ class DisplayAllController extends AbstractController
     }
 
     /**
+     * @Route("/display/single-year/{albumAnnee}", name="displaySingleYear")
+     */
+    public function displaySingleYear(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository, $albumAnnee): Response
+    {
+        $albumListByYear = $AlbumRepository->findBy(['annee'=>$albumAnnee], ['titre'=>'ASC']);
+        $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
+
+        return $this->render('display/single-year.html.twig', [
+            'albumListByYear' => $albumListByYear,
+            'photoList'=>$photoList,
+            'albumAnnee'=>$albumAnnee,
+        ]);
+    }
+
+    /**
      * @Route("/display/single-album-inversChrono/{titleAlbum}/{idAlbum}", name="displayOneAlbumAntiChrono")
      */
     public function displayOneAlbumAntiChrono(PhotoRepository $PhotoRepository, $idAlbum, $titleAlbum): Response
