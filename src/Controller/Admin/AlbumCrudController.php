@@ -35,7 +35,7 @@ class AlbumCrudController extends AbstractCrudController
 
             IdField::new('Id','Identifiant')->hideOnForm(),
             TextField::new('titre'),
-            TextField::new('annee'),
+            TextField::new('annee', 'Année (4 chiffres)'),
             AssociationField::new('theme')
 
 
