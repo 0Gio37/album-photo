@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Repository\AlbumRepository;
+use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
+use App\Repository\TagRepository;
 use App\Repository\ThemeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +34,7 @@ class DisplayAllController extends AbstractController
     public function displayAllYear(AlbumRepository $AlbumRepository): Response
     {
         $yearListSorted =[];
-        $yearListBrut = $AlbumRepository->findBy([], ['annee'=>'ASC']);
+        $yearListBrut = $AlbumRepository->findBy([], ['annee'=>'DESC']);
         foreach ($yearListBrut as $year){
             array_push($yearListSorted, $year->getAnnee());
     }
@@ -152,15 +154,18 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}", name="detailsPhoto")
      */
-    public function detailsPhoto(PhotoRepository $PhotoRepository, $idPhoto, $titleAlbum): Response
+    public function detailsPhoto(PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum): Response
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $selectedPhoto  = $selectedPhotoArray[0];
-
+        $lienTagPhotoList = $LienTagPhotoRepository->findAll();
+        $tagList = $TagRepository->findAll();
         return $this->render(
             'display/detailsPhoto.html.twig',[
             'selectedPhoto'=>$selectedPhoto,
             'titleAlbum'=>$titleAlbum,
+            'lienTagPhotoList'=>$lienTagPhotoList,
+            'tagList'=>$tagList,
         ]);
     }
 
