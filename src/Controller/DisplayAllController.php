@@ -61,6 +61,35 @@ class DisplayAllController extends AbstractController
     }
 
     /**
+     * @Route("/display/all-photos-inversChrono", name="displayAllPhotoAntiChrono")
+     */
+    public function displayAllPhotoAntiChrono(PhotoRepository $PhotoRepository): Response
+    {
+        $this->toggleBtn =  true;
+        $photoAllList = $PhotoRepository->findBy([], ['id'=>'DESC']);
+        //dd($photoAllList);
+
+        return $this->render('display/all-photos.html.twig', [
+            'photoAllList' => $photoAllList,
+            'toggleBtn'=> $this->toggleBtn,
+        ]);
+    }
+
+    /**
+     * @Route("/display/all-photos-Chrono", name="displayAllPhotoChrono")
+     */
+    public function displayAllPhotoChrono(PhotoRepository $PhotoRepository): Response
+    {
+        $this->toggleBtn =  false;
+        $photoAllList = $PhotoRepository->findBy([], ['id'=>'ASC']);
+
+        return $this->render('display/all-photos.html.twig', [
+            'photoAllList' => $photoAllList,
+            'toggleBtn'=> $this->toggleBtn,
+        ]);
+    }
+
+    /**
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}", name="detailsPhoto")
      */
     public function detailsPhoto(PhotoRepository $PhotoRepository, $idPhoto, $titleAlbum): Response
@@ -72,18 +101,6 @@ class DisplayAllController extends AbstractController
             'display/detailsPhoto.html.twig',[
             'selectedPhoto'=>$selectedPhoto,
             'titleAlbum'=>$titleAlbum,
-        ]);
-    }
-
-    /**
-     * @Route("/display/all-photo", name="displayAllPhoto")
-     */
-    public function displayAllPhoto(PhotoRepository $PhotoRepository): Response
-    {
-        $photoAllList = $PhotoRepository->findAll();
-
-        return $this->render('display/all-photos.html.twig', [
-            'photoAllList' => $photoAllList,
         ]);
     }
 
