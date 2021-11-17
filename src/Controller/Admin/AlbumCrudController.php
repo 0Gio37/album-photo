@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Album;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -22,4 +24,13 @@ class AlbumCrudController extends AbstractCrudController
             TextField::new('titre')
         ];
     }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->disable(Action::NEW)
+            ->disable(Action::DELETE);
+    }
+
+
 }
