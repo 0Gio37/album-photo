@@ -19,7 +19,7 @@ class PhotoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $currentYear = date('Y');
+        //$currentYear = date('Y');
 
         $builder
             ->add('album', EntityType::class, [
@@ -28,7 +28,7 @@ class PhotoType extends AbstractType
             ])
             ->add('year',
                 IntegerType::class,[
-                'data'=>$currentYear,
+                //'data'=>$currentYear,
                 'label'=>'Année',
         ])
             ->add('commentaire', TextareaType::class,[

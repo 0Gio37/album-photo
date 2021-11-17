@@ -29,6 +29,17 @@ class Album
      */
     private $photos;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Theme::class, inversedBy="albums")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $theme;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $annee;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -77,6 +88,30 @@ class Album
                 $photo->setAlbum(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTheme(): ?Theme
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?Theme $theme): self
+    {
+        $this->theme = $theme;
+
+        return $this;
+    }
+
+    public function getAnnee(): ?string
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(string $annee): self
+    {
+        $this->annee = $annee;
 
         return $this;
     }

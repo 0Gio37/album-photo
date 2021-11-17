@@ -6,13 +6,20 @@
                 <div class="flex justify-end pt-6 pr-6">
                     <a href="#" class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">FERMER</a>
                 </div>
+                <div class="text-center pb-2">
+                    <p class="text-base text-3xl font-bold text-blue-600">Créer un Album</p>
+                </div>
                 <div class="flex justify-center w-full py-6">
                     {{ form_start(formAlbum) }}
+                    <p class="text-white text-center text-xl pb-2 pt-6">Choisir sa Thématique</p>
+                    {{ form_row(formAlbum.theme) }}
+                    <p class="text-white text-center text-xl pb-2 pt-6">Son Titre</p>
                     {{ form_row(formAlbum.titre) }}
-                    <button class="flex justify-center my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Ajouter</button>
+                    <p class="text-white text-center text-xl pb-2 pt-6">Son Année</p>
+                    {{ form_row(formAlbum.annee) }}
+                    <button class="flex justify-center mt-6 font-bold text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Valider</button>
                     {{ form_end(formAlbum) }}
                 </div>
-
             </div>
         </div>
     </div>
