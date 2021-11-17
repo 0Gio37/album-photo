@@ -21,7 +21,6 @@ class DisplayAllController extends AbstractController
         $albumList = $AlbumRepository->findBy([], ['titre'=>'ASC']);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
 
-
         return $this->render('display/all-albums.html.twig', [
             'albumList' => $albumList,
             'photoList'=>$photoList,
@@ -35,7 +34,6 @@ class DisplayAllController extends AbstractController
     public function displayOneAlbumAntiChrono(PhotoRepository $PhotoRepository, $idAlbum, $titleAlbum): Response
     {
         $this->toggleBtn =  true;
-
         $listPhotoAlbum = $PhotoRepository->findBy(['album'=>$idAlbum], ['id'=>'DESC']);
 
         return $this->render('display/single-album.html.twig', [
@@ -52,7 +50,6 @@ class DisplayAllController extends AbstractController
     public function displayOneAlbumChrono(PhotoRepository $PhotoRepository, $idAlbum, $titleAlbum): Response
     {
         $this->toggleBtn =  false;
-
         $listPhotoAlbum = $PhotoRepository->findBy(['album'=>$idAlbum], ['id'=>'ASC']);
 
         return $this->render('display/single-album.html.twig', [
@@ -64,20 +61,47 @@ class DisplayAllController extends AbstractController
     }
 
     /**
+     * @Route("/display/all-photos-inversChrono", name="displayAllPhotoAntiChrono")
+     */
+    public function displayAllPhotoAntiChrono(PhotoRepository $PhotoRepository): Response
+    {
+        $this->toggleBtn =  true;
+        $photoAllList = $PhotoRepository->findBy([], ['id'=>'DESC']);
+        //dd($photoAllList);
+
+        return $this->render('display/all-photos.html.twig', [
+            'photoAllList' => $photoAllList,
+            'toggleBtn'=> $this->toggleBtn,
+        ]);
+    }
+
+    /**
+     * @Route("/display/all-photos-Chrono", name="displayAllPhotoChrono")
+     */
+    public function displayAllPhotoChrono(PhotoRepository $PhotoRepository): Response
+    {
+        $this->toggleBtn =  false;
+        $photoAllList = $PhotoRepository->findBy([], ['id'=>'ASC']);
+
+        return $this->render('display/all-photos.html.twig', [
+            'photoAllList' => $photoAllList,
+            'toggleBtn'=> $this->toggleBtn,
+        ]);
+    }
+
+    /**
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}", name="detailsPhoto")
      */
     public function detailsPhoto(PhotoRepository $PhotoRepository, $idPhoto, $titleAlbum): Response
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $selectedPhoto  = $selectedPhotoArray[0];
-        //dd($selectedPhoto);
-
 
         return $this->render(
             'display/detailsPhoto.html.twig',[
             'selectedPhoto'=>$selectedPhoto,
             'titleAlbum'=>$titleAlbum,
-
         ]);
     }
+
 }
