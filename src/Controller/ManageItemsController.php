@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 use App\Repository\AlbumRepository;
+
+
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use App\Repository\LienTagPhotoRepository;
