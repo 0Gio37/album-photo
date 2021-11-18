@@ -45,16 +45,16 @@
 
 
 
-                        <p class="text-xl text-gray-800 mb-2">Année :
-                            <a href="{{ path('displaySingleYear', {albumAnnee:album.annee} ) }}" >
+                        <p class="text-xl text-gray-800 mb-2">
+                            <a href="{{ path('displaySingleYear', {albumAnnee:album.annee} ) }}">
                                 <span class="underline hover:text-blue-600">
                                     {{ album.annee }}
                                 </span>
                             </a>
-                        <p class="text-xl text-gray-800 mb-2">
+                        <p class="text-xl font-bold text-gray-800 mb-2">
                             <a href="{{ path('displayOneTheme', {idTheme:album.theme.id, titreTheme:album.theme.titre} )  }}" >
-                                <span class="underline hover:text-blue-600">
-                                   THEMATIQUE  <i class="far fa-arrow-alt-circle-right"></i>
+                                <span class=" hover:text-blue-600 font-bold">
+                                   {{ album.theme.titre|upper }}  <i class="far fa-arrow-alt-circle-right"></i>
                                 </span>
                             </a>
                         </p>
