@@ -53,6 +53,14 @@ class DisplayAllController extends AbstractController
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
         $listAlbumsByTheme = $AlbumRepository->findBy(['theme'=>$idTheme], ['id'=>'ASC']);
 
+        $pattern ='/[A-Z0-9]+/';
+        $replacement = '';
+        foreach ($listAlbumsByTheme as $item){
+            $test=preg_replace($pattern, $replacement, $item->getTitre());
+            $noSpace = trim($test);
+            $noSpace = ucfirst($noSpace);
+            $item->setTitre($noSpace);}
+
         return $this->render('display/single-theme.html.twig', [
             'listAlbumsByTheme'=>$listAlbumsByTheme,
             'titreTheme'=>$titreTheme,
@@ -69,6 +77,14 @@ class DisplayAllController extends AbstractController
         $albumList = $AlbumRepository->findBy([], ['titre'=>'ASC']);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
 
+        $pattern ='/[A-Z0-9]+/';
+        $replacement = '';
+        foreach ($albumList as $item){
+            $test=preg_replace($pattern, $replacement, $item->getTitre());
+            $noSpace = trim($test);
+            $noSpace = ucfirst($noSpace);
+            $item->setTitre($noSpace);}
+
         return $this->render('display/all-albums.html.twig', [
             'albumList' => $albumList,
             'photoList'=>$photoList,
@@ -82,6 +98,16 @@ class DisplayAllController extends AbstractController
     {
         $albumListByYear = $AlbumRepository->findBy(['annee'=>$albumAnnee], ['titre'=>'ASC']);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
+
+        $pattern ='/[A-Z0-9]+/';
+        $replacement = '';
+        foreach ($albumListByYear as $item){
+            $test=preg_replace($pattern, $replacement, $item->getTitre());
+            $noSpace = trim($test);
+            $noSpace = ucfirst($noSpace);
+            $item->setTitre($noSpace);}
+
+
 
         return $this->render('display/single-year.html.twig', [
             'albumListByYear' => $albumListByYear,

@@ -40,11 +40,11 @@
                         </a>
                     </div>
                     <div class="text-center py-8 sm:py-6 h-2/5">
-                        <p class="text-3xl text-gray-800 font-bold mb-2">{{ album.titre | upper }}</p>
-                        <p class="text-xl text-gray-800 mb-2">Thematique :
+                        <p class="text-3xl text-gray-800 font-bold mb-2">{{ album.titre }}</p>
+                        <p class="text-xl text-gray-800 mb-2">
                             <a href="{{ path('displayOneTheme', {idTheme:album.theme.id, titreTheme:album.theme.titre} ) }}" >
                                 <span class="underline hover:text-blue-600">
-                                  {{ album.theme.titre }}
+                                  {{ album.theme.titre|upper }} <i class="far fa-arrow-alt-circle-right"></i>
                                 </span>
                             </a>
                     </div>
