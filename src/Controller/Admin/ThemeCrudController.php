@@ -17,7 +17,7 @@ class ThemeCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('titre', 'Titre [Format Majuscule]'),
+            TextField::new('titre', 'Titre [Format Majuscule seulement des lettres]'),
         ];
     }
 

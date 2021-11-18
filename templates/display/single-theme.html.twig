@@ -31,7 +31,7 @@
                                 {% endif %}
                             {% endfor %}
                             {% if equi == '' %}
-                                <img class="object-center object-cover h-5/6 w-full" src='{{ asset('img/unexist.jpg') }}' alt="Pas de photo">
+                                <img class="cursor-not-allowed object-center object-cover h-5/6 w-full" src='{{ asset('img/unexist.jpg') }}' alt="Pas de photo">
                             {% else %}
                                 <img class="object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
                             {% endif %}

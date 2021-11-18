@@ -23,9 +23,13 @@ class PhotoType extends AbstractType
             ->add('album', EntityType::class, [
                 'class'=>Album::class,
                 'choice_label'=>'titre',
+                'label'=>false,
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-xl text-gray-100 flex justify-center m-auto px-16 py-2 cursor-pointer'],
             ])
             ->add('commentaire', TextareaType::class,[
-                'required'=>false
+                'required'=>false,
+                'label'=>false,
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-white flex justify-center m-auto px-4 py-2 w-1/2'],
     ])
         ;
     }
