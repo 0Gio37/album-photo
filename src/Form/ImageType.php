@@ -16,7 +16,8 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('fileName', FileType::class,[
-                'label'=>'Charger une photo',
+                'label'=>false,
+                'attr' => ['class' => 'text-blue-500 bg-gray-800 rounded-lg italic text-white flex justify-center m-auto px-28 py-4 cursor-pointer'],
                 'mapped' => false,
                 'multiple'=>false,
                 'required' => true,

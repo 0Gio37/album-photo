@@ -34,9 +34,8 @@
                         <p class="text-base text-gray-800 font-normal">par {{ photo.auteur.username }}</p>
                         <p class="text-base text-gray-800 font-normal">
                             <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:photo.album.id, titleAlbum:photo.album.titre} )  }}" >
-                                Album :<span class="underline hover:text-blue-600 font-bold"> {{ photo.album.titre }}</span> -
+                                <span class="hover:text-blue-600 font-bold">- {{ photo.album.titre }} -</span>
                             </a>
-                            {{ photo.album.annee }}
                         </p>
                     </div>
                 </div>
