@@ -24,7 +24,7 @@
             {% for album in albumListByYear %}
                 <div class="w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
                     <div class="h-3/5">
-                        <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre} )  }}" >
+
                             {% set equi = '' %}
                             {% for photo in photoList %}
                                 {%  if photo.album.id == album.id %}
@@ -34,6 +34,7 @@
                             {% if equi == '' %}
                                 <img class="object-center object-cover h-5/6 w-full" src='{{ asset('img/unexist.jpg') }}' alt="Pas de photo">
                             {% else %}
+                        <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre} )  }}" >
                                 <img class="object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
                             {% endif %}
                         </a>

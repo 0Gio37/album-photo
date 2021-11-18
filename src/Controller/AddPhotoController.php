@@ -61,6 +61,7 @@ class AddPhotoController extends AbstractController
         $formAlbum = $this->createForm(AlbumType::class, $album);
         $formAlbum->handleRequest($request);
 
+
         if ($imageForm->isSubmitted() && $imageForm->isValid()) {
 
             $showCurrentPhotoTwig = true;
@@ -95,7 +96,7 @@ class AddPhotoController extends AbstractController
 
         if ($formAlbum->isSubmitted() && $formAlbum->isValid()) {
             $data = $formAlbum->getData();
-            $album->setTitre($album->getTitre().' '.$album->getAnnee().' - (Thematique :'.$album->getTheme()->getTitre().')' );
+            $album->setTitre(strtoupper($album->getTheme()->getTitre()).' > '.$album->getTitre().' ('.$album->getAnnee().')' );
             $em->persist($data);
             $em->flush();
         }
