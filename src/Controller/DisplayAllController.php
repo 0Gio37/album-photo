@@ -139,6 +139,7 @@ class DisplayAllController extends AbstractController
     {
         $this->toggleBtn =  false;
         $listPhotoAlbum = $PhotoRepository->findBy(['album'=>$idAlbum], ['id'=>'ASC']);
+        //dd($listPhotoAlbum);
 
         return $this->render('display/single-album.html.twig', [
             'idAlbum'=>$idAlbum,
@@ -194,5 +195,4 @@ class DisplayAllController extends AbstractController
             'tagList'=>$tagList,
         ]);
     }
-
 }
