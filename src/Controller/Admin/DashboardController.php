@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Album;
+use App\Entity\LienTagPhoto;
+use App\Entity\Photo;
+use App\Entity\Tag;
 use App\Entity\Theme;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -39,9 +42,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoRoute('Retour au site', 'fas fa-home', 'home');
+        yield MenuItem::linktoRoute("RETOUR AU SITE", 'fas fa-home', 'home');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::LinkToCrud('Thématiques', 'fas fa-sitemap', Theme::class);
-        yield MenuItem::linkToCrud('Albums', 'fas fa-images', Album::class);
+        yield MenuItem::linkToCrud('Albums', 'fas fa-book', Album::class);
+        yield MenuItem::linkToCrud('Photos', 'fas fa-camera', Photo::class);
+        yield MenuItem::linkToCrud('Personnes identifiées', 'fas fa-users', Tag::class);
     }
 }
