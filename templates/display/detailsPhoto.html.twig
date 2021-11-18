@@ -46,11 +46,13 @@
                     |  {{ selectedPhoto.album.titre }}  -
                 </p>
             </div>
-            <div class="ml-auto mb-2">
-                <a href="{{ path('deletePhoto', {idPhoto:selectedPhoto.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
-                    X
-                </a>
-            </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="ml-auto mb-2">
+                    <a href="{{ path('deletePhoto', {idPhoto:selectedPhoto.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
+                        X
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </section>
 

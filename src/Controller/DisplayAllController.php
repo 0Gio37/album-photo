@@ -70,11 +70,13 @@ class DisplayAllController extends AbstractController
 
 
     /**
-     * @Route("/display/all-album", name="displayAllAlbum")
+     * @Route("/display/all-album-inversChrono", name="displayAllAlbumAntiChrono")
      */
-    public function displayAllAlbum(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository): Response
+    public function displayAllAlbumAntiChrono(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository): Response
     {
-        $albumList = $AlbumRepository->findBy([], ['titre'=>'ASC']);
+        $this->toggleBtn =  true;
+
+        $albumList = $AlbumRepository->findBy([], ['annee'=>'DESC']);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
 
         $pattern ='/[A-Z0-9]+/';
@@ -88,6 +90,32 @@ class DisplayAllController extends AbstractController
         return $this->render('display/all-albums.html.twig', [
             'albumList' => $albumList,
             'photoList'=>$photoList,
+            'toggleBtn'=> $this->toggleBtn,
+        ]);
+    }
+
+    /**
+     * @Route("/display/all-album-Chrono", name="displayAllAlbumChrono")
+     */
+    public function displayAllAlbumChrono(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository): Response
+    {
+        $this->toggleBtn =  false;
+
+        $albumList = $AlbumRepository->findBy([], ['annee'=>'ASC']);
+        $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
+
+        $pattern ='/[A-Z0-9]+/';
+        $replacement = '';
+        foreach ($albumList as $item){
+            $test=preg_replace($pattern, $replacement, $item->getTitre());
+            $noSpace = trim($test);
+            $noSpace = ucfirst($noSpace);
+            $item->setTitre($noSpace);}
+
+        return $this->render('display/all-albums.html.twig', [
+            'albumList' => $albumList,
+            'photoList'=>$photoList,
+            'toggleBtn'=> $this->toggleBtn,
         ]);
     }
 

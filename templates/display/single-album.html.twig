@@ -4,20 +4,17 @@
 
 {% block body %}
 
-    <section class="bg-gray-800 pt-6">
-        <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg">
-            <a href="{{ path('add_photo') }}">
-                <div class="rounded-full py-4 bg-blue-900 hover:bg-blue-700 text-gray-400 px-8">
-                    Ajouter des photos ...
-                </div>
-            </a>
-        </div>
-    </section>
+    {%  include 'component/inputAddPhoto.html.twig' %}
 
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div class="text-center pb-12">
+            {% if listPhotoAlbum %}
             <p class="text-base text-2xl font-bold text-blue-600">Toutes les photos de l'album : {{ titleAlbum | upper}} {{ listPhotoAlbum[0].album.annee }}</p>
+            {% else %}
+            <p class="text-base text-2xl font-bold text-blue-600">Album Vide</p>
+            {% endif %}
         </div>
+
 
         <div class="flex justify-end">
             {% if toggleBtn == true %}
@@ -35,7 +32,6 @@
                 {% set equi = '' %}
                 {% set equi = photo.file %}
                 <div class="w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
-
                     <div class="h-3/5">
                         <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:titleAlbum} ) }}" >
                             <img class="object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
@@ -45,11 +41,13 @@
                         <p class="text-base text-gray-800 font-normal">Posté le {{ photo.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}</p>
                         <p class="text-base text-gray-800 font-normal">Par : {{ photo.auteur.username }}</p>
                     </div>
-                    <div class="ml-auto mb-2">
-                        <a href="{{ path('deletePhotoFromAlbum', {titleAlbum:titleAlbum, idAlbum:idAlbum, idPhoto:photo.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
-                            X
-                        </a>
-                    </div>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="ml-auto mb-2">
+                            <a href="{{ path('deletePhotoFromAlbum', {titleAlbum:titleAlbum, idAlbum:idAlbum, idPhoto:photo.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
+                                X
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

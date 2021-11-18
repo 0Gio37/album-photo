@@ -111,23 +111,6 @@
         modal.classList.toggle('pointer-events-none')
         body.classList.toggle('modal-active')
     }
-
-
-    {#
-    let tagList =[];
-let displayTagList = document.getElementById('displayTagList');
-function getTagName(e){
-   e.stopPropagation();
-   e.preventDefault();
-
-   const inputLastName = document.getElementById('tag_nom');
-   const inputFirstName = document.getElementById('tag_prenom');
-   tagList.push(inputLastName.value + ' - ' + inputFirstName.value)
-   console.log(tagList)
-}
-document.getElementById('displayTagListBtn').addEventListener('click', getTagName);
-    #}
-
 </script>
 
 </body>

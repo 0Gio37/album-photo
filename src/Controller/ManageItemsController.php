@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Repository\AlbumRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use App\Repository\LienTagPhotoRepository;
@@ -25,8 +26,8 @@ class ManageItemsController extends AbstractController
      */
     public function deletePhotoFromHome(PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, $idPhoto ): Response
     {
-        $suppTagPhoto = $LienTagPhotoRepository->findBy(['photo'=>$idPhoto]);
-        foreach ($suppTagPhoto as $supp)
+        $suppTagPhoto1 = $LienTagPhotoRepository->findBy(['photo'=>$idPhoto]);
+        foreach ($suppTagPhoto1 as $supp)
         {
             $item = $this->getDoctrine()->getManager();
             $item->remove($supp);
@@ -45,17 +46,17 @@ class ManageItemsController extends AbstractController
      */
     public function deletePhotoFromAllPhotos(PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, $idPhoto ): Response
     {
-        $suppTagPhoto = $LienTagPhotoRepository->findBy(['photo'=>$idPhoto]);
-        foreach ($suppTagPhoto as $supp)
+        $suppTagPhoto2 = $LienTagPhotoRepository->findBy(['photo'=>$idPhoto]);
+        foreach ($suppTagPhoto2 as $supp)
         {
             $item = $this->getDoctrine()->getManager();
             $item->remove($supp);
             $item->flush();
         }
 
-        $suppPhoto = $PhotoRepository->findOneBy(['id'=>$idPhoto]);
+        $suppPhoto3 = $PhotoRepository->findOneBy(['id'=>$idPhoto]);
         $item = $this->getDoctrine()->getManager();
-        $item->remove($suppPhoto);
+        $item->remove($suppPhoto3);
         $item->flush();
 
         return $this->redirectToRoute('displayAllPhotoAntiChrono');
@@ -82,4 +83,21 @@ class ManageItemsController extends AbstractController
 
         return $this->redirectToRoute("displayOneAlbumAntiChrono", ['titleAlbum'=>$titleAlbum,'idAlbum'=>$idAlbum ]);
     }
+
+    /**
+     * @Route("/manage/supp-album/{idAlbum}", name="deleteAlbum")
+     */
+    public function deleteAlbum(PhotoRepository $PhotoRepository, AlbumRepository $AlbumRepository, LienTagPhotoRepository $LienTagPhotoRepository, $idAlbum): Response
+    {
+        $suppAlbum = $AlbumRepository->findOneBy(['id'=>$idAlbum]);
+
+        $item = $this->getDoctrine()->getManager();
+        $item->remove($suppAlbum);
+        $item->flush();
+
+        return $this->redirectToRoute('home');
+    }
+
+
+
 }
