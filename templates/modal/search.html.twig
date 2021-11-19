@@ -1,0 +1,37 @@
+<div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+    <div class="modal-overlay absolute w-full h-full bg-black opacity-95"></div>
+    <div class="modal-container fixed w-full h-full z-50 overflow-y-auto">
+        <div class="modal-content mx-m h-auto p-60">
+            <div class="bg-gray-700 rounded-lg">
+                <div class="flex justify-end pt-6 pr-6">
+                    <a href="#" class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">FERMER</a>
+                </div>
+
+
+                <section id="modal1" class="modalManage" style="display: none">
+                    <div class="text-center pb-2">
+                        <p class="text-base text-3xl font-bold text-blue-600">Photos par personnes recherchées</p>
+                    </div>
+                    <div class="flex justify-center w-full py-6">
+                        {{ form_start(formSearchByTag) }}
+                        <p class="text-white text-center text-xl pb-2 pt-6">Nom</p>
+                        {{ form_row(formSearchByTag.nom) }}
+                        <p class="text-white text-center text-xl pb-2 pt-6">Prénom</p>
+                        {{ form_row(formSearchByTag.prenom) }}
+                        <button class="flex justify-center mt-6 font-bold text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Valider</button>
+                        {{ form_end(formSearchByTag) }}
+                    </div>
+                </section>
+
+                <section id="modal2" class="modalManage" style="display: none">
+
+                </section>
+
+                <section id="modal3" class="modalManage" style="display: none">
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -36,7 +36,7 @@
 
 <div class="grid grid-cols-8 h-full md:flex-row">
     <aside class="col-span-1 border-r border-gray-600  shadow-lg">
-        {% include 'component/aside-search.html.twig' %}
+        {% include 'component/aside-search.html.twig'%}
     </aside>
     <div class="col-span-7 main-content flex-1 bg-gray-800 mt-12 md:mt-2">
         {% block body %}{% endblock %}
@@ -112,6 +112,42 @@
         modal.classList.toggle('pointer-events-none')
         body.classList.toggle('modal-active')
     }
+
+    //gestion de la modale home page => search
+    let modal1 = document.getElementById('modal1');
+    let modal2 = document.getElementById('modal2');
+    let modal3 = document.getElementById('modal3');
+    let modal4 = document.getElementById('modal4');
+    let modal5 = document.getElementById('modal5');
+    let modal6 = document.getElementById('modal6');
+    let allModal = [modal1, modal2, modal3, modal4, modal5, modal6];
+
+    let activeModal1 = document.getElementById('activeModal1');
+    let activeModal2 = document.getElementById('activeModal2');
+    let activeModal3 = document.getElementById('activeModal3');
+    let activeModal4 = document.getElementById('activeModal4');
+    let activeModal5 = document.getElementById('activeModal5');
+    let activeModal6 = document.getElementById('activeModal6');
+    let allActive = [activeModal1, activeModal2, activeModal3, activeModal4,activeModal5,activeModal6]
+
+  for (let i in allActive){
+      allActive[i].addEventListener('click', () => {
+          allModal.map(item => item.setAttribute("style", "display:none"));
+          allModal[i].setAttribute("style", "display:bloc");
+      })
+  }
+// a tester pour refacto
+    /*let modalManage = document.getElementsByClassName('modalManage');
+  let activeModal = document.getElementsByClassName('activeModal');
+
+    for (let i in activeModal){
+    activeModal[i].addEventListener('click', () => {
+        modalManage.map(item => item.setAttribute("style", "display:none"));
+        modalManage[i].setAttribute("style", "display:bloc");
+    })
+}
+   */
+
 </script>
 
 </body>

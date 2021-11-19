@@ -41,5 +41,8 @@
             {% endfor %}
         </div>
     </section>
+    <section>
+        {% include 'modal/search.html.twig' with {'formSearchByTag':formSearchByTag} only %}
+    </section>
 
 {% endblock %}
