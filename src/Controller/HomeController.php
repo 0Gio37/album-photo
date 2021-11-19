@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\LienTagPhoto;
 use App\Entity\Photo;
 use App\Entity\SearchByTag;
-use App\Entity\Tag;
+use App\Entity\SearchByTheme;
+use App\Entity\SearchByYear;
 use App\Form\SearchByTagType;
+use App\Form\SearchByThemeType;
+use App\Form\SearchByYearType;
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +26,6 @@ class HomeController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-
     /**
      * @Route("/home", name="home")
      */
@@ -36,25 +38,45 @@ class HomeController extends AbstractController
         $formSearchByTag->handleRequest($request);
         if($formSearchByTag->isSubmitted() && $formSearchByTag->isValid()) {
             $dataSearched = $formSearchByTag->getData();
-            $tagList = $this->entityManager->getRepository(Tag::class)->findAll();
             $lientagPhoto = $this->entityManager->getRepository(LienTagPhoto::class)->findAll();
-            $photoList = $this->entityManager->getRepository(Photo::class)->findAll();
 
             return $this->render('search/by-tag.html.twig', [
                 'dataSearched'=>$dataSearched,
                 'lientagPhoto'=>$lientagPhoto,
+                ]);
+        }
+
+        $byYear = new SearchByYear();
+        $formSearchByYear = $this->createForm(SearchByYearType::class,$byYear);
+        $formSearchByYear->handleRequest($request);
+        if($formSearchByYear->isSubmitted() && $formSearchByYear->isValid()) {
+            $dataSearched = $formSearchByYear->getData();
+            $photoList = $this->entityManager->getRepository(Photo::class)->findAll();
+
+            return $this->render('search/by-year.html.twig', [
+                'dataSearched'=>$dataSearched,
                 'photoList'=>$photoList,
-                'tagList'=>$tagList,
             ]);
         }
 
+        $byTheme = new SearchByTheme();
+        $formSearchByTheme = $this->createForm(SearchByThemeType::class,$byTheme);
+        $formSearchByTheme->handleRequest($request);
+        if($formSearchByTheme->isSubmitted() && $formSearchByTheme->isValid()) {
+            $dataSearched = $formSearchByTheme->getData();
+            $photoList = $this->entityManager->getRepository(Photo::class)->findAll();
 
-
-
+            return $this->render('search/by-theme.html.twig', [
+                'dataSearched'=>$dataSearched,
+                'photoList'=>$photoList,
+            ]);
+        }
 
         return $this->render('home/index.html.twig', [
             'photoList' => $photoList,
             'formSearchByTag' => $formSearchByTag->createView(),
+            'formSearchByYear' => $formSearchByYear->createView(),
+            'formSearchByTheme' => $formSearchByTheme->createView(),
         ]);
     }
 }

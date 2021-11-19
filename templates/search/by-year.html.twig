@@ -1,26 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Search By Theme{% endblock %}
+{% block title %}Search By Year{% endblock %}
 
 {% block body %}
 
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {% if dataSearched.nom == null %}
-                <p class="flex col-span-4 justify-center text-base text-4xl font-bold text-blue-600">Champs non renseignés ! </p>
-                <div class="col-span-4 m-auto ">
-                    <a href="{{ path('home') }}">
-                        <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
-                            PAGE ACCUEIL
-                        </button>
-                    </a>
-                </div>
+            {% if dataSearched.annee == null %}
+            <p class="flex col-span-4 justify-center text-base text-4xl font-bold text-blue-600">Champs non renseignés ! </p>
+            <div class="col-span-4 m-auto ">
+                <a href="{{ path('home') }}">
+                    <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                        PAGE ACCUEIL
+                    </button>
+                </a>
+            </div>
             {% else %}
                 <div class="text-center pb-12 col-span-4">
-                    <p class="flex col-span-4 justify-center text-base text-4xl font-bold text-blue-600">Photos de la thématique {{ dataSearched.nom  }} </p>
+                    <p class="flex col-span-4 justify-center text-base text-4xl font-bold text-blue-600">Photos de {{ dataSearched.annee  }} </p>
                 </div>
                 {% for photo in photoList %}
-                    {%  if  photo.album.theme == dataSearched.nom %}
+                    {%  if  photo.album.annee == dataSearched.annee %}
                         {% set equi = '' %}
                         {% set equi = photo.file %}
                         <div class="w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">

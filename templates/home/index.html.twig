@@ -4,13 +4,13 @@
 
 {% block body %}
 
-    <div class="grid grid-cols-8 h-full md:flex-row">
+    <div class="grid grid-cols-6 h-full md:flex-row p-2">
 
         <aside class="col-span-1 border-r border-gray-600  shadow-lg">
             {% include 'component/aside-search.html.twig'%}
         </aside>
 
-        <div class="col-span-7 main-content flex-1 bg-gray-800 mt-12 md:mt-2">
+        <div class="col-span-5 main-content flex-1 bg-gray-800 mt-12 md:mt-2">
 
         {%  include 'component/inputAddPhoto.html.twig' %}
 
@@ -50,7 +50,7 @@
             </div>
         </section>
         <section>
-            {% include 'modal/search.html.twig' with {'formSearchByTag':formSearchByTag} only %}
+            {% include 'modal/search.html.twig' with {'formSearchByTag':formSearchByTag, 'formSearchByYear':formSearchByYear,'formSearchByTheme':formSearchByTheme} only %}
         </section>
         </div>
     </div>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}All Photos{% endblock %}
+{% block title %}Search By Tag{% endblock %}
 
 {% block body %}
 
@@ -16,6 +16,9 @@
                     </a>
                 </div>
             {% elseif dataSearched.nom == null %}
+                <div class="text-center pb-12 col-span-4">
+                    <p class="text-base text-2xl font-bold text-blue-600">Photos avec {{ dataSearched.nom | upper }} {{ dataSearched.prenom | upper }} </p>
+                </div>
                 {% for lien in  lientagPhoto %}
                     {%  if  (lien.tag.nom |lower == dataSearched.prenom|lower ) or (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}
                         {% set equi = '' %}
@@ -42,6 +45,9 @@
                     {% endif %}
                 {% endfor %}
             {% elseif dataSearched.prenom == null %}
+                <div class="text-center pb-12 col-span-4">
+                    <p class="text-base text-2xl font-bold text-blue-600">Photos avec {{ dataSearched.nom | upper }} {{ dataSearched.prenom | upper }} </p>
+                </div>
                  {% for lien in  lientagPhoto %}
                      {%  if  (lien.tag.nom |lower == dataSearched.nom|lower ) or (lien.tag.prenom|lower == dataSearched.nom|lower ) %}
                          {% set equi = '' %}
@@ -68,6 +74,9 @@
                      {% endif %}
                  {% endfor %}
         {%  elseif dataSearched.nom != null and dataSearched.prenom != null %}
+            <div class="text-center pb-12 col-span-4">
+                <p class="text-base text-2xl font-bold text-blue-600">Photos avec {{ dataSearched.nom | upper }} {{ dataSearched.prenom | upper }} </p>
+            </div>
             {% for lien in  lientagPhoto %}
                 {%  if  (lien.tag.nom |lower == dataSearched.nom|lower ) and (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}
                         {% set equi = '' %}
@@ -100,35 +109,6 @@
 {% endblock %}
 
 
-
-
-
-
-
-    {#
-
-    {% else %}
-
- {% for lien in  lientagPhoto %}
-
-    {%  if  (lien.tag.nom |lower == dataSearched.nom|lower or lien.tag.prenom|lower == dataSearched.prenom|lower  ) %}
-
-
-        <ul>
-            <li>
-                <p>id : {{ lien.tag.id }}</p>
-                <p>NOM : {{ lien.tag.nom }}</p>
-                <p>PRENOM : {{ lien.tag.prenom }}</p>
-                <p>LIEN : {{ lien.photo.file }}</p>
-            </li>
-        </ul>
-
-{%  endif %}
- {% endfor %}
-{%  endif %}
-
-
-    #}
 
 
 
