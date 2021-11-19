@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\LienTagPhoto;
 use App\Entity\Photo;
 use App\Entity\SearchByTag;
+use App\Entity\Tag;
 use App\Form\SearchByTagType;
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,6 +36,7 @@ class HomeController extends AbstractController
         $formSearchByTag->handleRequest($request);
         if($formSearchByTag->isSubmitted() && $formSearchByTag->isValid()) {
             $dataSearched = $formSearchByTag->getData();
+            $tagList = $this->entityManager->getRepository(Tag::class)->findAll();
             $lientagPhoto = $this->entityManager->getRepository(LienTagPhoto::class)->findAll();
             $photoList = $this->entityManager->getRepository(Photo::class)->findAll();
 
@@ -42,6 +44,7 @@ class HomeController extends AbstractController
                 'dataSearched'=>$dataSearched,
                 'lientagPhoto'=>$lientagPhoto,
                 'photoList'=>$photoList,
+                'tagList'=>$tagList,
             ]);
         }
 

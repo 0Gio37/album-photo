@@ -34,14 +34,9 @@
     {% include 'component/header.html.twig' %}
 </header>
 
-<div class="grid grid-cols-8 h-full md:flex-row">
-    <aside class="col-span-1 border-r border-gray-600  shadow-lg">
-        {% include 'component/aside-search.html.twig'%}
-    </aside>
-    <div class="col-span-7 main-content flex-1 bg-gray-800 mt-12 md:mt-2">
-        {% block body %}{% endblock %}
-    </div>
-</div>
+{% block body %}{% endblock %}
+
+
 
 <script>
     /*Toggle dropdown list*/
@@ -136,7 +131,10 @@
           allModal[i].setAttribute("style", "display:bloc");
       })
   }
+
+
 // a tester pour refacto
+
     /*let modalManage = document.getElementsByClassName('modalManage');
   let activeModal = document.getElementsByClassName('activeModal');
 

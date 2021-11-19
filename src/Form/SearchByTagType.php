@@ -17,10 +17,13 @@ class SearchByTagType extends AbstractType
             ->add('nom', TextType::class, [
                 'attr' => ['class' => 'w-96 rounded-lg p-4'],
                 'label'=> false,
+                'required'=>false,
             ])
             ->add('prenom', TextType::class, [
                 'attr' => ['class' => 'w-96 rounded-lg p-4'],
                 'label'=>false,
+                'required'=>false,
+
             ])
         ;
     }

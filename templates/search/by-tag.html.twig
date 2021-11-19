@@ -1,8 +1,91 @@
-{{ dump(dataSearched) }}
 
+
+{#  {{ dump(tagList) }}
+{{ dump(dataSearched) }}
 {{ dump(lientagPhoto) }}
 
-{{ dump(photoList) }}
+{{ dump(photoList) }}#}
+
+
+<div> Aucun résultat pour la recherche ! </div>
+
+    {% if dataSearched.nom == null %}
+        {% for lien in  lientagPhoto %}
+            {%  if  (lien.tag.nom |lower == dataSearched.prenom|lower ) or (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}
+                <ul>
+                    <li>
+                        <p>id : {{ lien.tag.id }}</p>
+                        <p>NOM : {{ lien.tag.nom }}</p>
+                        <p>PRENOM : {{ lien.tag.prenom }}</p>
+                        <p>LIEN : {{ lien.photo.file }}</p>
+                    </li>
+                </ul>
+            {%  endif %}
+        {% endfor %}
+
+    {% elseif dataSearched.prenom == null %}
+
+        {% for lien in  lientagPhoto %}
+            {%  if  (lien.tag.nom |lower == dataSearched.nom|lower ) or (lien.tag.prenom|lower == dataSearched.nom|lower ) %}
+                <ul>
+                    <li>
+                        <p>id : {{ lien.tag.id }}</p>
+                        <p>NOM : {{ lien.tag.nom }}</p>
+                        <p>PRENOM : {{ lien.tag.prenom }}</p>
+                        <p>LIEN : {{ lien.photo.file }}</p>
+                    </li>
+                </ul>
+            {%  endif %}
+        {% endfor %}
+    {%  else %}
+        {% for lien in  lientagPhoto %}
+            {%  if  (lien.tag.nom |lower == dataSearched.nom|lower ) and (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}
+                <ul>
+                    <li>
+                        <p>id : {{ lien.tag.id }}</p>
+                        <p>NOM : {{ lien.tag.nom }}</p>
+                        <p>PRENOM : {{ lien.tag.prenom }}</p>
+                        <p>LIEN : {{ lien.photo.file }}</p>
+                    </li>
+                </ul>
+            {%  endif %}
+        {% endfor %}
+{%  endif %}
+
+
+
+
+
+
+
+
+
+    {#
+
+    {% else %}
+
+ {% for lien in  lientagPhoto %}
+
+    {%  if  (lien.tag.nom |lower == dataSearched.nom|lower or lien.tag.prenom|lower == dataSearched.prenom|lower  ) %}
+
+
+        <ul>
+            <li>
+                <p>id : {{ lien.tag.id }}</p>
+                <p>NOM : {{ lien.tag.nom }}</p>
+                <p>PRENOM : {{ lien.tag.prenom }}</p>
+                <p>LIEN : {{ lien.photo.file }}</p>
+            </li>
+        </ul>
+
+{%  endif %}
+ {% endfor %}
+{%  endif %}
+
+
+    #}
+
+
 
 
 
