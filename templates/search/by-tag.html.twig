@@ -1,58 +1,103 @@
+{% extends 'base.html.twig' %}
 
+{% block title %}All Photos{% endblock %}
 
-{#  {{ dump(tagList) }}
-{{ dump(dataSearched) }}
-{{ dump(lientagPhoto) }}
+{% block body %}
 
-{{ dump(photoList) }}#}
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {% if dataSearched.nom == null and dataSearched.prenom == null %}
+                <p class="flex col-span-4 justify-center text-base text-4xl font-bold text-blue-600">Champs non renseignés ! </p>
+                <div class="col-span-4 m-auto ">
+                    <a href="{{ path('home') }}">
+                        <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                            PAGE ACCUEIL
+                        </button>
+                    </a>
+                </div>
+            {% elseif dataSearched.nom == null %}
+                {% for lien in  lientagPhoto %}
+                    {%  if  (lien.tag.nom |lower == dataSearched.prenom|lower ) or (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}
+                        {% set equi = '' %}
+                        {% set equi = lien.photo.file %}
+                        <div class="w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
+                            <div class="h-3/5">
+                                <a href= "{{ path('detailsPhoto', {idPhoto:lien.photo.id, titleAlbum:lien.photo.album.titre} ) }}" >
+                                    <img class="object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                                </a>
+                            </div>
+                            <div class="text-center py-8 sm:py-6 h-2/5">
+                                <p class="text-base text-lg text-gray-800 font-normal">{{ lien.tag.nom|upper }} {{ lien.tag.prenom }}</p>
+                                <p class="text-base text-gray-800 font-bold underline mt-4">Album</p>
+                                <p class="text-base text-gray-800 font-normal">{{ lien.photo.album.titre }}</p>
+                            </div>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="ml-auto mb-2">
+                                    <a href="{{ path('deletePhotoFromAllPhotos', {idPhoto:lien.photo.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
+                                        X
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% elseif dataSearched.prenom == null %}
+                 {% for lien in  lientagPhoto %}
+                     {%  if  (lien.tag.nom |lower == dataSearched.nom|lower ) or (lien.tag.prenom|lower == dataSearched.nom|lower ) %}
+                         {% set equi = '' %}
+                         {% set equi = lien.photo.file %}
+                         <div class="w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
+                             <div class="h-3/5">
+                                 <a href= "{{ path('detailsPhoto', {idPhoto:lien.photo.id, titleAlbum:lien.photo.album.titre} ) }}" >
+                                     <img class="object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                                 </a>
+                             </div>
+                             <div class="text-center py-8 sm:py-6 h-2/5">
+                                 <p class="text-base text-lg text-gray-800 font-normal">{{ lien.tag.nom|upper }} {{ lien.tag.prenom }}</p>
+                                 <p class="text-base text-gray-800 font-bold underline mt-4">Album</p>
+                                 <p class="text-base text-gray-800 font-normal">{{ lien.photo.album.titre }}</p>
+                             </div>
+                             {% if is_granted('ROLE_ADMIN') %}
+                                 <div class="ml-auto mb-2">
+                                     <a href="{{ path('deletePhotoFromAllPhotos', {idPhoto:lien.photo.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
+                                         X
+                                     </a>
+                                 </div>
+                             {% endif %}
+                         </div>
+                     {% endif %}
+                 {% endfor %}
+        {%  elseif dataSearched.nom != null and dataSearched.prenom != null %}
+            {% for lien in  lientagPhoto %}
+                {%  if  (lien.tag.nom |lower == dataSearched.nom|lower ) and (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}
+                        {% set equi = '' %}
+                        {% set equi = lien.photo.file %}
+                        <div class="w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
+                            <div class="h-3/5">
+                                <a href= "{{ path('detailsPhoto', {idPhoto:lien.photo.id, titleAlbum:lien.photo.album.titre} ) }}" >
+                                    <img class="object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                                </a>
+                            </div>
+                            <div class="text-center py-8 sm:py-6 h-2/5">
+                                <p class="text-base text-lg text-gray-800 font-normal">{{ lien.tag.nom|upper }} {{ lien.tag.prenom }}</p>
+                                <p class="text-base text-gray-800 font-bold underline mt-4">Album</p>
+                                <p class="text-base text-gray-800 font-normal">{{ lien.photo.album.titre }}</p>
+                            </div>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="ml-auto mb-2">
+                                    <a href="{{ path('deletePhotoFromAllPhotos', {idPhoto:lien.photo.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
+                                        X
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+        {%  endif %}
+        </div>
+    </section>
 
-
-<div> Aucun résultat pour la recherche ! </div>
-
-    {% if dataSearched.nom == null %}
-        {% for lien in  lientagPhoto %}
-            {%  if  (lien.tag.nom |lower == dataSearched.prenom|lower ) or (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}
-                <ul>
-                    <li>
-                        <p>id : {{ lien.tag.id }}</p>
-                        <p>NOM : {{ lien.tag.nom }}</p>
-                        <p>PRENOM : {{ lien.tag.prenom }}</p>
-                        <p>LIEN : {{ lien.photo.file }}</p>
-                    </li>
-                </ul>
-            {%  endif %}
-        {% endfor %}
-
-    {% elseif dataSearched.prenom == null %}
-
-        {% for lien in  lientagPhoto %}
-            {%  if  (lien.tag.nom |lower == dataSearched.nom|lower ) or (lien.tag.prenom|lower == dataSearched.nom|lower ) %}
-                <ul>
-                    <li>
-                        <p>id : {{ lien.tag.id }}</p>
-                        <p>NOM : {{ lien.tag.nom }}</p>
-                        <p>PRENOM : {{ lien.tag.prenom }}</p>
-                        <p>LIEN : {{ lien.photo.file }}</p>
-                    </li>
-                </ul>
-            {%  endif %}
-        {% endfor %}
-    {%  else %}
-        {% for lien in  lientagPhoto %}
-            {%  if  (lien.tag.nom |lower == dataSearched.nom|lower ) and (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}
-                <ul>
-                    <li>
-                        <p>id : {{ lien.tag.id }}</p>
-                        <p>NOM : {{ lien.tag.nom }}</p>
-                        <p>PRENOM : {{ lien.tag.prenom }}</p>
-                        <p>LIEN : {{ lien.photo.file }}</p>
-                    </li>
-                </ul>
-            {%  endif %}
-        {% endfor %}
-{%  endif %}
-
-
+{% endblock %}
 
 
 
