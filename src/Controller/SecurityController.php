@@ -78,4 +78,3 @@ class SecurityController extends AbstractController
                 'form'=>$form->createView()]);
     }
 }
-

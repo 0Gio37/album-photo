@@ -45,8 +45,6 @@ class UserType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Mot de passe ',
                     'class' => 'form-control block w-full p-4 text-lg rounded-sm bg-black']
-
-
             ])
         ;
     }
