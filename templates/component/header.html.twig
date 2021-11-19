@@ -1,41 +1,29 @@
-<nav class="flex justify-between bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0 border-b border-gray-600 shadow-lg">
-    <div class="flex flex-1 text-white font-extrabold">
+<nav class="grid grid-cols-6 justify-between bg-gray-800 md:pt-1 p-2 mt-0 h-auto fixed w-full z-20 top-0 border-b border-gray-600 shadow-lg">
+    <div class="flex justify-center">
         <a class="flex text-white no-underline hover:text-white hover:no-underline" href="{{ path('home') }}">
-            <div class="flex ml-8">
-                <img class="w-8" src="{{ asset('img/logo.jpg') }}" alt="logo" />
-                <div class="flex flex-1 text-white px-8">
-                    <span class="relative">
-                     <input type="search" placeholder="Rechercher sur le site" class="w-full bg-gray-600 text-gray-400 transition border border-transparent focus:outline-none focus:border-gray-400 rounded-full py-3 px-2 pl-10 appearance-none leading-normal">
-                     <div class="absolute search-icon" style="top: 1rem; left: .8rem;">
-                        <svg class="fill-current pointer-events-none text-blue-500 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                         <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
-                        </svg>
-                     </div>
-                    </span>
-                </div>
+            <div class="flex">
+                <img class="w-12" src="{{ asset('img/logo.jpg') }}" alt="logo" />
             </div>
         </a>
     </div>
-
-    <div>
-        <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
-            <li class="flex-1 md:flex-none md:mr-3">
-                <a class="inline-block py-2 px-4 text-white hover:text-blue-500" href="{{ path('displayAllTheme') }}">THEMATIQUES</a>
+    <div class="flex col-span-4">
+        <ul class="list-reset flex m-auto md:flex-none items-center">
+            <li class="mx-10">
+                <a class="inline-block py-2 px-4  text-lg text-white hover:text-blue-500 rounded-lg hover:bg-gray-700" href="{{ path('displayAllTheme') }}">THEMATIQUES</a>
             </li>
-            <li class="flex-1 md:flex-none md:mr-3">
-                <a class="inline-block py-2 px-4 text-white hover:text-blue-500" href="{{ path('displayAllYear') }}">ANNEES</a>
+            <li class="mx-10">
+                <a class="inline-block py-2 px-4 text-lg  text-white hover:text-blue-500 rounded-lg hover:bg-gray-700" href="{{ path('displayAllYear') }}">ANNEES</a>
             </li>
-            <li class="flex-1 md:flex-none md:mr-3">
-                <a class="inline-block py-2 px-4 text-white hover:text-blue-500" href="{{ path('displayAllAlbum') }}">ALBUMS</a>
+            <li class="mx-10">
+                <a class="inline-block py-2 px-4 text-lg  text-white hover:text-blue-500 rounded-lg hover:bg-gray-700" href="{{ path('displayAllAlbumAntiChrono') }}">ALBUMS</a>
             </li>
-            <li class="flex-1 md:flex-none md:mr-3">
-                <a class="inline-block py-2 px-4 text-white hover:text-blue-500" href="{{ path('displayAllPhotoAntiChrono') }}">PHOTOS</a>
+            <li class="mx-10">
+                <a class="inline-block py-2 px-4 text-lg  text-white hover:text-blue-500 rounded-lg hover:bg-gray-700" href="{{ path('displayAllPhotoAntiChrono') }}">PHOTOS</a>
             </li>
         </ul>
     </div>
 
-
-    <div class="flex flex-1 justify-end mr-8">
+    <div class="col-start-6 flex justify-end px-8">
         <div class="relative inline-block">
             <button onclick="toggleDD('myDropdown')" class="drop-button text-white focus:outline-none"> <span class="pr-2"><i class="far fa-user-circle"></i></span>
                 {% if app.user.prenom %}
@@ -45,13 +33,13 @@
                 {% endif %}
 
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg></button>
-            <div id="myDropdown" class="dropdownlist absolute bg-gray-800 text-white right-0 overflow-auto z-30 invisible">
+            <div id="myDropdown" class="dropdownlist w-full absolute bg-gray-800 text-white right-0 overflow-auto z-30 invisible">
                 {% if is_granted('ROLE_ADMIN') %}
-                    <div class="mt-3 rounded-full hover:bg-blue-600">
+                    <div class="mt-3 rounded-full bg-gray-700 hover:bg-blue-600">
                         <a href="{{ path('admin') }}" class="p-2 text-white text-sm no-underline hover:no-underline block"><i class="fas fa-user-shield"></i>  Mon DashBoard</a>
                     </div>
                 {% endif %}
-                <div class="mt-3 rounded-full hover:bg-blue-600">
+                <div class="mt-3 rounded-full bg-gray-700 hover:bg-blue-600">
                     <a href="{{ path('logout') }}" class="p-2 text-red-500 text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i>  Se déconnecter</a>
                 </div>
             </div>

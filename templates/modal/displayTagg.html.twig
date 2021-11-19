@@ -2,7 +2,7 @@
     <section class="bg-gray-700 rounded-lg">
         {% for personn in taggedPersonns %}
             {% for item in personn %}
-                <p class="text-white text-center font-bold my-4">- {{ item.prenom}}  {{ item.nom }} - </p>
+                <p class="text-white text-center font-bold py-2 my-4">- {{ item.prenom}}  {{ item.nom }} - </p>
             {% endfor %}
         {% endfor %}
     </section>

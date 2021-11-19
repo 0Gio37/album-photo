@@ -1,0 +1,11 @@
+{% if is_granted('ROLE_ADMIN') %}
+    <section class="bg-gray-800 pt-8" xmlns="http://www.w3.org/1999/html">
+        <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg">
+            <a href="{{ path('add_photo') }}">
+                <div class="rounded-full py-4 bg-blue-900 hover:bg-blue-700 text-gray-400 px-8">
+                    Ajouter des photos ...
+                </div>
+            </a>
+        </div>
+    </section>
+{% endif %}
