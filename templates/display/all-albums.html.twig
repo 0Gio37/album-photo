@@ -23,8 +23,8 @@
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {% for album in albumList %}
-                <div class="w-full h-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
-                    <div class="h-3/5">
+                <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
+                    <div class="h-3/6 mb-4">
                         {% set equi = '' %}
                         {% for photo in photoList %}
                             {%  if photo.album.id == album.id %}
@@ -32,14 +32,14 @@
                             {% endif %}
                         {% endfor %}
                         {% if equi == '' %}
-                            <img class="border border-1 border-blue-700 shadow-lg cursor-not-allowed object-center object-cover h-5/6 w-full" src='{{ asset('img/unexist.jpg') }}' alt="Pas de photo">
+                            <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('img/unexist.jpg') }}' alt="Pas de photo">
                         {% else %}
                             <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre})  }}" >
-                                <img class="border border-1 border-blue-700 shadow-lg object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                                <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
                         {% endif %}
                             </a>
                     </div>
-                    <div class="text-center py-8 sm:py-6 h-2/5">
+                    <div class="h-2/6 text-center mb-4">
                       <p class="text-3xl text-gray-800 font-bold mb-2">{{ album.titre|replace({'/[^A-Z+]/': ''}) }}</p>
                         <p class="text-xl text-gray-800 mb-2">
                             <a href="{{ path('displaySingleYear', {albumAnnee:album.annee} ) }}">
@@ -56,7 +56,7 @@
                         </p>
                     </div>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="ml-auto mb-2">
+                        <div class="ml-auto h-1/6">
                             <a href="{{ path('deleteAlbum', {idAlbum:album.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
                                 X
                             </a>
