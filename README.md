@@ -20,6 +20,3 @@ composer require easycorp/easyadmin-bundle
 #Format date in twig :
 1/ composer require twig/intl-extra
 2/ composer require twig/extra-bundle
-
-#manage error pages
-composer require symfony/twig-pack
