@@ -14,7 +14,7 @@ class SearchByYearType extends AbstractType
     {
         $builder
             ->add('annee', TextType::class, [
-                'attr' => ['class' => 'w-96 rounded-lg p-4'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 w-96 p-4'],
                 'label'=>false,
             ])
         ;

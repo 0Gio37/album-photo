@@ -18,6 +18,9 @@
     {% endblock %}
 
     <style>
+        body, header, aside, nav, .main-input{
+            background-color: #161616;
+        }
         .modal {
             transition: opacity 0.25s ease;
         }
@@ -29,7 +32,7 @@
     </style>
 </head>
 
-<body class="bg-gray-800 h-screen font-sans leading-normal tracking-normal mt-12">
+<body class="h-screen font-sans leading-normal tracking-normal mt-12">
     <header>
         {% include 'component/header.html.twig' %}
     </header>

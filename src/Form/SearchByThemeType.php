@@ -19,7 +19,7 @@ class SearchByThemeType extends AbstractType
                 'class'=>Theme::class,
                 'choice_label'=>'titre',
                 'label'=>false,
-                'attr' => ['class' => 'bg-gray-800 rounded-lg text-xl text-gray-100 flex justify-center m-auto px-16 py-2 cursor-pointer'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 flex justify-center m-auto px-16 py-2'],
             ])
         ;
     }

@@ -10,7 +10,7 @@
             {% include 'component/aside-search.html.twig'%}
         </aside>
 
-        <div class="col-span-5 main-content flex-1 bg-gray-800 mt-12 md:mt-2">
+        <div class="col-span-5 main-content flex-1 mt-12 md:mt-2">
 
         {%  include 'component/inputAddPhoto.html.twig' %}
 
@@ -21,12 +21,12 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {% for photo in photoList %}
-                    <div class="w-full bg-gray-300 rounded-lg py-6 px-2 shadow-lg flex flex-col justify-center items-center">
+                    <div class="w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg py-6 px-2 shadow-lg flex flex-col justify-center items-center">
                         <div class="h-3/5">
                             {% set equi = '' %}
                             {% set equi = photo.file %}
                               <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre} ) }}" >
-                                <img class="object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="photo">
+                                <img class="border border-1 border-blue-700 shadow-lg object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="photo">
                             </a>
                         </div>
                         <div class="text-center h-2/5">

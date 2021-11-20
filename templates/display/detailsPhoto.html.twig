@@ -6,30 +6,30 @@
 
     <section class="grid grid-cols-6">
 
-        <div class="flex justify-center mt-2 mb-2 col-start-6">
+        <div class="flex justify-center mt-6 mb-2 col-start-6">
             <a href="{{ app.request.headers.get('referer') }}">
-                <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                <button class="px-5 py-2 text-md rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
                     X
                 </button>
             </a>
         </div>
 
 
-        <div class="w-full col-start-2 col-span-4 py-2 px-2 bg-gray-300 rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
+        <div class="w-full col-start-2 col-span-4 py-2 px-2 bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
             <div>
                 {% set equi = '' %}
                 {% set equi = selectedPhoto.file %}
-                <img class="object-center object-cover h-auto w-full" src='{{ asset('uploads/'~equi) }}' alt="photo">
+                <img class="object-center object-cover border border-1 border-blue-700 shadow-lg h-auto w-full" src='{{ asset('uploads/'~equi) }}' alt="photo gros plan">
             </div>
             <div>
                 {% if selectedPhoto.commentaire == '' %}
-                    <p class="text-2xl italic text-gray-800 font-bold"> "Aucun commentaire ..."</p>
+                    <p class="text-2xl italic text-gray-900 font-bold"> "Aucun commentaire ..."</p>
                 {%  else %}
-                    <p class="text-2xl italic text-gray-800 font-bold"> " {{ selectedPhoto.commentaire }} "</p>
+                    <p class="text-2xl italic text-gray-900 font-bold"> " {{ selectedPhoto.commentaire }} "</p>
                 {% endif %}
             </div>
-            <div class="text-center w-2/3 py-8 sm:py-6 border border-1 border-blue-600">
-                <p class="text-base text-left text-gray-500 font-normal underline">Présent(s) :</p>
+            <div class="text-center w-2/3 py-8 sm:py-6 border border-1 border-gray-600">
+                <p class="text-base text-left text-gray-700 font-normal underline">Présent(s) :</p>
                 {% for lien in  lienTagPhotoList %}
                     {% if lien.photo.id == selectedPhoto.id %}
                         {% for tag in tagList %}
@@ -41,7 +41,7 @@
                 {% endfor %}
             </div>
             <div class="text-center py-8 sm:py-6">
-                <p class="text-base text-gray-500 font-normal">
+                <p class="text-base text-gray-600 font-normal">
                     - Posté le {{ selectedPhoto.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}, par {{ selectedPhoto.auteur.username }}
                     |  {{ selectedPhoto.album.titre }}  -
                 </p>
