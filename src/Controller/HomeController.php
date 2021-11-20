@@ -31,7 +31,7 @@ class HomeController extends AbstractController
      */
     public function index(PhotoRepository $PhotoRepository, Request $request): Response
     {
-        $photoList = $PhotoRepository->findBy([], ['id'=>'DESC'],12);
+        $photoList = $PhotoRepository->findBy([], ['id'=>'DESC'],16);
 
         $byTag = new SearchByTag();
         $formSearchByTag = $this->createForm(SearchByTagType::class,$byTag);

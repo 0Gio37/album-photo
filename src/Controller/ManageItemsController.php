@@ -2,11 +2,6 @@
 
 namespace App\Controller;
 use App\Repository\AlbumRepository;
-
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
 use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,7 +17,6 @@ class ManageItemsController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-
 
     /**
      * @Route("/manage/supp-photo-fromhome/{idPhoto}", name="deletePhotoFromHome")
@@ -100,7 +94,5 @@ class ManageItemsController extends AbstractController
 
         return $this->redirectToRoute('home');
     }
-
-
 
 }

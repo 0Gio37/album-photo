@@ -7,7 +7,6 @@ use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
 use App\Repository\ThemeRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -184,7 +183,6 @@ class DisplayAllController extends AbstractController
     {
         $this->toggleBtn =  true;
         $photoAllList = $PhotoRepository->findBy([], ['id'=>'DESC']);
-        //dd($photoAllList);
 
         return $this->render('display/all-photos.html.twig', [
             'photoAllList' => $photoAllList,

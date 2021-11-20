@@ -3,13 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Album;
-use App\Entity\Comment;
 use App\Entity\Image;
 use App\Entity\LienTagPhoto;
 use App\Entity\Photo;
 use App\Entity\Tag;
 use App\Form\AlbumType;
-use App\Form\CommentType;
 use App\Form\ImageType;
 use App\Form\LienTagPhotoType;
 use App\Form\PhotoType;
@@ -25,10 +23,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 
 class AddPhotoController extends AbstractController
 {
@@ -42,7 +36,7 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-photo", name="add_photo")
      */
-    public function addPhoto(Request $request, SluggerInterface $slugger, ImageRepository $ImageRepository,  UserRepository $UserRepository, TagRepository $TagRepository, PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository,  EntityManagerInterface $em ): Response
+    public function addPhoto(Request $request, ImageRepository $ImageRepository,  UserRepository $UserRepository,  EntityManagerInterface $em ): Response
     {
         $visibleTaggedPersonnBtn = false;
         $showCurrentPhotoTwig = false;

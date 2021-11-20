@@ -15,12 +15,12 @@ class SearchByTagType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'attr' => ['class' => 'w-96 rounded-lg p-4'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 w-96 p-4'],
                 'label'=> false,
                 'required'=>false,
             ])
             ->add('prenom', TextType::class, [
-                'attr' => ['class' => 'w-96 rounded-lg p-4'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 w-96 p-4'],
                 'label'=>false,
                 'required'=>false,
 
