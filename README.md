@@ -1,5 +1,3 @@
-#album-photo
-
 #install symfony :
 symfony new "project" --full
 

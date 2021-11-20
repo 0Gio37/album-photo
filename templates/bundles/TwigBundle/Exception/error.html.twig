@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1 class="text-base text-2xl font-bold text-blue-600">Problème de connexion au serveur</h1>
+
+    <p>
+        Cliquer sur le lien ci-dessous pour revenir à la page d'acceuil
+    </p>
+
+    <div class="flex justify-center m-10 px-20">
+        <a href="{{ path('home') }}">
+            <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                Retour Page d'accueil
+            </button>
+        </a>
+    </div>
+
+{% endblock %}
