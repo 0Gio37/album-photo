@@ -64,6 +64,11 @@ class Photo
      */
     private $file;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $annee;
+
 
     public function __construct()
     {
@@ -228,6 +233,18 @@ class Photo
     public function setFile(string $file): self
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getAnnee(): ?string
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(?string $annee): self
+    {
+        $this->annee = $annee;
 
         return $this;
     }
