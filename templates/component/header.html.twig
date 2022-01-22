@@ -1,4 +1,4 @@
-<nav class="grid grid-cols-6 justify-between md:pt-1 p-2 mt-0 h-auto fixed w-full z-20 top-0 border-b border-gray-600 shadow-lg">
+<nav class="lg:grid lg:grid-cols-6 lg:justify-between lg:pt-1 p-2 mt-0 h-auto fixed w-full z-20 top-0 border-b border-gray-600 shadow-lg flex justify-between">
     <div class="flex justify-center">
         <a class="flex text-white no-underline hover:text-white hover:no-underline" href="{{ path('home') }}">
             <div class="flex">
@@ -6,7 +6,39 @@
             </div>
         </a>
     </div>
-    <div class="flex col-span-4">
+
+
+    {# responsive menu : burger #}
+    <div class="flex col-span-4  block lg:hidden flex justify-center col-span-4">
+        <button>
+            <svg id="menuNav" class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
+
+        {# responsive menu : block list #}
+        <div id="menuList" class="position: fixed mt-16 px-32 py-12" style="background-color: #161616">
+            <ul class="list-reset m-auto md:flex-none items-center flex">
+                <div>
+                    <li class="mx-10 pb-6">
+                        <a class="inline-block py-2 px-4  text-lg text-white hover:text-blue-500 rounded-lg hover:bg-gray-700" href="{{ path('displayAllTheme') }}">THEMATIQUES</a>
+                    </li>
+                    <li class="mx-10">
+                        <a class="inline-block py-2 px-4 text-lg  text-white hover:text-blue-500 rounded-lg hover:bg-gray-700" href="{{ path('displayAllYear') }}">ANNEES</a>
+                    </li>
+                </div>
+                <div>
+                    <li class="mx-10 pb-6">
+                        <a class="inline-block py-2 px-4 text-lg  text-white hover:text-blue-500 rounded-lg hover:bg-gray-700" href="{{ path('displayAllAlbumAntiChrono') }}">ALBUMS</a>
+                    </li>
+                    <li class="mx-10">
+                        <a class="inline-block py-2 px-4 text-lg  text-white hover:text-blue-500 rounded-lg hover:bg-gray-700" href="{{ path('displayAllPhotoAntiChrono') }}">PHOTOS</a>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="hidden lg:block flex col-span-4">
         <ul class="list-reset flex m-auto md:flex-none items-center">
             <li class="mx-10">
                 <a class="inline-block py-2 px-4  text-lg text-white hover:text-blue-500 rounded-lg hover:bg-gray-700" href="{{ path('displayAllTheme') }}">THEMATIQUES</a>
@@ -23,9 +55,10 @@
         </ul>
     </div>
 
+
     <div class="col-start-6 flex justify-end px-8">
         <div class="relative inline-block">
-            <button onclick="toggleDD('myDropdown')" class="drop-button text-white focus:outline-none"> <span class="pr-2"><i class="far fa-user-circle"></i></span>
+            <button onclick="toggleDD('myDropdown')" class="drop-button text-white text-sm focus:outline-none"> <span class="pr-2"><i class="far fa-user-circle"></i></span>
                 {% if app.user.prenom %}
                     Bonjour, {{ app.user.prenom }} <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 {%  else %}
@@ -33,14 +66,14 @@
                 {% endif %}
 
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg></button>
-            <div id="myDropdown" class="dropdownlist w-full absolute bg-gray-800 text-white right-0 overflow-auto z-30 invisible">
+            <div id="myDropdown" class="dropdownlist w-full absolute text-white right-0 overflow-auto z-30 invisible" style="background-color: #161616">
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="mt-3 rounded-full bg-gray-700 hover:bg-blue-600">
-                        <a href="{{ path('admin') }}" class="p-2 text-white text-sm no-underline hover:no-underline block"><i class="fas fa-user-shield"></i>  Mon DashBoard</a>
+                        <a href="{{ path('admin') }}" class="p-2 text-white text-xs no-underline hover:no-underline block"><i class="fas fa-user-shield"></i>  Mon DashBoard</a>
                     </div>
                 {% endif %}
                 <div class="mt-3 rounded-full bg-gray-700 hover:bg-blue-600">
-                    <a href="{{ path('logout') }}" class="p-2 text-red-500 text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i>  Se déconnecter</a>
+                    <a href="{{ path('logout') }}" class="p-2 text-red-500 text-xs no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i>  Se déconnecter</a>
                 </div>
             </div>
         </div>
