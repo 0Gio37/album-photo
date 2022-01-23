@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="FR-fr">
 
 <head>
     <meta charset="UTF-8">
@@ -42,9 +42,6 @@
             border: solid greenyellow;
             box-shadow: yellowgreen;
         }
-
-
-
     </style>
 </head>
 
@@ -56,8 +53,12 @@
     {% block body %}{% endblock %}
 
 
-
 <script>
+    /*responsive menu with Hamburger */
+    document.getElementById("menuNav").addEventListener("click", ()=> {
+        document.getElementById("menuList").classList.toggle("hidden")
+    })
+
     /*Toggle dropdown list*/
     function toggleDD(myDropMenu) {
         document.getElementById(myDropMenu).classList.toggle("invisible");
@@ -79,12 +80,12 @@
     }
     // Close the dropdown menu if the user clicks outside of it
     window.onclick = function(event) {
-        if (!event.target.matches('.drop-button') && !event.target.matches('.drop-search')) {
+        if (!event.target.matches(".drop-button") && !event.target.matches(".drop-search")) {
             let dropdowns = document.getElementsByClassName("dropdownlist");
             for (let i = 0; i < dropdowns.length; i++) {
                 let openDropdown = dropdowns[i];
-                if (!openDropdown.classList.contains('invisible')) {
-                    openDropdown.classList.add('invisible');
+                if (!openDropdown.classList.contains("invisible")) {
+                    openDropdown.classList.add("invisible");
                 }
             }
         }
@@ -92,7 +93,7 @@
 
     let openModal = document.querySelectorAll('.modal-open')
     for (let i = 0; i < openModal.length; i++) {
-        openModal[i].addEventListener('click', function(event){
+        openModal[i].addEventListener("click", function(event){
             event.preventDefault()
             toggleModal()
         })
@@ -103,7 +104,7 @@
 
     let closeModal = document.querySelectorAll('.modal-close')
     for (let i = 0; i < closeModal.length; i++) {
-        closeModal[i].addEventListener('click', toggleModal)
+        closeModal[i].addEventListener("click", toggleModal)
     }
 
     document.onkeydown = function(evt) {
@@ -114,7 +115,7 @@
         } else {
             isEscape = (evt.keyCode === 27)
         }
-        if (isEscape && document.body.classList.contains('modal-active')) {
+        if (isEscape && document.body.classList.contains("modal-active")) {
             toggleModal()
         }
     };
@@ -145,7 +146,7 @@
     let allActive = [activeModal1, activeModal2, activeModal3, activeModal4,activeModal5,activeModal6]
 
   for (let i in allActive){
-      allActive[i].addEventListener('click', () => {
+      allActive[i].addEventListener("click", () => {
           allModal.map(item => item.setAttribute("style", "display:none"));
           allModal[i].setAttribute("style", "display:bloc");
       })
