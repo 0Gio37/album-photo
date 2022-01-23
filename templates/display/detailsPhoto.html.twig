@@ -8,6 +8,10 @@
 
     <section class="grid grid-cols-6">
 
+        <div class="text-center my-12 mx-auto">
+            <p class="text-base text-2xl font-bold text-blue-600">ALBUM : {{ selectedPhoto.album.titre }}</p>
+        </div>
+
         <div class="flex justify-center mt-6 mb-2 col-start-6">
             <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" >
                 <button class="px-5 py-2 text-md rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
@@ -15,6 +19,8 @@
                 </button>
             </a>
         </div>
+
+
 
         <div class="w-full col-start-2 col-span-4 py-2 px-2 bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
 
@@ -57,8 +63,7 @@
             </div>
             <div class="text-center py-8 sm:py-6">
                 <p class="text-base text-gray-600 font-normal">
-                    - Posté le {{ selectedPhoto.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}, par {{ selectedPhoto.auteur.username }}
-                    |  {{ selectedPhoto.album.titre }}  -
+                    - Posté le {{ selectedPhoto.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}, par {{ selectedPhoto.auteur.username }} -
                 </p>
             </div>
         </div>
