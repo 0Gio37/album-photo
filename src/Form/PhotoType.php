@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -20,6 +21,8 @@ class PhotoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $currentYear = date('Y');
+
         $builder
             ->add('album', EntityType::class, [
                 'class'=>Album::class,
@@ -34,6 +37,11 @@ class PhotoType extends AbstractType
                 'required'=>false,
                 'label'=>false,
                 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white flex justify-center m-auto px-4 py-2 w-1/2'],
+    ])
+            ->add('annee', TextType::class,[
+                'data'=>$currentYear,
+                'required'=> false,
+                'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white flex justify-center m-auto px-4 py-2 w-1/2'],
     ])
         ;
     }

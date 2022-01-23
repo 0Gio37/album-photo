@@ -65,7 +65,7 @@ class Photo
     private $file;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, options={"default": "null"})
      */
     private $annee;
 

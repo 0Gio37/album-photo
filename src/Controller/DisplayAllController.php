@@ -205,20 +205,50 @@ class DisplayAllController extends AbstractController
     }
 
     /**
-     * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}", name="detailsPhoto")
+     * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
      */
-    public function detailsPhoto(PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum): Response
+    public function detailsPhoto(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
-        $selectedPhoto  = $selectedPhotoArray[0];
+        $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
+        $currentAlbumId = $currentAlbum[0]->getId();
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
+
+        if($status == 1){
+            $selectedPhoto  = $selectedPhotoArray[0];
+        }else{
+            //$status = 0;
+            $currentArrayAlbumPhoto = $PhotoRepository->findBy(['album'=>$currentAlbumId]);
+            if($count >= count($currentArrayAlbumPhoto)){
+                $count = 0;
+                $selectedPhoto = $currentArrayAlbumPhoto[$count];
+            }elseif ($count < 0){
+                $count = count($currentArrayAlbumPhoto)-1;
+                $selectedPhoto = $currentArrayAlbumPhoto[$count];
+            }
+            else{
+                $selectedPhoto = $currentArrayAlbumPhoto[$count];
+            }
+        }
+
         return $this->render(
             'display/detailsPhoto.html.twig',[
             'selectedPhoto'=>$selectedPhoto,
+            'idPhoto'=>$idPhoto,
             'titleAlbum'=>$titleAlbum,
             'lienTagPhotoList'=>$lienTagPhotoList,
             'tagList'=>$tagList,
+            'count'=>$count,
+            'currentAlbumId'=>$currentAlbumId,
         ]);
     }
+
+
+
+
+
+
+
+
 }
