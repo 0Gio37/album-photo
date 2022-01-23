@@ -42,6 +42,7 @@ class AddPhotoController extends AbstractController
         $showCurrentPhotoTwig = false;
         $currentImageFileName = '';
 
+
         $image = new Image();
         $imageForm = $this->createForm(ImageType::class, $image);
         $imageForm->handleRequest($request);

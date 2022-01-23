@@ -4,23 +4,38 @@
 
 {% block body %}
 
+
+
     <section class="grid grid-cols-6">
 
         <div class="flex justify-center mt-6 mb-2 col-start-6">
-            <a href="{{ app.request.headers.get('referer') }}">
+            <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" >
                 <button class="px-5 py-2 text-md rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
                     X
                 </button>
             </a>
         </div>
 
-
         <div class="w-full col-start-2 col-span-4 py-2 px-2 bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
-            <div>
-                {% set equi = '' %}
-                {% set equi = selectedPhoto.file %}
-                <img class="object-center object-cover border border-1 border-blue-700 shadow-lg rounded-lg h-auto w-full" src='{{ asset('uploads/'~equi) }}' alt="photo gros plan">
+
+            <div class="flex items-center">
+                <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count-1} ) }}" >
+                    <div class="px-4 py-10 text-xl rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </a>
+                <div>
+                    {% set equi = '' %}
+                    {% set equi = selectedPhoto.file %}
+                    <img class="object-center object-cover border border-1 border-blue-700 shadow-lg rounded-lg m-auto w-4/5" src='{{ asset('uploads/'~equi) }}' alt="photo gros plan">
+                </div>
+                <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count+1} ) }}" >
+                    <div class="px-4 py-10 text-xl rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
             </div>
+
             <div>
                 {% if selectedPhoto.commentaire == '' %}
                     <p class="text-2xl italic text-gray-900 font-bold"> "Aucun commentaire ..."</p>
