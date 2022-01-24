@@ -39,7 +39,6 @@ class PhotoType extends AbstractType
                 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white flex justify-center m-auto px-4 py-2 w-1/2'],
     ])
             ->add('annee', TextType::class,[
-                'data'=>$currentYear,
                 'required'=> false,
                 'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white flex justify-center m-auto px-4 py-2 w-1/2'],
     ])
