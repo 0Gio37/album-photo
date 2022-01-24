@@ -13,11 +13,11 @@
         <div class="flex justify-end mb-3">
             {% if toggleBtn == true %}
                 <a href="{{ path('displayAllPhotoChrono')  }}" >
-                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-up"></i> De la plus ancienne  <i class="fas fa-arrow-circle-up"></i></div>
+                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-up"></i> Voir à partir de la plus ancienne  <i class="fas fa-arrow-circle-up"></i></div>
                 </a>
             {% else %}
                 <a href="{{ path('displayAllPhotoAntiChrono')  }}" >
-                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-down"></i> De la plus récente <i class="fas fa-arrow-circle-down"></i></div>
+                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-down"></i> Voir à partir de la plus récente <i class="fas fa-arrow-circle-down"></i></div>
                 </a>
             {% endif %}
         </div>
@@ -35,6 +35,18 @@
                     <div class="h-2/6 text-center mb-4">
                         <p class="text-base text-gray-800 font-normal">{{ photo.album.titre }}</p>
                     </div>
+
+                    {% if photo.annee == null %}
+                        <div class="h-2/6 text-center mb-4">
+                            <p class="text-base text-gray-800 font-normal italic">"Année non renseignée""</p>
+                        </div>
+                        {% else %}
+                            <div class="h-2/6 text-center mb-4">
+                                <p class="text-base text-gray-800 font-normal font-bold">{{ photo.annee }}</p>
+                            </div>
+                    {% endif %}
+
+
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="ml-auto  h-1/6">
                             <a href="{{ path('deletePhotoFromAllPhotos', {idPhoto:photo.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">

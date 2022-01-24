@@ -182,7 +182,7 @@ class DisplayAllController extends AbstractController
     public function displayAllPhotoAntiChrono(PhotoRepository $PhotoRepository): Response
     {
         $this->toggleBtn =  true;
-        $photoAllList = $PhotoRepository->findBy([], ['id'=>'DESC']);
+        $photoAllList = $PhotoRepository->findBy([], ['annee'=>'DESC']);
 
         return $this->render('display/all-photos.html.twig', [
             'photoAllList' => $photoAllList,
@@ -196,7 +196,7 @@ class DisplayAllController extends AbstractController
     public function displayAllPhotoChrono(PhotoRepository $PhotoRepository): Response
     {
         $this->toggleBtn =  false;
-        $photoAllList = $PhotoRepository->findBy([], ['id'=>'ASC']);
+        $photoAllList = $PhotoRepository->findBy([], ['annee'=>'ASC']);
 
         return $this->render('display/all-photos.html.twig', [
             'photoAllList' => $photoAllList,
