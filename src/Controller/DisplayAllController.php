@@ -30,10 +30,11 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/all-year", name="displayAllYear")
      */
-    public function displayAllYear(AlbumRepository $AlbumRepository): Response
+    public function displayAllYear(PhotoRepository $photoRepository ): Response
     {
+
         $yearListSorted =[];
-        $yearListBrut = $AlbumRepository->findBy([], ['annee'=>'DESC']);
+        $yearListBrut = $photoRepository->findBy([], ['annee'=>'DESC']);
         foreach ($yearListBrut as $year){
             array_push($yearListSorted, $year->getAnnee());
     }
@@ -133,8 +134,6 @@ class DisplayAllController extends AbstractController
             $noSpace = trim($test);
             $noSpace = ucfirst($noSpace);
             $item->setTitre($noSpace);}
-
-
 
         return $this->render('display/single-year.html.twig', [
             'albumListByYear' => $albumListByYear,
