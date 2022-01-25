@@ -120,13 +120,15 @@ class DisplayAllController extends AbstractController
     }
 
     /**
-     * @Route("/display/single-year/{albumAnnee}", name="displaySingleYear")
+     * @Route("/display/single-year/{photoAnnee}", name="displaySingleYear")
      */
-    public function displaySingleYear(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository, $albumAnnee): Response
+    public function displaySingleYear(PhotoRepository $photoRepository, AlbumRepository $AlbumRepository, $photoAnnee): Response
     {
-        $albumListByYear = $AlbumRepository->findBy(['annee'=>$albumAnnee], ['titre'=>'ASC']);
-        $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
+        $photoListByYear = $photoRepository->findBy(['annee'=>$photoAnnee], ['id'=>'ASC']);
+        $albumList = $AlbumRepository->findAll();
+        //$photoList = $photoRepository->findBy([], ['id'=>'ASC']);
 
+        /*
         $pattern ='/[A-Z0-9]+/';
         $replacement = '';
         foreach ($albumListByYear as $item){
@@ -134,11 +136,14 @@ class DisplayAllController extends AbstractController
             $noSpace = trim($test);
             $noSpace = ucfirst($noSpace);
             $item->setTitre($noSpace);}
+        */
+        //dd($albumList);
+        //dd($photoListByYear);
 
         return $this->render('display/single-year.html.twig', [
-            'albumListByYear' => $albumListByYear,
-            'photoList'=>$photoList,
-            'albumAnnee'=>$albumAnnee,
+            'photoListByYear' => $photoListByYear,
+            'albumList'=>$albumList,
+            'photoAnnee'=>$photoAnnee,
         ]);
     }
 

@@ -8,41 +8,62 @@
 
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div class="text-center pb-12">
-            <p class="text-base text-2xl font-bold text-blue-600">Tous les albums de l'année {{ albumAnnee  }}</p>
+            <p class="text-base text-2xl font-bold text-blue-600">Tous les photos de l'année {{ photoAnnee  }}</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {% for album in albumListByYear %}
-                <div class="h-80 w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
-                    <div class="h-3/6 mb-4">
 
-                            {% set equi = '' %}
-                            {% for photo in photoList %}
-                                {%  if photo.album.id == album.id %}
-                                    {% set equi = photo.file %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if equi == '' %}
-                                <img class="border border-1 border-blue-700 shadow-lg object-center object-cover h-5/6 w-full" src='{{ asset('img/unexist.jpg') }}' alt="Pas de photo">
-                            {% else %}
-                        <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre} )  }}" >
-                                <img class="border border-1 border-blue-700 shadow-lg object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
-                            {% endif %}
-                        </a>
-                    </div>
-                    <div class="text-center py-8 sm:py-6 h-1/6 mb-4">
-                        <p class="text-3xl text-gray-800 font-bold mb-2">{{ album.titre }}</p>
-                        <p class="text-xl text-gray-800 mb-2">
-                            <a href="{{ path('displayOneTheme', {idTheme:album.theme.id, titreTheme:album.theme.titre} ) }}" >
-                                <span class="underline hover:text-blue-600">
-                                  {{ album.theme.titre|upper }} <i class="far fa-arrow-alt-circle-right"></i>
-                                </span>
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+
+
+
+
+
+
+
+{#
+{% for album in  albumList %}
+{% for photo in  photoListByYear %}
+    {%  if album.titre is same as(photo.album.titre) %}
+        {{ album.titre }}
+    {% endif %}
+{% endfor %}
+{% endfor %}
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+{% for album in albumListByYear %}
+<div class="h-80 w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
+   <div class="h-3/6 mb-4">
+
+           {% set equi = '' %}
+           {% for photo in photoList %}
+               {%  if photo.album.id == album.id %}
+                   {% set equi = photo.file %}
+               {% endif %}
+           {% endfor %}
+           {% if equi == '' %}
+               <img class="border border-1 border-blue-700 shadow-lg object-center object-cover h-5/6 w-full" src='{{ asset('img/unexist.jpg') }}' alt="Pas de photo">
+           {% else %}
+       <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre} )  }}" >
+               <img class="border border-1 border-blue-700 shadow-lg object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+           {% endif %}
+       </a>
+   </div>
+   <div class="text-center py-8 sm:py-6 h-1/6 mb-4">
+       <p class="text-3xl text-gray-800 font-bold mb-2">{{ album.titre }}</p>
+       <p class="text-xl text-gray-800 mb-2">
+           <a href="{{ path('displayOneTheme', {idTheme:album.theme.id, titreTheme:album.theme.titre} ) }}" >
+               <span class="underline hover:text-blue-600">
+                 {{ album.theme.titre|upper }} <i class="far fa-arrow-alt-circle-right"></i>
+               </span>
+           </a>
+       </p>
+   </div>
+</div>
+{% endfor %}
+</div>
+
+#}
+
+
     </section>
 
 {% endblock %}
