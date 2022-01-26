@@ -79,14 +79,14 @@ class DisplayAllController extends AbstractController
         $albumList = $AlbumRepository->findBy([], ['annee'=>'DESC']);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
 
-        $pattern ='/[A-Z0-9]+/';
+        /*$pattern ='/[A-Z0-9]+/';
         $replacement = '';
         foreach ($albumList as $item){
             $test=preg_replace($pattern, $replacement, $item->getTitre());
             $noSpace = trim($test);
             $noSpace = ucfirst($noSpace);
             $item->setTitre($noSpace);}
-
+*/
         return $this->render('display/all-albums.html.twig', [
             'albumList' => $albumList,
             'photoList'=>$photoList,
@@ -213,8 +213,10 @@ class DisplayAllController extends AbstractController
      */
     public function detailsPhoto(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
     {
+        //dd($idPhoto, $titleAlbum, $status,$count);
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
+        //dd($currentAlbum);
         $currentAlbumId = $currentAlbum[0]->getId();
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();

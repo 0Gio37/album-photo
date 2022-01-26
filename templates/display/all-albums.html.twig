@@ -21,10 +21,12 @@
                 </a>
             {% endif %}
         </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {% for album in albumList %}
                 <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
                     <div class="h-3/6 mb-4">
+
                         {% set equi = '' %}
                         {% for photo in photoList %}
                             {%  if photo.album.id == album.id %}
@@ -39,14 +41,17 @@
                         {% endif %}
                             </a>
                     </div>
+
                     <div class="h-2/6 text-center mb-4">
                       <p class="text-3xl text-gray-800 font-bold mb-2">{{ album.titre|replace({'/[^A-Z+]/': ''}) }}</p>
                         <p class="text-xl text-gray-800 mb-2">
-                            <a href="{{ path('displaySingleYear', {albumAnnee:album.annee} ) }}">
+                            {#
+                            <a href="{{ path('displaySingleYear', {photoAnnee:album.annee} ) }}">
                                 <span class="underline hover:text-blue-600">
                                     {{ album.annee }}
                                 </span>
                             </a>
+                        #}
                         <p class="text-xl font-bold text-gray-800 mb-2">
                             <a href="{{ path('displayOneTheme', {idTheme:album.theme.id, titreTheme:album.theme.titre} )  }}" >
                                 <span class=" hover:text-blue-600 font-bold">
@@ -55,6 +60,7 @@
                             </a>
                         </p>
                     </div>
+
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="ml-auto h-1/6">
                             <a href="{{ path('deleteAlbum', {idAlbum:album.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">

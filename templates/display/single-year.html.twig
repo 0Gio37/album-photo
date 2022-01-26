@@ -8,12 +8,18 @@
 
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div class="text-center pb-12">
-            <p class="text-base text-2xl font-bold text-blue-600">Tous les photos de l'année {{ photoAnnee  }}</p>
+            <p class="text-base text-2xl font-bold text-blue-600">Tous les photos de l'année {{ photoAnnee }}</p>
         </div>
 
 
 
-
+        {% for album in  albumList %}
+            {% for photo in  photoListByYear %}
+                {%  if album.titre is same as(photo.album.titre) %}
+                    {{ album.titre }}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
 
 
 
