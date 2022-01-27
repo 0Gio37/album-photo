@@ -125,24 +125,9 @@ class DisplayAllController extends AbstractController
     public function displaySingleYear(PhotoRepository $photoRepository, AlbumRepository $AlbumRepository, $photoAnnee): Response
     {
         $photoListByYear = $photoRepository->findBy(['annee'=>$photoAnnee], ['id'=>'ASC']);
-        $albumList = $AlbumRepository->findAll();
-        //$photoList = $photoRepository->findBy([], ['id'=>'ASC']);
-
-        /*
-        $pattern ='/[A-Z0-9]+/';
-        $replacement = '';
-        foreach ($albumListByYear as $item){
-            $test=preg_replace($pattern, $replacement, $item->getTitre());
-            $noSpace = trim($test);
-            $noSpace = ucfirst($noSpace);
-            $item->setTitre($noSpace);}
-        */
-        //dd($albumList);
-        //dd($photoListByYear);
 
         return $this->render('display/single-year.html.twig', [
             'photoListByYear' => $photoListByYear,
-            'albumList'=>$albumList,
             'photoAnnee'=>$photoAnnee,
         ]);
     }

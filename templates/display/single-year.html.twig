@@ -11,65 +11,46 @@
             <p class="text-base text-2xl font-bold text-blue-600">Tous les photos de l'année {{ photoAnnee }}</p>
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {% for photo in photoListByYear %}
+                {% set equi = '' %}
+                {% set equi = photo.file %}
+                <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
+                    <div class="h-3/6 mb-10">
+                        <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre, status:1, count:0} ) }}" >
+                            <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                        </a>
+                    </div>
+                    <div class="h-1/6 text-center mb-4">
+                        <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:photo.album.id, titleAlbum:photo.album.titre})  }}" >
+                            <p class="text-base text-gray-800 font-normal">{{ photo.album.titre }}</p>
+                        </a>
+                    </div>
+                    <div class="h-1/6 text-center mb-4">
+                        <a href="{{ path('displayOneTheme', {idTheme:photo.album.theme.id, titreTheme:photo.album.theme.titre} )  }}" >
+                            <p class="text-base text-gray-800 font-normal">{{ photo.album.theme | upper }}</p>
+                        </a>
+                    </div>
 
+                    {% if photo.annee == null %}
+                        <div class="h-2/6 text-center mb-4">
+                            <p class="text-base text-gray-800 font-normal italic">"Année non renseignée""</p>
+                        </div>
+                    {% else %}
+                        <div class="h-2/6 text-center mb-4">
+                            <p class="text-base text-gray-800 font-normal font-bold">{{ photo.annee }}</p>
+                        </div>
+                    {% endif %}
 
-        {% for album in  albumList %}
-            {% for photo in  photoListByYear %}
-                {%  if album.titre is same as(photo.album.titre) %}
-                    {{ album.titre }}
-                {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="ml-auto  h-1/6">
+                            <a href="{{ path('deletePhotoFromAllPhotos', {idPhoto:photo.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
+                                X
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
             {% endfor %}
-        {% endfor %}
-
-
-
-
-
-{#
-{% for album in  albumList %}
-{% for photo in  photoListByYear %}
-    {%  if album.titre is same as(photo.album.titre) %}
-        {{ album.titre }}
-    {% endif %}
-{% endfor %}
-{% endfor %}
-
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
-{% for album in albumListByYear %}
-<div class="h-80 w-full h-full bg-gray-300 rounded-lg py-2 px-2 shadow-lg overflow-hidden flex flex-col justify-center items-center">
-   <div class="h-3/6 mb-4">
-
-           {% set equi = '' %}
-           {% for photo in photoList %}
-               {%  if photo.album.id == album.id %}
-                   {% set equi = photo.file %}
-               {% endif %}
-           {% endfor %}
-           {% if equi == '' %}
-               <img class="border border-1 border-blue-700 shadow-lg object-center object-cover h-5/6 w-full" src='{{ asset('img/unexist.jpg') }}' alt="Pas de photo">
-           {% else %}
-       <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre} )  }}" >
-               <img class="border border-1 border-blue-700 shadow-lg object-center object-cover h-5/6 w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
-           {% endif %}
-       </a>
-   </div>
-   <div class="text-center py-8 sm:py-6 h-1/6 mb-4">
-       <p class="text-3xl text-gray-800 font-bold mb-2">{{ album.titre }}</p>
-       <p class="text-xl text-gray-800 mb-2">
-           <a href="{{ path('displayOneTheme', {idTheme:album.theme.id, titreTheme:album.theme.titre} ) }}" >
-               <span class="underline hover:text-blue-600">
-                 {{ album.theme.titre|upper }} <i class="far fa-arrow-alt-circle-right"></i>
-               </span>
-           </a>
-       </p>
-   </div>
-</div>
-{% endfor %}
-</div>
-
-#}
-
-
+        </div>
     </section>
-
 {% endblock %}
