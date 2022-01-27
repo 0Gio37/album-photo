@@ -39,7 +39,7 @@ class Album
     private $theme;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(pattern="/^[0-9]+$/")
      */
     private $annee;

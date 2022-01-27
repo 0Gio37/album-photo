@@ -31,12 +31,14 @@
                     </div>
                     <div class="text-center py-8 sm:py-6 h-2/6 mb-4">
                         <p class="text-3xl text-gray-800 font-bold mb-2">{{ album.titre | upper }}</p>
-                        <p class="text-xl text-gray-800>
-                            <a href="{{ path('displaySingleYear', {albumAnnee:album.annee} ) }}" >
+                        <p class="text-xl text-gray-800">
+
+                            {# <a href="{{ path('displaySingleYear', {albumAnnee:album.annee} ) }}" >
                                 <span class="underline hover:text-blue-600">
                                     {{ album.annee }}
                                 </span>
-                            </a>
+                            </a>#}
+
                     </div>
                 </div>
             {% endfor %}

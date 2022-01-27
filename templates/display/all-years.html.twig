@@ -13,13 +13,22 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-5">
             {% for year in yearListSortedUnique %}
-                <a href="{{ path('displaySingleYear', {albumAnnee:year} )  }}" >
-                    <div class="hover:bg-blue-600   w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex justify-center items-center items-stretch">
-                        <div class="text-center hover:text-blue-700 text-3xl text-gray-800 font-bold mb-2 py-8 sm:py-6">
-                          {{ year }}
+                {% if year == null %}
+                    <a href="{{ path('displaySingleYear', {photoAnnee:0000} )  }}" > <div class="hover:bg-blue-600   w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex justify-center items-center items-stretch">
+                            <div class="text-center hover:text-blue-700 text-3xl text-gray-800 font-bold mb-2 py-8 sm:py-6">
+                                Sans date
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                {% else %}
+                    <a href="{{ path('displaySingleYear', {photoAnnee:year} )  }}" >
+                        <div class="hover:bg-blue-600   w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex justify-center items-center items-stretch">
+                            <div class="text-center hover:text-blue-700 text-3xl text-gray-800 font-bold mb-2 py-8 sm:py-6">
+                                {{ year }}
+                            </div>
+                        </div>
+                    </a>
+                {% endif %}
             {% endfor %}
         </div>
     </section>
