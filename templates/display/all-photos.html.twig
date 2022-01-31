@@ -27,28 +27,37 @@
                 {% set equi = '' %}
                 {% set equi = photo.file %}
                 <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
-                    <div class="h-3/6 mb-10">
+                    <div class="h-3/6 mb-1">
                         <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre, status:1, count:0} ) }}" >
                             <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
                         </a>
                     </div>
-                    <div class="h-2/6 text-center mb-4">
-                        <p class="text-base text-gray-800 font-normal">{{ photo.album.titre }}</p>
+                    <div class="text-center mb-2">
+                        <p class="text-base text-left text-gray-800 font-bold">Theme:</p>
+                        <a href="{{ path('displayOneTheme', {idTheme:photo.album.theme.id, titreTheme:photo.album.theme.titre} )  }}" >
+                            <p class="text-base text-gray-800 hover:font-bold hover:text-blue-600 hover:underline">{{ photo.album.theme | upper }}</p>
+                        </a>
                     </div>
-
+                    <div class="border-b-2 border-gray-500 w-full"></div>
+                    <div class="text-center mb-1">
+                        <p class="text-base text-left text-gray-800 font-bold">Album:</p>
+                        <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:photo.album.id, titleAlbum:photo.album.titre})  }}" >
+                            <p class="text-base text-gray-800 hover:font-bold hover:text-blue-600 hover:underline">{{ photo.album.titre }}</p>
+                        </a>
+                    </div>
                     {% if photo.annee == null %}
-                        <div class="h-2/6 text-center mb-4">
+                        <div class="text-center">
                             <p class="text-base text-gray-800 font-normal italic">"Année non renseignée""</p>
                         </div>
-                        {% else %}
-                            <div class="h-2/6 text-center mb-4">
-                                <p class="text-base text-gray-800 font-normal font-bold">{{ photo.annee }}</p>
-                            </div>
+                    {% else %}
+                        <div class="h-text-center">
+                            <a href="{{ path('displaySingleYear', {photoAnnee:photo.annee} )  }}" >
+                                <p class="text-base text-center text-gray-800 font-bold hover:text-blue-600 hover:underline">{{ photo.annee }}</p>
+                            </a>
+                        </div>
                     {% endif %}
-
-
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="ml-auto  h-1/6">
+                        <div class="ml-auto">
                             <a href="{{ path('deletePhotoFromAllPhotos', {idPhoto:photo.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
                                 X
                             </a>
