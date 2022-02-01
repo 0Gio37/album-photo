@@ -11,15 +11,35 @@
             <p class="text-base text-2xl font-bold text-blue-600">Toutes les Thématiques</p>
         </div>
 
+
+
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-5">
             {% for theme in themeList %}
-                <a href="{{ path('displayOneTheme', {idTheme:theme.id, titreTheme:theme.titre} )  }}" >
-                    <div class="hover:bg-blue-600 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex justify-center items-center items-stretch">
-                        <div class="text-center hover:text-blue-700 text-3xl text-gray-800 font-bold mb-2 py-8 sm:py-6">
-                          {{ theme.titre | upper }}
+                {% if  theme.albums | length == 0 %}
+                        <div class="w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex justify-center items-center items-stretch cursor-not-allowed">
+                            <div class="text-center text-3xl text-gray-800 font-bold sm:py-6">
+                              {{ theme.titre | upper }}
+                            </div>
                         </div>
-                    </div>
-                </a>
+                {% elseif theme.albums | length == 1 %}
+                    <a href="{{ path('displayOneTheme', {idTheme:theme.id, titreTheme:theme.titre} )  }}" >
+                        <div class="w-full bg-gradient-to-b from-gray-600 to-gray-400 text-gray-800 rounded-lg shadow-lg overflow-hidden justify-center items-center items-stretch">
+                            <div class="text-center hover:text-blue-700 text-3xl font-bold sm:py-6">
+                                {{ theme.titre | upper }}
+                            </div>
+                            <div class="text-right text-sm pr-2 pb-2 italic">{{ theme.albums | length }} album</div>
+                        </div>
+                    </a>
+                {% else %}
+                    <a href="{{ path('displayOneTheme', {idTheme:theme.id, titreTheme:theme.titre} )  }}" >
+                        <div class="w-full bg-gradient-to-b from-gray-600 to-gray-400 text-gray-800 rounded-lg shadow-lg overflow-hidden justify-center items-center items-stretch">
+                            <div class="text-center hover:text-blue-700 text-3xl font-bold sm:py-6">
+                                {{ theme.titre | upper }}
+                            </div>
+                            <div class="text-right text-sm pr-2 pb-2 italic">{{ theme.albums | length }} albums</div>
+                        </div>
+                    </a>
+            {% endif %}
             {% endfor %}
         </div>
     </section>
