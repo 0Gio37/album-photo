@@ -12,12 +12,12 @@
         </div>
         <div class="flex justify-end mb-3">
             {% if toggleBtn == true %}
-                <a href="{{ path('displayAllAlbumChrono')  }}" >
-                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-up"></i> Du plus ancien <i class="fas fa-arrow-circle-up"></i></div>
+                <a href="{{ path('displayAllAlbumAlpha')  }}" >
+                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-up"></i> Voir par ordre alphabétique <i class="fas fa-arrow-circle-up"></i></div>
                 </a>
             {% else %}
-                <a href="{{ path('displayAllAlbumAntiChrono')  }}" >
-                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-down"></i> Du plus récent <i class="fas fa-arrow-circle-down"></i></div>
+                <a href="{{ path('displayAllAlbumNonAlpha')  }}" >
+                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-down"></i> Voir par order non alphabétique <i class="fas fa-arrow-circle-down"></i></div>
                 </a>
             {% endif %}
         </div>
@@ -26,7 +26,6 @@
             {% for album in albumList %}
                 <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
                     <div class="h-3/6 mb-4">
-
                         {% set equi = '' %}
                         {% for photo in photoList %}
                             {%  if photo.album.id == album.id %}
@@ -42,25 +41,25 @@
                             </a>
                     </div>
 
-                    <div class="h-2/6 text-center mb-4">
-                      <p class="text-3xl text-gray-800 font-bold mb-2">{{ album.titre|replace({'/[^A-Z+]/': ''}) }}</p>
-                        <p class="text-xl text-gray-800 mb-2">
-                            {#
-                            <a href="{{ path('displaySingleYear', {photoAnnee:album.annee} ) }}">
-                                <span class="underline hover:text-blue-600">
-                                    {{ album.annee }}
-                                </span>
-                            </a>
-                        #}
-                        <p class="text-xl font-bold text-gray-800 mb-2">
-                            <a href="{{ path('displayOneTheme', {idTheme:album.theme.id, titreTheme:album.theme.titre} )  }}" >
-                                <span class=" hover:text-blue-600 font-bold">
-                                   {{ album.theme.titre|upper }}  <i class="far fa-arrow-alt-circle-right"></i>
-                                </span>
-                            </a>
-                        </p>
-                    </div>
+                    <div class="text-center mb-4">
+                        <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre})  }}" >
+                            <p class="text-base text-gray-800 font-bold hover:text-blue-600 hover:underline">{{ album.titre }}</p>
+                        </a>
+                        {% if album.annee == null %}
+                            <p class="text-base text-gray-800 hover:font-bold"> - </p>
+                        {% else %}
+                            <p class="text-base text-gray-800 hover:font-bold">{{ album.annee }}</p>
+                        {% endif %}
 
+                    </div>
+                    <div class="border-b-2 border-gray-500 w-full"></div>
+
+                    <div class="text-center">
+                        <p class="text-base text-left text-gray-800 font-bold">Theme:</p>
+                        <a href="{{ path('displayOneTheme', {idTheme:album.theme.id, titreTheme:album.theme.titre} )  }}" >
+                            <p class="text-base text-gray-800 hover:font-bold hover:text-blue-600 hover:underline">{{ album.theme.titre|upper}}</p>
+                        </a>
+                    </div>
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="ml-auto h-1/6">
                             <a href="{{ path('deleteAlbum', {idAlbum:album.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">

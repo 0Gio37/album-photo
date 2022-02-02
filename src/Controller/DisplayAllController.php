@@ -52,7 +52,7 @@ class DisplayAllController extends AbstractController
     {
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
         $listAlbumsByTheme = $AlbumRepository->findBy(['theme'=>$idTheme], ['id'=>'ASC']);
-
+/*
         $pattern ='/[A-Z0-9]+/';
         $replacement = '';
         foreach ($listAlbumsByTheme as $item){
@@ -60,6 +60,7 @@ class DisplayAllController extends AbstractController
             $noSpace = trim($test);
             $noSpace = ucfirst($noSpace);
             $item->setTitre($noSpace);}
+        */
 
         return $this->render('display/single-theme.html.twig', [
             'listAlbumsByTheme'=>$listAlbumsByTheme,
@@ -70,13 +71,13 @@ class DisplayAllController extends AbstractController
 
 
     /**
-     * @Route("/display/all-album-inversChrono", name="displayAllAlbumAntiChrono")
+     * @Route("/display/all-album-non-alpha", name="displayAllAlbumNonAlpha")
      */
     public function displayAllAlbumAntiChrono(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository): Response
     {
         $this->toggleBtn =  true;
 
-        $albumList = $AlbumRepository->findBy([], ['annee'=>'DESC']);
+        $albumList = $AlbumRepository->findBy([], ['titre'=>'DESC']);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
 
         /*$pattern ='/[A-Z0-9]+/';
@@ -95,15 +96,15 @@ class DisplayAllController extends AbstractController
     }
 
     /**
-     * @Route("/display/all-album-Chrono", name="displayAllAlbumChrono")
+     * @Route("/display/all-album-alpha", name="displayAllAlbumAlpha")
      */
     public function displayAllAlbumChrono(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository): Response
     {
         $this->toggleBtn =  false;
 
-        $albumList = $AlbumRepository->findBy([], ['annee'=>'ASC']);
+        $albumList = $AlbumRepository->findBy([], ['titre'=>'ASC']);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
-
+/*
         $pattern ='/[A-Z0-9]+/';
         $replacement = '';
         foreach ($albumList as $item){
@@ -111,6 +112,7 @@ class DisplayAllController extends AbstractController
             $noSpace = trim($test);
             $noSpace = ucfirst($noSpace);
             $item->setTitre($noSpace);}
+*/
 
         return $this->render('display/all-albums.html.twig', [
             'albumList' => $albumList,
@@ -155,7 +157,6 @@ class DisplayAllController extends AbstractController
     {
         $this->toggleBtn =  false;
         $listPhotoAlbum = $PhotoRepository->findBy(['album'=>$idAlbum], ['id'=>'ASC']);
-        //dd($listPhotoAlbum);
 
         return $this->render('display/single-album.html.twig', [
             'idAlbum'=>$idAlbum,
@@ -198,7 +199,6 @@ class DisplayAllController extends AbstractController
      */
     public function detailsPhoto(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
     {
-        //dd($idPhoto, $titleAlbum, $status,$count);
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
         //dd($currentAlbum);
@@ -209,7 +209,6 @@ class DisplayAllController extends AbstractController
         if($status == 1){
             $selectedPhoto  = $selectedPhotoArray[0];
         }else{
-            //$status = 0;
             $currentArrayAlbumPhoto = $PhotoRepository->findBy(['album'=>$currentAlbumId]);
             if($count >= count($currentArrayAlbumPhoto)){
                 $count = 0;
