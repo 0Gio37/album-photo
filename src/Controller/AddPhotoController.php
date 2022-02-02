@@ -156,4 +156,12 @@ class AddPhotoController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/new-tag/{idPhoto}", name="new_tag")
+     */
+    public function newTag(Request $request, TagRepository $TagRepository, LienTagPhotoRepository $LienTagPhotoRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em)
+    {
+
+    }
 }
