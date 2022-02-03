@@ -46,12 +46,15 @@
 </head>
 
 <body class="h-screen font-sans leading-normal tracking-normal mt-12">
-    <header>
-        {% include 'component/header.html.twig' %}
-    </header>
+
+    {% if app.request.get('_route') is same as('detailsPhoto') %}
+    {%  else %}
+        <header>
+          {% include 'component/header.html.twig' %}
+        </header>
+    {% endif %}
 
     {% block body %}{% endblock %}
-
 
 <script>
     /*responsive menu with Hamburger */

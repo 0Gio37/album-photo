@@ -4,22 +4,17 @@
 
 {% block body %}
 
-
-
     <section class="grid grid-cols-6">
-        <div class="flex justify-center mt-6 mb-2 col-start-6 fixed top-12 right-36">
+        <div class="flex justify-center mt-6 mb-2 col-start-6 fixed top-3 left-24">
             <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" >
-                <button class="px-5 py-2 text-md rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                <button class="px-5 py-2 text-md rounded-full text-gray-300 bg-red-900 hover:bg-red-700">
                     X
                 </button>
             </a>
         </div>
 
-        <div class="text-center pb-12 col-start-2 col-span-4 mt-6">
-            <p class="text-base text-2xl font-bold text-blue-600">De l'album : {{ selectedPhoto.album.titre }}</p>
-        </div>
 
-        <div class="w-full col-start-2 col-span-4 py-2 px-2 bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
+        <div class="h-screen w-full col-start-2 col-span-4 py-2 px-2 bg-black rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
 
             <div class="flex items-center">
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count-1} ) }}" >
@@ -38,11 +33,16 @@
                     </div>
                 </a>
             </div>
+
             <div class="text-center pt-2 pb-6">
                 <p class="text-base text-gray-600 font-normal">
                     - Posté le {{ selectedPhoto.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}, par {{ selectedPhoto.auteur.username }} -
                 </p>
+                <p class="text-base text-gray-600 font-normal">
+                    - Album : {{ selectedPhoto.album.titre }} | Thématique : {{ selectedPhoto.album.theme.titre }} -
+                </p>
             </div>
+
             <div class="text-gray-700 w-full grid gap-6 grid-cols-2 px-4">
                 <div class="flex justify-between border border-1 border-gray-600 shadow-lg rounded-lg p-2">
                     <div>
@@ -55,9 +55,7 @@
 
                     </div>
                     <div>
-
-                            <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
-
+                        <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
                     </div>
                 </div>
 
@@ -79,7 +77,7 @@
                         {% endif %}
                     </div>
                     <div>
-                        <a href="{{ path('add_tag') }}">
+                        <a href="{{ path('add_tag', {idPhoto:idPhoto}) }}">
                             <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
                         </a>
                     </div>
