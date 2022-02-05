@@ -122,9 +122,9 @@ class AddPhotoController extends AbstractController
 
         if ($formTag->isSubmitted() && $formTag->isValid()) {
             $dataTag = $formTag->getData();
-
             $em->persist($dataTag);
             $em->flush();
+
             $tagList= $TagRepository-> findBy([],['id'=>'DESC'],1);
             $tagId = $tagList[0];
             $linkTagPhoto->setTag($tagId);
@@ -156,4 +156,55 @@ class AddPhotoController extends AbstractController
             ]
         );
     }
+    /**
+     * @Route("/add-new-tag/{titleAlbum}/{photoId}/{status}/{count}", name="add_new_tag")
+     */
+    public function addNewTag(Request $request, TagRepository $TagRepository, LienTagPhotoRepository $LienTagPhotoRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
+    {
+        $tag = new Tag();
+        $formTag = $this->createForm(TagType::class, $tag);
+        $formTag->handleRequest($request);
+
+        $linkTagPhoto = new LienTagPhoto();
+        $formLinkTagPhoto = $this->createForm(LienTagPhotoType::class, $linkTagPhoto);
+        $formLinkTagPhoto->handleRequest($request);
+
+        if ($formTag->isSubmitted() && $formTag->isValid()) {
+            $dataTag = $formTag->getData();
+            $em->persist($dataTag);
+            $em->flush();
+
+            $tagList= $TagRepository-> findBy([],['id'=>'DESC'],1);
+            $tagId = $tagList[0];
+            $linkTagPhoto->setTag($tagId);
+
+            $currentPhoto= $PhotoRepository-> findOneBy(['id'=>$photoId]);
+            $linkTagPhoto->setPhoto($currentPhoto);
+
+            $dataLinkTagPhoto= $formLinkTagPhoto->getData();
+            $em->persist($dataLinkTagPhoto);
+            $em->flush();
+        }
+
+        $taggedPersonns = [];
+        $listTagIdEquivalent = $LienTagPhotoRepository->findBy(['photo'=>$photoId]);
+        foreach ($listTagIdEquivalent as $idEquivalent){
+            $personn = $TagRepository->findby(['id'=>$idEquivalent->getTag()->getId()]);
+            array_push($taggedPersonns, $personn);
+        }
+
+        return $this->render(
+            'home/addNewtag.html.twig', [
+                'tagForm'=>$formTag->createView(),
+                'photoId'=>$photoId,
+                'taggedPersonns' => $taggedPersonns,
+                'titleAlbum'=>$titleAlbum,
+                'count'=>$count,
+                'status'=>$status,
+            ]
+
+        );
+
+    }
+
 }

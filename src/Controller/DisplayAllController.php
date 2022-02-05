@@ -201,7 +201,6 @@ class DisplayAllController extends AbstractController
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
-        //dd($currentAlbum);
         $currentAlbumId = $currentAlbum[0]->getId();
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
@@ -221,6 +220,11 @@ class DisplayAllController extends AbstractController
                 $selectedPhoto = $currentArrayAlbumPhoto[$count];
             }
         }
+
+
+
+
+
 
         return $this->render(
             'display/detailsPhoto.html.twig',[
