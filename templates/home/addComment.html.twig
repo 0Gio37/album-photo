@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter des personnes{% endblock %}
+
+{% block body %}
+
+    <div class="pt-6">
+        <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-screen">
+            <section class="flex justify-between mb-10 px-20">
+                <div>
+                    <a href="{{ path('add_photo') }}">
+                        <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">
+                            Ajouter une autre photo
+                        </button>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ path('home') }}">
+                        <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                            Retour Page d'accueil
+                        </button>
+                    </a>
+                </div>
+            </section>
+            <section class="rounded-full py-4 bg-green-900 font-bold text-center text-gray-400 px-8">
+                Mettre un commentaire
+            </section>
+
+            <section class="formTag">
+                {{ form_start(commentForm) }}
+                <p class="text-gray-100 text-xl font-bold text-center mt-4 mb-2">Votre texte</p>
+                {{ form_row(commentForm.texte) }}
+                <button id="displayTagListBtn" class="flex mt-6 m-auto px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                    Ajouter
+                </button>
+                {{ form_end(commentForm) }}
+            </section>
+        </div>
+    </div>
+
+{% endblock %}

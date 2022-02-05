@@ -69,12 +69,18 @@ class Photo
      */
     private $annee;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LienCommentPhoto::class, mappedBy="photo")
+     */
+    private $lienCommentPhotos;
+
 
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->lienTagPhotos = new ArrayCollection();
+        $this->lienCommentPhotos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -245,6 +251,36 @@ class Photo
     public function setAnnee(?string $annee): self
     {
         $this->annee = $annee;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LienCommentPhoto[]
+     */
+    public function getLienCommentPhotos(): Collection
+    {
+        return $this->lienCommentPhotos;
+    }
+
+    public function addLienCommentPhoto(LienCommentPhoto $lienCommentPhoto): self
+    {
+        if (!$this->lienCommentPhotos->contains($lienCommentPhoto)) {
+            $this->lienCommentPhotos[] = $lienCommentPhoto;
+            $lienCommentPhoto->setPhoto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLienCommentPhoto(LienCommentPhoto $lienCommentPhoto): self
+    {
+        if ($this->lienCommentPhotos->removeElement($lienCommentPhoto)) {
+            // set the owning side to null (unless already changed)
+            if ($lienCommentPhoto->getPhoto() === $this) {
+                $lienCommentPhoto->setPhoto(null);
+            }
+        }
 
         return $this;
     }
