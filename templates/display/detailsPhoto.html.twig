@@ -13,7 +13,7 @@
             </a>
         </div>
 
-        <div class="h-screen w-full col-start-2 col-span-4 py-2 px-2 bg-black rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
+        <div class="h-screen col-start-2 col-span-4 py-2 px-2 bg-black rounded-lg shadow-lg overflow-hidden flex flex-col items-center">
             <div class="flex items-center">
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count-1} ) }}" >
                     <div class="px-4 py-10 text-xl rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 shadow-md">
@@ -44,14 +44,34 @@
             <div class="text-gray-700 w-full grid gap-6 grid-cols-2 px-4">
                 <div class="flex justify-between border border-1 border-gray-600 shadow-lg rounded-lg p-2">
                     <div>
-                        {% if selectedPhoto.commentaire == '' %}
-                            <p class="text-base italic text-left font-bold"> "Aucun commentaire ..."</p>
-                        {%  else %}
-                            <p class="text-base text-left font-bold">Commentaire(s)</p>
-                            <p class="text-xl italic"> " {{ selectedPhoto.commentaire }} "</p>
+                        {% if lienCommentPhotoList %}
+                            <p class="text-base text-left font-bold">Commentaire(s) :</p>
+                            {% for lien in lienCommentPhotoList %}
+                                {% if lien.photo.id == selectedPhoto.id %}
+                                    {% for comm in commentList %}
+                                        {% if  lien.comment.id == comm.id %}
+                                            <p class="text-left pl-32">- {{ lien.comment.texte }} </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-xl italic text-center font-bold"> "Aucun commentaire ..."</p>
                         {% endif %}
-
                     </div>
+
+
+                        {#
+                        {% if selectedPhoto.commentaire == '' %}
+                         <p class="text-base italic text-left font-bold"> "Aucun commentaire ..."</p>
+                     {%  else %}
+                         <p class="text-base text-left font-bold">Commentaire(s)</p>
+                         <p class="text-xl italic"> " {{ selectedPhoto.commentaire }} "</p>
+                     {% endif %}
+                        #}
+
+
+
                     <div>
                         <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
                     </div>

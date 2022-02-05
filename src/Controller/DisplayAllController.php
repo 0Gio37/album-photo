@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Repository\AlbumRepository;
+use App\Repository\CommentsRepository;
+use App\Repository\LienCommentPhotoRepository;
 use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
@@ -199,13 +201,16 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
      */
-    public function detailsPhoto(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
+    public function detailsPhoto(AlbumRepository $AlbumRepository, CommentsRepository $CommentsRepository, LienCommentPhotoRepository $LienCommentPhotoRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
         $currentAlbumId = $currentAlbum[0]->getId();
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
+        $lienCommentPhotoList = $LienCommentPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
+        $commentList = $CommentsRepository->findAll();
+
 
         if($status == 1){
             $selectedPhoto  = $selectedPhotoArray[0];
@@ -222,29 +227,19 @@ class DisplayAllController extends AbstractController
                 $selectedPhoto = $currentArrayAlbumPhoto[$count];
             }
         }
-
-
-
-
-
-
         return $this->render(
             'display/detailsPhoto.html.twig',[
             'selectedPhoto'=>$selectedPhoto,
             'idPhoto'=>$idPhoto,
             'titleAlbum'=>$titleAlbum,
             'lienTagPhotoList'=>$lienTagPhotoList,
+            'lienCommentPhotoList'=>$lienCommentPhotoList,
             'tagList'=>$tagList,
+            'commentList'=>$commentList,
             'count'=>$count,
             'currentAlbumId'=>$currentAlbumId,
         ]);
     }
-
-
-
-
-
-
 
 
 }
