@@ -7,11 +7,11 @@
     {%  include 'component/inputAddPhoto.html.twig' %}
 
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
-        <div class="text-center pb-12">
+        <div class="pb-12">
             {% if listPhotoAlbum %}
-                <p class="text-base text-2xl font-bold text-blue-600">Toutes les photos de l'album : {{ titleAlbum | upper}} {{ listPhotoAlbum[0].album.annee }}</p>
+                <p class="text-base text-2xl text-gray-400">{{ titleAlbum | upper}} > <span class="text-xl text-blue-600"> > Toutes les photos</span></p>
             {% else %}
-             <p class="text-base text-2xl font-bold text-blue-600">Album Vide</p>
+                <p class="text-base text-2xl text-gray-400">Album Vide</p>
             {% endif %}
         </div>
 
