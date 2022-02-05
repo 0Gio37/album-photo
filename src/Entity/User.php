@@ -47,20 +47,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $prenom;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="auteur")
-     */
-    private $comments;
 
     /**
      * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="auteur")
      */
     private $photos;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="auteur")
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->photos = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -225,6 +227,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($photo->getAuteur() === $this) {
                 $photo->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comments[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Comments $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Comments $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getAuteur() === $this) {
+                $commentaire->setAuteur(null);
             }
         }
 

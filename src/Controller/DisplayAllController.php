@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Repository\AlbumRepository;
+use App\Repository\CommentsRepository;
+use App\Repository\LienCommentPhotoRepository;
 use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
@@ -30,10 +32,11 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/all-year", name="displayAllYear")
      */
-    public function displayAllYear(PhotoRepository $photoRepository ): Response
+    public function displayAllYear(PhotoRepository $photoRepository, AlbumRepository $albumRepository): Response
     {
 
         $yearListSorted =[];
+        $listAlbum = $albumRepository->findAll();
         $yearListBrut = $photoRepository->findBy([], ['annee'=>'DESC']);
         foreach ($yearListBrut as $year){
             array_push($yearListSorted, $year->getAnnee());
@@ -42,6 +45,7 @@ class DisplayAllController extends AbstractController
 
         return $this->render('display/all-years.html.twig', [
             'yearListSortedUnique' => $yearListSortedUnique,
+            'listAlbum'=>$listAlbum,
         ]);
     }
 
@@ -51,7 +55,7 @@ class DisplayAllController extends AbstractController
     public function displayOneTheme(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository, $idTheme, $titreTheme): Response
     {
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
-        $listAlbumsByTheme = $AlbumRepository->findBy(['theme'=>$idTheme], ['id'=>'ASC']);
+        $listAlbumsByTheme = $AlbumRepository->findBy(['theme'=>$idTheme], ['titre'=>'ASC']);
 /*
         $pattern ='/[A-Z0-9]+/';
         $replacement = '';
@@ -197,13 +201,16 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
      */
-    public function detailsPhoto(AlbumRepository $AlbumRepository, PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
+    public function detailsPhoto(AlbumRepository $AlbumRepository, CommentsRepository $CommentsRepository, LienCommentPhotoRepository $LienCommentPhotoRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
         $currentAlbumId = $currentAlbum[0]->getId();
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
+        $lienCommentPhotoList = $LienCommentPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
+        $commentList = $CommentsRepository->findAll();
+
 
         if($status == 1){
             $selectedPhoto  = $selectedPhotoArray[0];
@@ -220,29 +227,19 @@ class DisplayAllController extends AbstractController
                 $selectedPhoto = $currentArrayAlbumPhoto[$count];
             }
         }
-
-
-
-
-
-
         return $this->render(
             'display/detailsPhoto.html.twig',[
             'selectedPhoto'=>$selectedPhoto,
             'idPhoto'=>$idPhoto,
             'titleAlbum'=>$titleAlbum,
             'lienTagPhotoList'=>$lienTagPhotoList,
+            'lienCommentPhotoList'=>$lienCommentPhotoList,
             'tagList'=>$tagList,
+            'commentList'=>$commentList,
             'count'=>$count,
             'currentAlbumId'=>$currentAlbumId,
         ]);
     }
-
-
-
-
-
-
 
 
 }

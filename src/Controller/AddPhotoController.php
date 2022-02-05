@@ -3,15 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Album;
+use App\Entity\Comment;
+use App\Entity\Comments;
 use App\Entity\Image;
+use App\Entity\LienCommentPhoto;
 use App\Entity\LienTagPhoto;
 use App\Entity\Photo;
 use App\Entity\Tag;
 use App\Form\AlbumType;
+use App\Form\CommentsType;
 use App\Form\ImageType;
+use App\Form\LienCommentPhotoType;
 use App\Form\LienTagPhotoType;
 use App\Form\PhotoType;
 use App\Form\TagType;
+use App\Repository\CommentsRepository;
 use App\Repository\ImageRepository;
 use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
@@ -156,6 +162,7 @@ class AddPhotoController extends AbstractController
             ]
         );
     }
+
     /**
      * @Route("/add-new-tag/{titleAlbum}/{photoId}/{status}/{count}", name="add_new_tag")
      */
@@ -204,7 +211,97 @@ class AddPhotoController extends AbstractController
             ]
 
         );
-
     }
+
+    /**
+     * @Route("/add-comment", name="add_comment")
+     */
+    public function addComment(Request $request, UserRepository $UserRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em)
+    {
+        $comment = new Comments();
+        $formComment = $this->createForm(CommentsType::class,$comment);
+        $formComment->handleRequest($request);
+        $currentUserId = $this->security->getUser()->getId();
+
+        $linkCommentPhoto = new LienCommentPhoto();
+        $formLinkCommentPhoto = $this->createForm(LienCommentPhotoType::class, $linkCommentPhoto);
+        $formLinkCommentPhoto->handleRequest($request);
+
+        if ($formComment->isSubmitted() && $formComment->isValid()) {
+
+            $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
+            $comment->setAuteur($currentUserObject);
+            $dataComment = $formComment->getData();
+            $em->persist($dataComment);
+            $em->flush();
+
+            $CommentList = $commentsRepository-> findBy([],['id'=>'DESC'],1);
+            $commentId = $CommentList[0];
+            $linkCommentPhoto->setComment($commentId);
+
+            $photoList= $PhotoRepository-> findBy([],['id'=>'DESC'],1);
+            $photoId = $photoList[0];
+            $linkCommentPhoto->setPhoto($photoId);
+
+            $dataLinkCommentPhoto= $formLinkCommentPhoto->getData();
+            $em->persist($dataLinkCommentPhoto);
+            $em->flush();
+        }
+
+
+        return $this->render(
+            'home/addComment.html.twig', [
+                'commentForm'=>$formComment->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/add-new-comment/{titleAlbum}/{photoId}/{status}/{count}", name="add_new_comment")
+     */
+    public function addNewComment(Request $request, UserRepository $UserRepository, TagRepository $TagRepository, CommentsRepository $CommentsRepository, LienTagPhotoRepository $LienTagPhotoRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
+    {
+        $comment = new Comments();
+        $formComment = $this->createForm(CommentsType::class, $comment);
+        $formComment->handleRequest($request);
+        $currentUserId = $this->security->getUser()->getId();
+
+        $linkCommentPhoto = new LienCommentPhoto();
+        $formLinkCommentPhoto = $this->createForm(LienCommentPhotoType::class, $linkCommentPhoto);
+        $formLinkCommentPhoto->handleRequest($request);
+
+        if ($formComment->isSubmitted() && $formComment->isValid()) {
+            $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
+            $comment->setAuteur($currentUserObject);
+            $dataComment = $formComment->getData();
+            $em->persist($dataComment);
+            $em->flush();
+
+            $commentList = $CommentsRepository->findBy([], ['id' => 'DESC'], 1);
+            $commentId = $commentList[0];
+            $linkCommentPhoto->setComment($commentId);
+
+            $currentPhoto = $PhotoRepository->findOneBy(['id' => $photoId]);
+            $linkCommentPhoto->setPhoto($currentPhoto);
+
+            $dataLinkCommentPhoto = $formLinkCommentPhoto->getData();
+            $em->persist($dataLinkCommentPhoto);
+            $em->flush();
+        }
+
+
+        return $this->render(
+            'home/addNewcomment.html.twig', [
+                'formComment' => $formComment->createView(),
+                'photoId' => $photoId,
+                'titleAlbum' => $titleAlbum,
+                'count' => $count,
+                'status' => $status,
+            ]
+
+        );
+    }
+
+
 
 }

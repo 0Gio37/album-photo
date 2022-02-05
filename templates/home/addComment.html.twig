@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un commentaire{% endblock %}
+
+{% block body %}
+
+    <div class="pt-6">
+        <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-auto">
+            <section class="flex justify-between px-20">
+                <div>
+                    <a href="{{ path('add_photo') }}">
+                        <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">
+                            Ajouter une autre photo
+                        </button>
+                    </a>
+                </div>
+
+                <div>
+                    <a href="{{ path('add_tag') }}">
+                        <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-green-900 hover:bg-green-700 w-full">
+                            Ajouter des personnes
+                        </button>
+                    </a>
+                </div>
+
+                <div>
+                    <a href="{{ path('home') }}">
+                        <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                            Retour Page d'accueil
+                        </button>
+                    </a>
+                </div>
+            </section>
+
+            <div class="w-4/5 bg-gray-900 rounded-full m-auto my-10 h-1"></div>
+
+            <section class="text-2xl border border-1 border-gray-300 rounded-full py-2 font-bold text-center text-gray-100 my-10">
+                Ajouter un commentaire
+            </section>
+
+            <section class="formComment">
+                {{ form_start(commentForm) }}
+                <p class="text-gray-100 text-lg text-center mt-4 mb-2"></p>
+                {{ form_row(commentForm.texte) }}
+                <button id="displayTagListBtn" class="flex mt-6 m-auto px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                    Ajouter
+                </button>
+                {{ form_end(commentForm) }}
+            </section>
+        </div>
+    </div>
+
+{% endblock %}
