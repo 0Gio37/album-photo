@@ -5,7 +5,7 @@
 {% block body %}
 
     <section class="grid grid-cols-6">
-        <div class="flex justify-center mt-6 mb-2 col-start-6 fixed top-3 left-24">
+        <div class="flex justify-center mb-2 col-start-6 fixed top-18 right-24">
             <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" >
                 <button class="px-5 py-2 text-md rounded-full text-gray-300 bg-red-900 hover:bg-red-700">
                     X
@@ -13,9 +13,7 @@
             </a>
         </div>
 
-
         <div class="h-screen w-full col-start-2 col-span-4 py-2 px-2 bg-black rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
-
             <div class="flex items-center">
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count-1} ) }}" >
                     <div class="px-4 py-10 text-xl rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 shadow-md">
@@ -65,19 +63,19 @@
                             <p class="text-base text-left font-bold">Identifié(s) :</p>
                             {% for lien in lienTagPhotoList %}
                                 {% if lien.photo.id == selectedPhoto.id %}
-                                    {% for tag in tagList %}
-                                        {% if  lien.tag.id == tag.id %}
-                                            <p class="text-left pl-32">- {{ lien.tag.prenom }}  {{ lien.tag.nom }}  </p>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+                       {% for tag in tagList %}
+                           {% if  lien.tag.id == tag.id %}
+                               <p class="text-left pl-32">- {{ lien.tag.prenom }}  {{ lien.tag.nom }}  </p>
+                           {% endif %}
+                       {% endfor %}
+                   {% endif %}
                             {% endfor %}
                         {% else %}
                             <p class="text-xl italic text-center font-bold"> "Personne identifié ..."</p>
                         {% endif %}
                     </div>
                     <div>
-                        <a href="{{ path('add_tag', {idPhoto:idPhoto}) }}">
+                        <a href="{{ path('add_new_tag', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
                             <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
                         </a>
                     </div>

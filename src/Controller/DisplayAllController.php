@@ -221,6 +221,11 @@ class DisplayAllController extends AbstractController
             }
         }
 
+
+
+
+
+
         return $this->render(
             'display/detailsPhoto.html.twig',[
             'selectedPhoto'=>$selectedPhoto,
