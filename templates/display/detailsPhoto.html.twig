@@ -4,95 +4,108 @@
 
 {% block body %}
 
-    <section class="grid grid-cols-6">
-        <div class="flex justify-center mb-2 col-start-6 fixed top-18 right-24">
-            <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" >
-                <button class="px-5 py-2 text-md rounded-full text-gray-300 bg-red-900 hover:bg-red-700">
-                    X
-                </button>
-            </a>
-        </div>
+    <div class="flex justify-center mb-2 col-start-6 fixed top-6 right-16">
+        <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" >
+            <button class="px-5 py-2 text-md rounded-full text-gray-300 bg-red-900 hover:bg-red-700">
+                X
+            </button>
+        </a>
+    </div>
 
-        <div class="h-screen col-start-2 col-span-4 py-2 px-2 bg-black rounded-lg shadow-lg overflow-hidden flex flex-col items-center">
+    <section class="h-full grid grid-cols-12 -mt-12">
+        <div class=" flex flex-col col-start-1 col-span-8 gap-4 justify-between p-4 m-4 bg-black border border-1 border-gray-600 shadow-lg rounded-lg">
+       {#  <div class="h-full col-start-1 col-span-4 p-4 m-4 bg-black rounded-lg shadow-lg overflow-hidden flex flex-col items-center"> #}
             <div class="flex items-center">
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count-1} ) }}" >
-                    <div class="px-4 py-10 text-xl rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 shadow-md">
+                    <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-900 hover:bg-blue-700 shadow-md">
                         <i class="fas fa-chevron-left"></i>
                     </div>
                 </a>
-                <div class="m-auto w-2/5">
+                <div class="px-36">
                     {% set equi = '' %}
                     {% set equi = selectedPhoto.file %}
-                    <img class="object-center object-cover border border-1 border-blue-700 shadow-lg rounded-lg m-auto w-4/5" src='{{ asset('uploads/'~equi) }}' alt="photo gros plan">
+                    <img class="m-auto border border-1 border-blue-700 shadow-lg rounded-lg max-h-full" src='{{ asset('uploads/'~equi) }}' alt="photo gros plan">
                 </div>
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count+1} ) }}" >
-                    <div class="px-4 py-10 text-xl rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 shadow-md">
+                    <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-900 hover:bg-blue-700 shadow-md">
                         <i class="fas fa-chevron-right"></i>
                     </div>
                 </a>
             </div>
 
-            <div class="text-center pt-2 pb-6">
-                <p class="text-base text-gray-600 font-normal">
+            <div class="text-center text-base text-gray-600 font-normal pt-2 pb-6">
+                <p class=" mb-1">
                     - Posté le {{ selectedPhoto.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}, par {{ selectedPhoto.auteur.username }} -
                 </p>
-                <p class="text-base text-gray-600 font-normal">
+                <p>
                     - Album : {{ selectedPhoto.album.titre }} | Thématique : {{ selectedPhoto.album.theme.titre }} -
                 </p>
             </div>
+        </div>
 
-            <div class="text-gray-700 w-full grid gap-6 grid-cols-2 px-4">
-                <div class="flex justify-between border border-1 border-gray-600 shadow-lg rounded-lg p-2">
-                    <div>
-                        {% if lienCommentPhotoList %}
-                            <p class="text-base text-left font-bold">Commentaire(s) :</p>
-                            {% for lien in lienCommentPhotoList %}
-                                {% if lien.photo.id == selectedPhoto.id %}
-                                    {% for comm in commentList %}
-                                        {% if  lien.comment.id == comm.id %}
-                                            <div class="flex inline">
-                                                <div class="text-left pl-32">{{ lien.comment.texte }} </div>
-                                                <div class="text-left pl-32 text-xs italic">De  : {{ lien.comment.auteur.username }} </div>
-                                                <div class="text-left pl-32 text-xs italic">Le :{{ lien.comment.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}</div>
-                                            </div>
+        <div class="text-base text-gray-600 flex flex-col col-start-9 col-span-3 p-2 m-4">
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4">
+                <div>
+                    {% set showPersonne = true %}
+                    {% if lienTagPhotoList %}
+                        <p class="text-left mb-2">Sur la photo :</p>
+                        {% for lien in lienTagPhotoList %}
+                            {% if lien.photo.id == selectedPhoto.id %}
+                                {% for tag in tagList %}
+                                    {% if  lien.tag.id == tag.id %}
+                                        {% set showPersonne = false %}
+                                        <div class="text-center text-xl text-gray-400">{{ lien.tag.prenom }}  {{ lien.tag.nom }}  </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if showPersonne is same as(true) %}
+                        <p class="text-xl italic text-center text-gray-400"> "Personne identifié ..."</p>
+                    {% endif %}
+                </div>
+                <div class="flex justify-end mt-4">
+                    <a href="{{ path('add_new_tag', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
+                        <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4">
+                <div>
+                    {% set showComm = true %}
+                    {% if lienCommentPhotoList %}
+                        <p class="text-left mb-4">A propos :</p>
+                        {% for lien in lienCommentPhotoList %}
+                            {% if lien.photo.id == selectedPhoto.id %}
+                                {% for comm in commentList %}
+                                    {% if  lien.comment.id == comm.id %}
+                                        {%  if lien.comment.id is even %}
+                                            {% set showComm = false %}
+                                            <div class="flex justify-start">
+                                        {% else %}
+                                            <div class="flex justify-end">
                                         {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            <p class="text-xl italic text-center font-bold"> "Aucun commentaire ..."</p>
-                        {% endif %}
-                    </div>
-                    <div>
-                        <a href="{{ path('add_new_comment', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
-                            <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
-                        </a>
-                    </div>
+                                            <div class="bg-gray-400 w-2/3 text-gray-800 text-sm rounded-xl my-2 p-2">
+                                                <p class="font-bold">" {{ lien.comment.texte }} "</p>
+                                                <p class="text-xs text-right italic">Par {{ lien.comment.auteur.username }} - {{ lien.comment.createAt | format_date(locale='fr', pattern=" dd/MM/YYYY")  }} </p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if showPersonne is same as(true) %}
+                        <p class="text-xl italic text-center text-gray-400"> "Aucun commentaire ..."</p>
+                    {% endif %}
+                </div>
+                <div class="flex justify-end mt-4">
+                    <a href="{{ path('add_new_comment', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
+                        <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
+                    </a>
                 </div>
 
-                <div class="flex justify-between border border-1 border-gray-600 shadow-lg rounded-lg p-2">
-                    <div>
-                        {% if lienTagPhotoList %}
-                            <p class="text-base text-left font-bold">Identifié(s) :</p>
-                            {% for lien in lienTagPhotoList %}
-                                {% if lien.photo.id == selectedPhoto.id %}
-                       {% for tag in tagList %}
-                           {% if  lien.tag.id == tag.id %}
-                               <p class="text-left pl-32">- {{ lien.tag.prenom }}  {{ lien.tag.nom }}  </p>
-                           {% endif %}
-                       {% endfor %}
-                   {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            <p class="text-xl italic text-center font-bold"> "Personne identifié ..."</p>
-                        {% endif %}
-                    </div>
-                    <div>
-                        <a href="{{ path('add_new_tag', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
-                            <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
