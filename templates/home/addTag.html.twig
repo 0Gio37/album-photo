@@ -40,10 +40,12 @@
 
             <section class="formTag">
                 {{ form_start(tagForm) }}
-                <p class="text-gray-300 text-lg text-center mt-4 mb-2">Nom (optionnel)</p>
-                {{ form_row(tagForm.nom) }}
                 <p class="text-gray-300 text-lg text-center mt-4 mb-2">Prénom<span class="text-red-900 font-bold"> *</span></p>
                 {{ form_row(tagForm.prenom) }}
+                <p class="text-gray-300 text-lg text-center mt-4 mb-2">Nom (optionnel)</p>
+                {{ form_row(tagForm.nom) }}
+                <p class="text-gray-300 text-lg text-center mt-4 mb-2">Lieu (optionnel)</p>
+                {{ form_row(tagForm.lieu) }}
                 <button id="displayTagListBtn" class="flex mt-6 m-auto px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
                     Ajouter
                 </button>

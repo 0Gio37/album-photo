@@ -19,6 +19,7 @@ use App\Form\PhotoType;
 use App\Form\TagType;
 use App\Repository\CommentsRepository;
 use App\Repository\ImageRepository;
+use App\Repository\LienCommentPhotoRepository;
 use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
@@ -209,14 +210,13 @@ class AddPhotoController extends AbstractController
                 'count'=>$count,
                 'status'=>$status,
             ]
-
         );
     }
 
     /**
      * @Route("/add-comment", name="add_comment")
      */
-    public function addComment(Request $request, UserRepository $UserRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em)
+    public function addComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em)
     {
         $comment = new Comments();
         $formComment = $this->createForm(CommentsType::class,$comment);
@@ -248,10 +248,21 @@ class AddPhotoController extends AbstractController
             $em->flush();
         }
 
+        $commentPhoto = [];
+
+        $photoList= $PhotoRepository-> findBy([],['id'=>'DESC'],1);
+        $photoId = $photoList[0];
+
+        $listCommentIdEquivalent = $lienCommentPhotoRepository->findBy(['photo'=>$photoId]);
+        foreach ($listCommentIdEquivalent as $idEquivalent){
+            $comment = $commentsRepository->findby(['id'=>$idEquivalent->getComment()->getId()]);
+            array_push($commentPhoto, $comment);
+        }
 
         return $this->render(
             'home/addComment.html.twig', [
                 'commentForm'=>$formComment->createView(),
+                'commentPhoto'=>$commentPhoto,
             ]
         );
     }
@@ -259,8 +270,10 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-new-comment/{titleAlbum}/{photoId}/{status}/{count}", name="add_new_comment")
      */
-    public function addNewComment(Request $request, UserRepository $UserRepository, TagRepository $TagRepository, CommentsRepository $CommentsRepository, LienTagPhotoRepository $LienTagPhotoRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
+    public function addNewComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
     {
+        //dd(gettype($photoId));
+
         $comment = new Comments();
         $formComment = $this->createForm(CommentsType::class, $comment);
         $formComment->handleRequest($request);
@@ -277,7 +290,7 @@ class AddPhotoController extends AbstractController
             $em->persist($dataComment);
             $em->flush();
 
-            $commentList = $CommentsRepository->findBy([], ['id' => 'DESC'], 1);
+            $commentList = $commentsRepository->findBy([], ['id' => 'DESC'], 1);
             $commentId = $commentList[0];
             $linkCommentPhoto->setComment($commentId);
 
@@ -289,6 +302,12 @@ class AddPhotoController extends AbstractController
             $em->flush();
         }
 
+        $commentPhoto = [];
+        $listCommentIdEquivalent = $lienCommentPhotoRepository->findBy(['photo'=>$photoId]);
+        foreach ($listCommentIdEquivalent as $idEquivalent){
+            $comment = $commentsRepository->findby(['id'=>$idEquivalent->getComment()->getId()]);
+            array_push($commentPhoto, $comment);
+        }
 
         return $this->render(
             'home/addNewcomment.html.twig', [
@@ -297,6 +316,7 @@ class AddPhotoController extends AbstractController
                 'titleAlbum' => $titleAlbum,
                 'count' => $count,
                 'status' => $status,
+                'commentPhoto'=>$commentPhoto,
             ]
 
         );

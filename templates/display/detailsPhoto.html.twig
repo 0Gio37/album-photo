@@ -14,7 +14,6 @@
 
     <section class="h-full grid grid-cols-12 -mt-12">
         <div class=" flex flex-col col-start-1 col-span-8 gap-4 justify-between p-4 m-4 bg-black border border-1 border-gray-600 shadow-lg rounded-lg">
-       {#  <div class="h-full col-start-1 col-span-4 p-4 m-4 bg-black rounded-lg shadow-lg overflow-hidden flex flex-col items-center"> #}
             <div class="flex items-center">
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count-1} ) }}" >
                     <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-900 hover:bg-blue-700 shadow-md">
@@ -83,29 +82,29 @@
                                         {%  if lien.comment.id is even %}
                                             {% set showComm = false %}
                                             <div class="flex justify-start">
-                                        {% else %}
+                                            {% else %}
                                             <div class="flex justify-end">
                                         {% endif %}
                                             <div class="bg-gray-400 w-2/3 text-gray-800 text-sm rounded-xl my-2 p-2">
                                                 <p class="font-bold">" {{ lien.comment.texte }} "</p>
                                                 <p class="text-xs text-right italic">Par {{ lien.comment.auteur.username }} - {{ lien.comment.createAt | format_date(locale='fr', pattern=" dd/MM/YYYY")  }} </p>
                                             </div>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                    {% if showPersonne is same as(true) %}
-                        <p class="text-xl italic text-center text-gray-400"> "Aucun commentaire ..."</p>
-                    {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if showComm is same as(true) %}
+                            <p class="text-xl italic text-center text-gray-400"> "Aucun commentaire ..."</p>
+                        {% endif %}
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <a href="{{ path('add_new_comment', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
+                            <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="flex justify-end mt-4">
-                    <a href="{{ path('add_new_comment', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
-                        <i class="fas fa-plus-circle text-2xl text-green-900 hover:text-green-700"></i>
-                    </a>
-                </div>
-
             </div>
         </div>
     </section>
