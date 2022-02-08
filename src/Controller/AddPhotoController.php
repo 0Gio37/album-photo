@@ -26,6 +26,7 @@ use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -272,8 +273,6 @@ class AddPhotoController extends AbstractController
      */
     public function addNewComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
     {
-        //dd(gettype($photoId));
-
         $comment = new Comments();
         $formComment = $this->createForm(CommentsType::class, $comment);
         $formComment->handleRequest($request);
@@ -319,6 +318,44 @@ class AddPhotoController extends AbstractController
                 'commentPhoto'=>$commentPhoto,
             ]
 
+        );
+    }
+
+    /**
+     * @Route("/add-place/{titleAlbum}/{photoId}/{status}/{count}", name="add_place")
+     */
+    public function addPlace(Request $request, PhotoRepository $photoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
+    {
+        $defaultData = ['message' => 'null'];
+        $currentPlace='';
+
+        $setPlaceForm = $this->createFormBuilder($defaultData)
+            ->add('lieu', TextType::class, [
+                'required'=>false,
+                'label'=>false,
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-xl text-gray-100 flex justify-start m-auto px-6 w-1/3 py-2'],
+            ])
+            ->getForm();
+        $setPlaceForm->handleRequest($request);
+
+        if ($setPlaceForm->isSubmitted() && $setPlaceForm->isValid()) {
+            $data = $setPlaceForm->getData();
+            $currentPlace = $data['lieu'];
+            $photoObject = $photoRepository->findOneBy(['id' => $photoId]);
+            $photoObject->setLieu($currentPlace);
+            $em->persist($photoObject);
+            $em->flush();
+        }
+
+        return $this->render(
+            'home/setPlace.html.twig', [
+                'setPlaceForm' => $setPlaceForm->createView(),
+                'photoId' => $photoId,
+                'titleAlbum' => $titleAlbum,
+                'count' => $count,
+                'status' => $status,
+                'currentPlace'=>$currentPlace,
+            ]
         );
     }
 
