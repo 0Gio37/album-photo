@@ -19,12 +19,14 @@ use App\Form\PhotoType;
 use App\Form\TagType;
 use App\Repository\CommentsRepository;
 use App\Repository\ImageRepository;
+use App\Repository\LienCommentPhotoRepository;
 use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -209,14 +211,13 @@ class AddPhotoController extends AbstractController
                 'count'=>$count,
                 'status'=>$status,
             ]
-
         );
     }
 
     /**
      * @Route("/add-comment", name="add_comment")
      */
-    public function addComment(Request $request, UserRepository $UserRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em)
+    public function addComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em)
     {
         $comment = new Comments();
         $formComment = $this->createForm(CommentsType::class,$comment);
@@ -248,10 +249,21 @@ class AddPhotoController extends AbstractController
             $em->flush();
         }
 
+        $commentPhoto = [];
+
+        $photoList= $PhotoRepository-> findBy([],['id'=>'DESC'],1);
+        $photoId = $photoList[0];
+
+        $listCommentIdEquivalent = $lienCommentPhotoRepository->findBy(['photo'=>$photoId]);
+        foreach ($listCommentIdEquivalent as $idEquivalent){
+            $comment = $commentsRepository->findby(['id'=>$idEquivalent->getComment()->getId()]);
+            array_push($commentPhoto, $comment);
+        }
 
         return $this->render(
             'home/addComment.html.twig', [
                 'commentForm'=>$formComment->createView(),
+                'commentPhoto'=>$commentPhoto,
             ]
         );
     }
@@ -259,7 +271,7 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-new-comment/{titleAlbum}/{photoId}/{status}/{count}", name="add_new_comment")
      */
-    public function addNewComment(Request $request, UserRepository $UserRepository, TagRepository $TagRepository, CommentsRepository $CommentsRepository, LienTagPhotoRepository $LienTagPhotoRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
+    public function addNewComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
     {
         $comment = new Comments();
         $formComment = $this->createForm(CommentsType::class, $comment);
@@ -277,7 +289,7 @@ class AddPhotoController extends AbstractController
             $em->persist($dataComment);
             $em->flush();
 
-            $commentList = $CommentsRepository->findBy([], ['id' => 'DESC'], 1);
+            $commentList = $commentsRepository->findBy([], ['id' => 'DESC'], 1);
             $commentId = $commentList[0];
             $linkCommentPhoto->setComment($commentId);
 
@@ -289,6 +301,12 @@ class AddPhotoController extends AbstractController
             $em->flush();
         }
 
+        $commentPhoto = [];
+        $listCommentIdEquivalent = $lienCommentPhotoRepository->findBy(['photo'=>$photoId]);
+        foreach ($listCommentIdEquivalent as $idEquivalent){
+            $comment = $commentsRepository->findby(['id'=>$idEquivalent->getComment()->getId()]);
+            array_push($commentPhoto, $comment);
+        }
 
         return $this->render(
             'home/addNewcomment.html.twig', [
@@ -297,8 +315,47 @@ class AddPhotoController extends AbstractController
                 'titleAlbum' => $titleAlbum,
                 'count' => $count,
                 'status' => $status,
+                'commentPhoto'=>$commentPhoto,
             ]
 
+        );
+    }
+
+    /**
+     * @Route("/add-place/{titleAlbum}/{photoId}/{status}/{count}", name="add_place")
+     */
+    public function addPlace(Request $request, PhotoRepository $photoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
+    {
+        $defaultData = ['message' => 'null'];
+        $currentPlace='';
+
+        $setPlaceForm = $this->createFormBuilder($defaultData)
+            ->add('lieu', TextType::class, [
+                'required'=>false,
+                'label'=>false,
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-xl text-gray-100 flex justify-start m-auto px-6 w-1/3 py-2'],
+            ])
+            ->getForm();
+        $setPlaceForm->handleRequest($request);
+
+        if ($setPlaceForm->isSubmitted() && $setPlaceForm->isValid()) {
+            $data = $setPlaceForm->getData();
+            $currentPlace = $data['lieu'];
+            $photoObject = $photoRepository->findOneBy(['id' => $photoId]);
+            $photoObject->setLieu($currentPlace);
+            $em->persist($photoObject);
+            $em->flush();
+        }
+
+        return $this->render(
+            'home/setPlace.html.twig', [
+                'setPlaceForm' => $setPlaceForm->createView(),
+                'photoId' => $photoId,
+                'titleAlbum' => $titleAlbum,
+                'count' => $count,
+                'status' => $status,
+                'currentPlace'=>$currentPlace,
+            ]
         );
     }
 
