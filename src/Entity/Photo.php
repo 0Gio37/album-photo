@@ -54,12 +54,6 @@ class Photo
     private $lienTagPhotos;
 
     /**
-     * @ORM\Column(type="text", nullable=true, options={"default": "AUCUN COMMENTAIRE"})
-     */
-    private $Commentaire;
-
-
-    /**
      * @ORM\Column(type="string")
      */
     private $file;
@@ -73,6 +67,11 @@ class Photo
      * @ORM\OneToMany(targetEntity=LienCommentPhoto::class, mappedBy="photo")
      */
     private $lienCommentPhotos;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lieu;
 
 
     public function __construct()
@@ -218,18 +217,7 @@ class Photo
 
         return $this;
     }
-
-    public function getCommentaire(): ?string
-    {
-        return $this->Commentaire;
-    }
-
-    public function setCommentaire(?string $Commentaire): self
-    {
-        $this->Commentaire = $Commentaire;
-
-        return $this;
-    }
+    
 
     public function getFile()
     {
@@ -281,6 +269,18 @@ class Photo
                 $lienCommentPhoto->setPhoto(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLieu(): ?string
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?string $lieu): self
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }

@@ -33,7 +33,7 @@
             <section class="mt-6">
                 {% if  visibleTaggedPersonnBtn == false %}
                 {{ form_start(imageForm) }}
-                    <p class="text-gray-100 text-xl font-bold text-center mb-2">Charger une image</p>
+                    <p class="text-gray-100 text-xl text-center mb-2">Charger une image <span class="text-sm italic">(inférieure à 6Mo)</span></p>
                     {{ form_row(imageForm.fileName) }}
                     {% if  showCurrentPhotoTwig == false %}
                         <button class="flex m-auto mt-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
@@ -50,17 +50,23 @@
                 {% endif %}
             </section>
 
-            <section class="pb-6">
+            <section class="text-gray-100 text-center text-xl pb-6">
                 {% include 'modal/addAlbum.html.twig' %}
 
                 {% if  showCurrentPhotoTwig == true %}
                     {{ form_start(photoForm) }}
-                    <p class="text-gray-100 text-xl font-bold text-center mb-2">Sélectionner son Album</p>
+                    <p class="mb-2">Sélectionner son Album</p>
                     {{ form_row(photoForm.album) }}
-                   {#  <p class="text-gray-100 text-xl font-bold text-center mb-2 mt-6">Mettre un commentaire</p>
-                    {{ form_row(photoForm.commentaire) }} #}
-                    <p class="text-gray-100 text-xl font-bold text-center mb-2 mt-6">Son année (optionnel)</p>
-                    {{ form_row(photoForm.annee) }}
+                    <div class="flex">
+                        <div class="w-2/3">
+                            <p class="mb-2 mt-6">Son année (optionnel)</p>
+                            {{ form_row(photoForm.annee) }}
+                        </div>
+                        <div class="w-2/3">
+                            <p class="mb-2 mt-6">un lieu (optionnel)</p>
+                            {{ form_row(photoForm.lieu) }}
+                        </div>
+                    </div>
                     <button class="flex mt-6 m-auto px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
                         Ajouter la Photo
                     </button>
@@ -80,7 +86,7 @@
                         <div class="mr-6 w-2/5">
                             <a href="{{ path('add_tag') }}">
                                 <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-green-900 hover:bg-green-700 w-full">
-                                    Identifier des personnes et lieux
+                                    Identifier des personnes
                                 </button>
                             </a>
                         </div>

@@ -39,11 +39,6 @@ class Tag
      */
     private $lienTagPhotos;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $lieu;
-
 
     public function __construct()
     {
@@ -130,18 +125,6 @@ class Tag
                 $lienTagPhoto->setTag(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getLieu(): ?string
-    {
-        return $this->lieu;
-    }
-
-    public function setLieu(?string $lieu): self
-    {
-        $this->lieu = $lieu;
 
         return $this;
     }
