@@ -61,7 +61,6 @@
                 </div>
             </div>
 
-
             <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4">
                 <div>
                     {% set showPersonne = true %}
@@ -98,8 +97,8 @@
                             {% if lien.photo.id == selectedPhoto.id %}
                                 {% for comm in commentList %}
                                     {% if  lien.comment.id == comm.id %}
+                                    {% set showComm = false %}
                                         {%  if lien.comment.id is even %}
-                                            {% set showComm = false %}
                                             <div class="flex justify-start">
                                             {% else %}
                                             <div class="flex justify-end">

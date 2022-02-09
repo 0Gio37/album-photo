@@ -300,8 +300,7 @@ class AddPhotoController extends AbstractController
             $em->persist($dataLinkCommentPhoto);
             $em->flush();
 
-            $referer = $request->headers->get('referer');
-            return $this->redirect($referer);
+            return $this->redirect("/display/detail-photo/'+$titleAlbum+'/'+$photoId+'/'+$status+'/'+$count");
         }
 
         $commentPhoto = [];
