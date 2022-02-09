@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchByTagType extends AbstractType
-{
+{/*
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -33,5 +33,5 @@ class SearchByTagType extends AbstractType
         $resolver->setDefaults([
             'data_class' => SearchByTag::class,
         ]);
-    }
+    }*/
 }

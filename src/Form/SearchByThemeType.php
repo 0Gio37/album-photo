@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchByThemeType extends AbstractType
-{
+{/*
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -29,5 +29,5 @@ class SearchByThemeType extends AbstractType
         $resolver->setDefaults([
             'data_class' => SearchByTheme::class,
         ]);
-    }
+    }*/
 }

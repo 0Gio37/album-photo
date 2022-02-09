@@ -20,7 +20,7 @@
                     <p class="flex col-span-4 justify-center text-base text-4xl font-bold text-blue-600">Photos de {{ dataSearched.annee  }} </p>
                 </div>
                 {% for photo in photoList %}
-                    {%  if  photo.album.annee == dataSearched.annee %}
+                    {%  if  photo.annee == dataSearched.annee %}
                         {% set equi = '' %}
                         {% set equi = photo.file %}
                         <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">

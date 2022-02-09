@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchByYearType extends AbstractType
-{
+{/*
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -25,5 +25,5 @@ class SearchByYearType extends AbstractType
         $resolver->setDefaults([
             'data_class' => SearchByYear::class,
         ]);
-    }
+    }*/
 }
