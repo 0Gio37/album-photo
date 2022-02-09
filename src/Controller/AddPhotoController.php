@@ -299,6 +299,9 @@ class AddPhotoController extends AbstractController
             $dataLinkCommentPhoto = $formLinkCommentPhoto->getData();
             $em->persist($dataLinkCommentPhoto);
             $em->flush();
+
+            $referer = $request->headers->get('referer');
+            return $this->redirect($referer);
         }
 
         $commentPhoto = [];
