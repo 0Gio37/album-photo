@@ -41,14 +41,23 @@
                     </div>
                     <div class="flex justify-center w-full py-6">
                         {{ form_start(formSearchByTheme) }}
-                        {{ form_row(formSearchByTheme.nom) }}
+                        {{ form_row(formSearchByTheme.Nom) }}
                         <button class="flex justify-center mt-6 font-bold text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Valider</button>
                         {{ form_end(formSearchByTheme) }}
-
                 </section>
+
                 <section id="modal4" class="modalManage" style="display: none">
-
+                    <div class="text-center pb-2">
+                        <p class="text-base text-3xl font-bold text-blue-500">Recherche de photos par lieu</p>
+                    </div>
+                    <div class="flex justify-center w-full py-6">
+                        {{ form_start(formSearchPlace) }}
+                        {{ form_row(formSearchPlace.lieu) }}
+                        <button class="flex justify-center mt-6 font-bold text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Valider</button>
+                        {{ form_end(formSearchPlace) }}
+                    </div>
                 </section>
+
                 <section id="modal5" class="modalManage" style="display: none">
 
                 </section>

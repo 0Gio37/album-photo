@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Search By Theme{% endblock %}
+{% block title %}Search By Place{% endblock %}
 
 {% block body %}
 
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
-        {% set showTheme = true %}
+        {% set showPlace = true %}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div class="text-center pb-12 col-span-4">
-                <p class="flex col-span-4 justify-center font-bold text-4xl text-blue-600">Photos de la thématique " {{ dataSearched.Nom  }} "</p>
+                <p class="flex col-span-4 justify-center font-bold text-4xl text-blue-600">Localisation des Photos : " {{ dataSearched.lieu  }} "</p>
             </div>
             {% for photo in photoList %}
-                {%  if  photo.album.theme == dataSearched.Nom %}
+                {%  if  photo.lieu == dataSearched.lieu %}
                     {% set equi = '' %}
                     {% set equi = photo.file %}
-                    {% set showTheme = false %}
+                    {% set showPlace = false %}
                     <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
                         <div class="h-3/6 mb-4">
                             <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre, status:1, count:0} ) }}" >
@@ -35,7 +35,7 @@
                     </div>
                 {% endif %}
             {% endfor %}
-            {% if showTheme is same as(true) %}
+            {% if showPlace is same as(true) %}
                 <p class="flex col-span-4 justify-center text-xl text-gray-400">Aucune correspondance ! </p>
                 <div class="col-span-4 m-auto ">
                     <a href="{{ path('home') }}">
