@@ -5,6 +5,7 @@
 {% block body %}
 
     <div class="pt-6">
+        <p id="test"> {{titleAlbum  }}</p>
         <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-screen">
             <div class="flex justify-center mb-2 col-start-6 fixed top-18 right-24">
                <a href= "{{ path('detailsPhoto', {titleAlbum:titleAlbum, idPhoto:photoId, status:status, count:count} ) }}" >
@@ -25,6 +26,7 @@
                 <button id="displayTagListBtn" class="flex mt-6 m-auto px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
                     Ajouter
                 </button>
+
                 {{ form_end(formComment) }}
                 {% if commentPhoto %}
                     {% include 'modal/displayComment.html.twig' with {'commentPhoto':commentPhoto} only %}

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Album;
-use App\Entity\Comment;
 use App\Entity\Comments;
 use App\Entity\Image;
 use App\Entity\LienCommentPhoto;
@@ -27,6 +26,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -271,7 +271,7 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-new-comment/{titleAlbum}/{photoId}/{status}/{count}", name="add_new_comment")
      */
-    public function addNewComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
+    public function addNewComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count) :Response
     {
         $comment = new Comments();
         $formComment = $this->createForm(CommentsType::class, $comment);
@@ -283,6 +283,7 @@ class AddPhotoController extends AbstractController
         $formLinkCommentPhoto->handleRequest($request);
 
         if ($formComment->isSubmitted() && $formComment->isValid()) {
+
             $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
             $comment->setAuteur($currentUserObject);
             $dataComment = $formComment->getData();
@@ -300,7 +301,7 @@ class AddPhotoController extends AbstractController
             $em->persist($dataLinkCommentPhoto);
             $em->flush();
 
-            return $this->redirect("/display/detail-photo/'+$titleAlbum+'/'+$photoId+'/'+$status+'/'+$count");
+            //return $this->redirect("/display/detail-photo/'+$titleAlbum+'/'+$photoId+'/'+$status+'/'+$count");
         }
 
         $commentPhoto = [];
