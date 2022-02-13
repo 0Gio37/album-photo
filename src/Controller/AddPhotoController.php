@@ -44,7 +44,7 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-photo", name="add_photo")
      */
-    public function addPhoto(Request $request, ImageRepository $ImageRepository,  UserRepository $UserRepository,  EntityManagerInterface $em ): Response
+    public function addPhoto(Request $request, PhotoRepository $photoRepository, ImageRepository $ImageRepository,  UserRepository $UserRepository,  EntityManagerInterface $em ): Response
     {
         $visibleTaggedPersonnBtn = false;
         $showCurrentPhotoTwig = false;
@@ -68,10 +68,16 @@ class AddPhotoController extends AbstractController
         if ($imageForm->isSubmitted() && $imageForm->isValid()) {
 
             $showCurrentPhotoTwig = true;
+            $originalFileList = $photoRepository->findAll();
 
 
-            $file = $imageForm->get('fileName')->getData();
+            $file = $imageForm->get('fileName')->getData()->originalName;
             dd($file);
+            if(in_array()){
+
+            }
+
+
             $newFilename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('photo_directory'), $newFilename);
             $image->setFileName($newFilename);

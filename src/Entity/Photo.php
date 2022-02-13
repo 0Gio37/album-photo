@@ -73,6 +73,11 @@ class Photo
      */
     private $lieu;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $OriginalName;
+
 
     public function __construct()
     {
@@ -281,6 +286,18 @@ class Photo
     public function setLieu(?string $lieu): self
     {
         $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getOriginalName(): ?string
+    {
+        return $this->OriginalName;
+    }
+
+    public function setOriginalName(string $OriginalName): self
+    {
+        $this->OriginalName = $OriginalName;
 
         return $this;
     }
