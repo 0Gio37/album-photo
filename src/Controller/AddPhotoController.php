@@ -27,7 +27,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,7 +69,9 @@ class AddPhotoController extends AbstractController
 
             $showCurrentPhotoTwig = true;
 
+
             $file = $imageForm->get('fileName')->getData();
+            dd($file);
             $newFilename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('photo_directory'), $newFilename);
             $image->setFileName($newFilename);
