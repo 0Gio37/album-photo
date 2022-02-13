@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,7 +34,7 @@ class PhotoType extends AbstractType
                 'label'=>false,
                 'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 flex justify-center m-auto px-16 py-2 cursor-pointer'],
             ])
-            ->add('annee', TextType::class,[
+            ->add('annee', IntegerType::class,[
                 'required'=> false,
                 'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white text-center w-4/5 m-auto px-4 py-2 w-1/2'],
     ])

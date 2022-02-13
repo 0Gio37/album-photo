@@ -25,8 +25,9 @@ use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -358,6 +359,44 @@ class AddPhotoController extends AbstractController
                 'count' => $count,
                 'status' => $status,
                 'currentPlace'=>$currentPlace,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/add-year/{titleAlbum}/{photoId}/{status}/{count}", name="add_year")
+     */
+    public function addYear(Request $request, PhotoRepository $photoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
+    {
+        $defaultData = ['message' => 'null'];
+        $currentYear='';
+
+        $setYearForm = $this->createFormBuilder($defaultData)
+            ->add('annee', IntegerType::class, [
+                'required'=>false,
+                'label'=>false,
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-xl text-gray-100 flex justify-start m-auto px-6 w-1/3 py-2'],
+            ])
+            ->getForm();
+        $setYearForm->handleRequest($request);
+
+        if ($setYearForm->isSubmitted() && $setYearForm->isValid()) {
+            $data = $setYearForm->getData();
+            $currentYear = $data['annee'];
+            $photoObject = $photoRepository->findOneBy(['id' => $photoId]);
+            $photoObject->setAnnee($currentYear);
+            $em->persist($photoObject);
+            $em->flush();
+        }
+
+        return $this->render(
+            'home/setYear.html.twig', [
+                'setYearForm' => $setYearForm->createView(),
+                'photoId' => $photoId,
+                'titleAlbum' => $titleAlbum,
+                'count' => $count,
+                'status' => $status,
+                'currentYear'=>$currentYear,
             ]
         );
     }

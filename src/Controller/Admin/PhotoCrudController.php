@@ -10,9 +10,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\DomCrawler\Field\FileFormField;
+use Symfony\Config\Twig\NumberFormatConfig;
 
 class PhotoCrudController extends AbstractCrudController
 {
@@ -25,11 +27,11 @@ class PhotoCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id','Identifiant')->hideOnForm(),
-            AssociationField::new('auteur')->hideOnForm(),
-            TextField::new('annee', 'Année (4 chiffres)'),
-            TextareaField::new('Commentaire'),
-            DateField::new('createAt')->hideOnForm(),
             ImageField::new('file')->setBasePath('uploads/')->onlyOnIndex(),
+            TextField::new('annee', 'Année (4 chiffres)'),
+            TextField::new('lieu', 'Lieu'),
+            DateField::new('createAt')->hideOnForm(),
+            AssociationField::new('auteur')->hideOnForm(),
         ];
     }
 

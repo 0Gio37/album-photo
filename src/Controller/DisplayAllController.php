@@ -210,6 +210,7 @@ class DisplayAllController extends AbstractController
         $lienCommentPhotoList = $LienCommentPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
         $commentList = $CommentsRepository->findAll();
+        $curentPhotoCommentsList = $LienCommentPhotoRepository->findBy(['photo'=>$idPhoto]);
 
 
         if($status == 1){
@@ -238,6 +239,7 @@ class DisplayAllController extends AbstractController
             'commentList'=>$commentList,
             'count'=>$count,
             'currentAlbumId'=>$currentAlbumId,
+            'curentPhotoCommentsList'=>$curentPhotoCommentsList,
         ]);
     }
 
