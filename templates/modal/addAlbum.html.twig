@@ -11,9 +11,9 @@
                 </div>
                 <div class="flex justify-center w-full py-6">
                     {{ form_start(formAlbum) }}
-                    <p class="text-white text-center text-xl pb-2 pt-6">Sélectionner la Thématique</p>
+                    <p class="text-white text-center text-xl pb-2 pt-6">Sélectionner la Thématique<span class="text-red-900 font-bold"> *</span></p>
                     {{ form_row(formAlbum.theme) }}
-                    <p class="text-white text-center text-xl pb-2 pt-6">Titre</p>
+                    <p class="text-white text-center text-xl pb-2 pt-6">Titre<span class="text-red-900 font-bold"> *</span></p>
                     {{ form_row(formAlbum.titre) }}
                     <p class="text-white text-center text-xl pb-2 pt-6">Année à 4 chiffres (optionel)</p>
                    {{ form_row(formAlbum.annee) }}

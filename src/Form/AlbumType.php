@@ -18,17 +18,17 @@ class AlbumType extends AbstractType
 
         $builder
             ->add('titre',TextType::class, [
-                'attr' => ['class' => 'w-96 rounded-lg p-4'],
+                'attr' => ['class' => 'bg-gray-100 rounded-md text-gray-800 w-96 rounded-lg p-4'],
                 'label'=>false
     ])
             ->add('theme', EntityType::class, [
                 'class'=>Theme::class,
                 'choice_label'=>'titre',
-                'attr' => ['class' => 'w-96 rounded-lg p-4'],
+                'attr' => ['class' => 'bg-gray-100 rounded-md text-gray-800 w-96 rounded-lg p-4'],
                 'label'=>false
             ])
             ->add('annee', TextType::class,  [
-                'attr' => ['class' => 'w-96 rounded-lg p-4'],
+                'attr' => ['class' => 'bg-gray-100 rounded-md text-gray-800 w-96 rounded-lg p-4'],
                 'required' => false,
                 'label'=>false
             ])
