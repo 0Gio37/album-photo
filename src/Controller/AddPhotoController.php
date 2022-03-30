@@ -100,7 +100,7 @@ class AddPhotoController extends AbstractController
 
         if ($formAlbum->isSubmitted() && $formAlbum->isValid()) {
             $data = $formAlbum->getData();
-            $album->setTitre(strtoupper($album->getTheme()->getTitre()).' '.$album->getTitre().' '.$album->getAnnee() );
+            $album->setTitre($album->getTitre().' '.'('.$album->getTheme()->getTitre().') ');
             $em->persist($data);
             $em->flush();
         }

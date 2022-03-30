@@ -83,6 +83,11 @@ class Photo
         $this->lienCommentPhotos = new ArrayCollection();
     }
 
+    public function __toString():string
+    {
+        return $this->getAuteur()->getNom();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
