@@ -54,7 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $photos;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="auteur")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="auteur")
      */
     private $commentaires;
 
@@ -234,14 +234,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Comments[]
+     * @return Collection|Comment[]
      */
     public function getCommentaires(): Collection
     {
         return $this->commentaires;
     }
 
-    public function addCommentaire(Comments $commentaire): self
+    public function addCommentaire(Comment $commentaire): self
     {
         if (!$this->commentaires->contains($commentaire)) {
             $this->commentaires[] = $commentaire;
@@ -251,7 +251,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeCommentaire(Comments $commentaire): self
+    public function removeCommentaire(Comment $commentaire): self
     {
         if ($this->commentaires->removeElement($commentaire)) {
             // set the owning side to null (unless already changed)

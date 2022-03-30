@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Repository\CommentsRepository;
 use App\Repository\CommentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,40 +22,33 @@ class Comment
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Photo::class, inversedBy="comments")
-     */
-    private $photo;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaires")
      */
     private $auteur;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
-    private $Texte;
+    private $texte;
 
     /**
-     * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime" , options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $CreateAt;
+    private $createAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=LienCommentPhoto::class, mappedBy="comment")
+     */
+    private $photo;
+
+    public function __construct()
+    {
+        $this->photo = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPhoto(): ?Photo
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(?Photo $photo): self
-    {
-        $this->photo = $photo;
-
-        return $this;
     }
 
     public function getAuteur(): ?User
@@ -67,35 +63,63 @@ class Comment
         return $this;
     }
 
-
     public function getTexte(): ?string
     {
-        return $this->Texte;
+        return $this->texte;
     }
 
-    public function setTexte(?string $Texte): self
+    public function setTexte(string $texte): self
     {
-        $this->Texte = $Texte;
+        $this->texte = $texte;
 
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeImmutable
+    public function getCreateAt(): ?\DateTimeInterface
     {
-        return $this->CreateAt;
+        return $this->createAt;
     }
 
-    public function setCreateAt(\DateTimeImmutable $CreateAt): self
+    public function setCreateAt(\DateTimeInterface $createAt): self
     {
-        $this->CreateAt = $CreateAt;
+        $this->createAt = $createAt;
 
         return $this;
     }
-
     /**
      * @ORM\PrePersist
      */
     public function seTimesStamps(){
-        $this->setCreateAt(new \DateTimeImmutable());
+        $this->setCreateAt(new \DateTime());
+    }
+
+    /**
+     * @return Collection|LienCommentPhoto[]
+     */
+    public function getPhoto(): Collection
+    {
+        return $this->photo;
+    }
+
+    public function addPhoto(LienCommentPhoto $photo): self
+    {
+        if (!$this->photo->contains($photo)) {
+            $this->photo[] = $photo;
+            $photo->setComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(LienCommentPhoto $photo): self
+    {
+        if ($this->photo->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getComment() === $this) {
+                $photo->setComment(null);
+            }
+        }
+
+        return $this;
     }
 }
