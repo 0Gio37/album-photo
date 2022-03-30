@@ -18,12 +18,14 @@ class LienCommentPhoto
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Comments::class, inversedBy="lienCommentPhotos")
+     * @ORM\ManyToOne(targetEntity=Comment::class, inversedBy="lienCommentPhotos")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $comment;
 
     /**
      * @ORM\ManyToOne(targetEntity=Photo::class, inversedBy="lienCommentPhotos")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $photo;
 
@@ -32,12 +34,12 @@ class LienCommentPhoto
         return $this->id;
     }
 
-    public function getComment(): ?Comments
+    public function getComment(): ?Comment
     {
         return $this->comment;
     }
 
-    public function setComment(?Comments $comment): self
+    public function setComment(?Comment $comment): self
     {
         $this->comment = $comment;
 

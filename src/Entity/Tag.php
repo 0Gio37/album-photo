@@ -31,11 +31,13 @@ class Tag
 
     /**
      * @ORM\ManyToMany(targetEntity=Photo::class, inversedBy="tags")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $photo;
 
     /**
      * @ORM\OneToMany(targetEntity=LienTagPhoto::class, mappedBy="tag")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $lienTagPhotos;
 

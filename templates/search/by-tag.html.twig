@@ -9,7 +9,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {% if dataSearched.nom == null %}
                 <div class="text-center pb-12 col-span-4">
-                    <p class="flex col-span-4 justify-center font-bold text-4xl text-blue-600">Photos avec " !{{ dataSearched.nom | upper }} {{ dataSearched.prenom | upper }} "</p>
+                    <p class="flex col-span-4 justify-center font-bold text-4xl text-blue-600">Photos avec " {{ dataSearched.nom | upper }} {{ dataSearched.prenom | upper }} "</p>
                 </div>
                 {% for lien in  lientagPhoto %}
                     {%  if  (lien.tag.nom |lower == dataSearched.prenom|lower ) or (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}

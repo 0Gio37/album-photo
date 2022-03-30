@@ -3,19 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Album;
-use App\Entity\Comments;
+use App\Entity\Comment;
 use App\Entity\Image;
 use App\Entity\LienCommentPhoto;
 use App\Entity\LienTagPhoto;
 use App\Entity\Photo;
 use App\Entity\Tag;
 use App\Form\AlbumType;
-use App\Form\CommentsType;
+use App\Form\CommentType;
 use App\Form\ImageType;
 use App\Form\LienCommentPhotoType;
 use App\Form\LienTagPhotoType;
 use App\Form\PhotoType;
 use App\Form\TagType;
+use App\Repository\CommentRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\ImageRepository;
 use App\Repository\LienCommentPhotoRepository;
@@ -217,10 +218,10 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-comment", name="add_comment")
      */
-    public function addComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em)
+    public function addComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em)
     {
-        $comment = new Comments();
-        $formComment = $this->createForm(CommentsType::class,$comment);
+        $comment = new Comment();
+        $formComment = $this->createForm(CommentType::class,$comment);
         $formComment->handleRequest($request);
         $currentUserId = $this->security->getUser()->getId();
 
@@ -271,10 +272,10 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-new-comment/{titleAlbum}/{photoId}/{status}/{count}", name="add_new_comment")
      */
-    public function addNewComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentsRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count) :Response
+    public function addNewComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId, $titleAlbum, $status, $count) :Response
     {
-        $comment = new Comments();
-        $formComment = $this->createForm(CommentsType::class, $comment);
+        $comment = new Comment();
+        $formComment = $this->createForm(CommentType::class, $comment);
         $formComment->handleRequest($request);
         $currentUserId = $this->security->getUser()->getId();
 

@@ -29,12 +29,13 @@ class Album
 
     /**
      * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="album")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $photos;
 
     /**
      * @ORM\ManyToOne(targetEntity=Theme::class, inversedBy="albums")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete = "CASCADE")
      */
     private $theme;
 

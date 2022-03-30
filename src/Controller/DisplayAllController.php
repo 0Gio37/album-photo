@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\AlbumRepository;
+use App\Repository\CommentRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\LienCommentPhotoRepository;
 use App\Repository\LienTagPhotoRepository;
@@ -201,7 +202,7 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
      */
-    public function detailsPhoto(AlbumRepository $AlbumRepository, CommentsRepository $CommentsRepository, LienCommentPhotoRepository $LienCommentPhotoRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
+    public function detailsPhoto(AlbumRepository $AlbumRepository, CommentRepository $CommentsRepository, LienCommentPhotoRepository $LienCommentPhotoRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
