@@ -26,6 +26,7 @@ class Theme
 
     /**
      * @ORM\OneToMany(targetEntity=Album::class, mappedBy="theme")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $albums;
 

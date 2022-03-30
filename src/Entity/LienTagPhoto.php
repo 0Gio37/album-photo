@@ -19,13 +19,12 @@ class LienTagPhoto
 
     /**
      * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="lienTagPhotos")
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $tag;
 
     /**
      * @ORM\ManyToOne(targetEntity=Photo::class, inversedBy="lienTagPhotos")
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $photo;
 

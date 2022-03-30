@@ -19,13 +19,13 @@ class LienCommentPhoto
 
     /**
      * @ORM\ManyToOne(targetEntity=Comment::class, inversedBy="lienCommentPhotos")
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $comment;
 
     /**
      * @ORM\ManyToOne(targetEntity=Photo::class, inversedBy="lienCommentPhotos")
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $photo;
 

@@ -55,6 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="auteur")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $commentaires;
 

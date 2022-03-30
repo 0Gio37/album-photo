@@ -23,6 +23,7 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaires")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $auteur;
 
@@ -38,6 +39,7 @@ class Comment
 
     /**
      * @ORM\OneToMany(targetEntity=LienCommentPhoto::class, mappedBy="comment")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $photo;
 

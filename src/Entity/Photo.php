@@ -22,7 +22,7 @@ class Photo
 
     /**
      * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="photos")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete = "CASCADE")
      */
     private $album;
 
@@ -50,6 +50,7 @@ class Photo
 
     /**
      * @ORM\OneToMany(targetEntity=LienTagPhoto::class, mappedBy="photo")
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $lienTagPhotos;
 
