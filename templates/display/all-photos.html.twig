@@ -12,11 +12,11 @@
         </div>
         <div class="flex justify-end mb-3">
             {% if toggleBtn == true %}
-                <a href="{{ path('displayAllAlbumAlpha')  }}" >
+                <a href="{{ path('displayAllPhotoChrono')  }}" >
                     <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-up"></i> Voir de la plus ancienne à plus récente <i class="fas fa-arrow-circle-up"></i></div>
                 </a>
             {% else %}
-                <a href="{{ path('displayAllAlbumNonAlpha')  }}" >
+                <a href="{{ path('displayAllPhotoAntiChrono')  }}" >
                     <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-down"></i> Voir de la plus récente à la plus ancienne <i class="fas fa-arrow-circle-down"></i></div>
                 </a>
             {% endif %}
