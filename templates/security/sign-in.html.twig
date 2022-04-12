@@ -44,9 +44,10 @@
                     </div>
                     <div class="pb-2 pt-4">{{ form_row(form.username) }}</div>
                     <div class="pb-2 pt-4">{{ form_row(form.password) }}</div>
+                    <input id="password2" type="password" class="pb-2 pt-4 form-control block w-full p-4 text-lg rounded-sm bg-black" placeholder="Confirmer le mot de passe">
 
                     <div class="px-4 pb-2 pt-4">
-                        <button class="btn btn-lg btn-primary uppercase block w-full p-4 text-lg rounded-full bg-blue-900 hover:bg-blue-700 focus:outline-none">S'INSCRIRE</button>
+                        <button id="validPwdBtn" class="btn btn-lg btn-primary uppercase block w-full p-4 text-lg rounded-full bg-blue-900 hover:bg-blue-700 focus:outline-none">S'INSCRIRE</button>
                     </div>
 
                     <div class="p-4 text-center right-0 left-0 flex justify-center space-x-4 mt-16 lg:hidden ">
@@ -78,4 +79,21 @@
 
         </div>
     </section>
+
+
+<script>
+    /*tester les mots de passe */
+    pass1 = document.getElementById("user_password");
+    pass2 = document.getElementById("password2");
+    validPwdBtn = document.getElementById("validPwdBtn");
+    validPwdBtn.addEventListener("click", (e)=>{
+if(!(pass1.value === pass2.value)){
+    alert("les mots de passe ne sont pas identiques !")
+    e.preventDefault();
+}
+
+
+
+    })
+</script>
 </body>

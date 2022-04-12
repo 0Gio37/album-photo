@@ -58,6 +58,8 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+
+
             $user = $form->getData();
 
             // Encoder le mot de passe
@@ -65,6 +67,9 @@ class SecurityController extends AbstractController
 
             //Ajout du role par défaut
             $user->setRoles(["ROLE_USER"]);
+
+            //Ajout du statut de validation par défaut
+           $user->setIsValid(false);
 
 
             $this->entityManager->persist($user);

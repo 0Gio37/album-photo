@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -30,7 +31,8 @@ class UserCrudController extends AbstractCrudController
                 ->autocomplete()
                 ->setChoices([
                     'User' => 'ROLE_USER',
-                    'Admin' => 'ROLE_ADMIN'])
+                    'Admin' => 'ROLE_ADMIN']),
+            BooleanField::new('is_valid', 'Authentifié (oui/non)'),
         ];
     }
 
