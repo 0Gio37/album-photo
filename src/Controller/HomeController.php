@@ -12,6 +12,7 @@ use App\Form\SearchByTagType;
 use App\Form\SearchByThemeType;
 use App\Form\SearchByYearType;
 use App\Repository\PhotoRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,7 +36,6 @@ class HomeController extends AbstractController
     public function index(PhotoRepository $PhotoRepository, Request $request): Response
     {
         $photoList = $PhotoRepository->findBy([], ['id'=>'DESC'],16);
-
         $defaultDataTag = ['message' => 'null'];
         $formSearchByTag = $this->createFormBuilder($defaultDataTag)
             ->add('nom', TextType::class, [

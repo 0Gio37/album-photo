@@ -59,6 +59,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $commentaires;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isValid;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -260,6 +265,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $commentaire->setAuteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsValid(): ?bool
+    {
+        return $this->isValid;
+    }
+
+    public function setIsValid(bool $isValid): self
+    {
+        $this->isValid = $isValid;
 
         return $this;
     }

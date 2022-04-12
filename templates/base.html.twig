@@ -47,14 +47,30 @@
 
 <body class="h-screen font-sans leading-normal tracking-normal mt-12">
 
-    {% if app.request.get('_route') is same as('detailsPhoto') %}
-    {%  else %}
-        <header>
-          {% include 'component/header.html.twig' %}
-        </header>
-    {% endif %}
+{% if app.user.isValid is same as(false) %}
 
-    {% block body %}{% endblock %}
+    <section class="mt-48 text-center">
+        <h1 class="text-base text-5xl font-bold text-blue-600 mb-12">Accès de ce compte non autorisé par l'administrateur</h1>
+        <div class="flex justify-center m-10 px-20">
+            <a href="{{ path('logout') }}">
+                <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                    Retour à la Page de connexion
+                </button>
+            </a>
+        </div>
+    </section>
+
+    {%  else %}
+        {% if app.request.get('_route') is same as('detailsPhoto') %}
+        {%  else %}
+            <header>
+                {% include 'component/header.html.twig' %}
+            </header>
+        {% endif %}
+        {% block body %}{% endblock %}
+{% endif %}
+
+
 
 <script>
     /*responsive menu with Hamburger */
