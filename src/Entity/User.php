@@ -64,6 +64,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isValid;
 
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $mail;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -277,6 +282,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsValid(bool $isValid): self
     {
         $this->isValid = $isValid;
+
+        return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(string $mail): self
+    {
+        $this->mail = $mail;
 
         return $this;
     }

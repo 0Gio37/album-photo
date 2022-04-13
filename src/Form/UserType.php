@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -37,9 +38,15 @@ class UserType extends AbstractType
                     'placeholder' => 'Pseudo ',
                     'class' => 'form-control block w-full p-4 text-lg rounded-sm bg-black']
             ])
-
+            ->add('mail', EmailType::class, [
+                'invalid_message'=>'Adresse mail dejà existante !',
+                'required'=> true,
+                'label'=> ' ',
+                'attr' => [
+                    'placeholder' => 'Adresse mail ',
+                    'class' => 'form-control block w-full p-4 text-lg rounded-sm bg-black']
+            ])
             ->add('password', PasswordType::class, [
-                'invalid_message' => 'Le mot de passe et la confirmation doivent être identique',
                 'required'        => true,
                 'label'=> ' ',
                 'attr' => [
