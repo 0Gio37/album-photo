@@ -32,6 +32,7 @@ class UserType extends AbstractType
                     'class' => 'form-control block w-full p-4 text-lg rounded-sm bg-black']
             ])
             ->add('username', TextType::class, [
+                'invalid_message'=>'Ce pseudonyme existe dejà !',
                 'required'=> true,
                 'label'=> ' ',
                 'attr' => [
@@ -39,7 +40,7 @@ class UserType extends AbstractType
                     'class' => 'form-control block w-full p-4 text-lg rounded-sm bg-black']
             ])
             ->add('mail', EmailType::class, [
-                'invalid_message'=>'Adresse mail dejà existante !',
+                'invalid_message'=>'Cette adresse mail  existe déjà !',
                 'required'=> true,
                 'label'=> ' ',
                 'attr' => [
