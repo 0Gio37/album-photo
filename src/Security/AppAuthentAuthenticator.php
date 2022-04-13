@@ -37,6 +37,7 @@ class AppAuthentAuthenticator extends AbstractLoginFormAuthenticator
 
         return new Passport(
             new UserBadge($username),
+
             new PasswordCredentials($request->request->get('password', '')),
             [
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
@@ -52,7 +53,7 @@ class AppAuthentAuthenticator extends AbstractLoginFormAuthenticator
         }
 
 
-        // For example:
+
         return new RedirectResponse($this->urlGenerator->generate('home'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }

@@ -43,6 +43,7 @@
                         {{ form_row(form.nom) }}
                     </div>
                     <div class="pb-2 pt-4">{{ form_row(form.username) }}</div>
+                    <div class="pb-2 pt-4">{{ form_row(form.mail) }}</div>
                     <div class="pb-2 pt-4">{{ form_row(form.password) }}</div>
                     <input id="password2" type="password" class="pb-2 pt-4 form-control block w-full p-4 text-lg rounded-sm bg-black" placeholder="Confirmer le mot de passe">
 
@@ -82,18 +83,14 @@
 
 
 <script>
-    /*tester les mots de passe */
+    /*tester les mots de passe identiques */
     pass1 = document.getElementById("user_password");
     pass2 = document.getElementById("password2");
     validPwdBtn = document.getElementById("validPwdBtn");
     validPwdBtn.addEventListener("click", (e)=>{
-if(!(pass1.value === pass2.value)){
-    alert("les mots de passe ne sont pas identiques !")
-    e.preventDefault();
-}
-
-
-
+    if(!(pass1.value === pass2.value)){
+        alert("les mots de passe ne sont pas identiques !")
+        e.preventDefault();}
     })
 </script>
 </body>
