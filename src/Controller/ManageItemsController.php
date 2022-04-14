@@ -35,7 +35,7 @@ class ManageItemsController extends AbstractController
         $item = $this->getDoctrine()->getManager();
         $item->remove($suppPhoto);
         $item->flush();
-
+        $this->addFlash('supp', 'photo supprimée !');
         return $this->redirectToRoute('home');
     }
     /**
@@ -55,6 +55,7 @@ class ManageItemsController extends AbstractController
         $item = $this->getDoctrine()->getManager();
         $item->remove($suppPhoto3);
         $item->flush();
+        $this->addFlash('supp', 'photo supprimée !');
 
         return $this->redirectToRoute('displayAllPhotoAntiChrono');
     }
@@ -76,23 +77,24 @@ class ManageItemsController extends AbstractController
         $item = $this->getDoctrine()->getManager();
         $item->remove($suppPhoto);
         $item->flush();
+        $this->addFlash('supp', 'photo supprimée !');
 
-
-        return $this->redirectToRoute("displayOneAlbumAntiChrono", ['titleAlbum'=>$titleAlbum,'idAlbum'=>$idAlbum ]);
+        return $this->redirectToRoute("displayAllPhotoAntiChrono");
+        //return $this->redirectToRoute("displayOneAlbumAntiChrono", ['titleAlbum'=>$titleAlbum,'idAlbum'=>$idAlbum ]);
     }
 
     /**
      * @Route("/manage/supp-album/{idAlbum}", name="deleteAlbum")
      */
-    public function deleteAlbum(PhotoRepository $PhotoRepository, AlbumRepository $AlbumRepository, LienTagPhotoRepository $LienTagPhotoRepository, $idAlbum): Response
+    public function deleteAlbum(AlbumRepository $AlbumRepository, $idAlbum): Response
     {
         $suppAlbum = $AlbumRepository->findOneBy(['id'=>$idAlbum]);
 
         $item = $this->getDoctrine()->getManager();
         $item->remove($suppAlbum);
         $item->flush();
+        $this->addFlash('supp', 'album supprimé !');
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('displayAllAlbumAlpha');
     }
-
 }
