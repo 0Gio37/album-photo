@@ -1,9 +1,18 @@
+{#<div class="px-28 py-10">#}
+{#    <section class="bg-gray-700 rounded-lg">#}
+{#        {% for comment in commentPhoto %}#}
+{#            {{ dump(commentPhoto) }}#}
+{#            {% for item in comment %}#}
+{#                <p class="text-white text-center font-bold py-2 my-4">- {{ item.texte }} - </p>#}
+{#            {% endfor %}#}
+{#        {% endfor %}#}
+{#    </section>#}
+{#</div>#}
+
 <div class="px-28 py-10">
     <section class="bg-gray-700 rounded-lg">
         {% for comment in commentPhoto %}
-            {% for item in comment %}
-                <p class="text-white text-center font-bold py-2 my-4">- {{ item.texte }} - </p>
-            {% endfor %}
+                <p class="text-white text-center font-bold py-2 my-4">- {{ comment.texte }} - </p>
         {% endfor %}
     </section>
 </div>

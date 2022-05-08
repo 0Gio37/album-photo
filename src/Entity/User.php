@@ -69,11 +69,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $mail;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="auteur_id")
+     */
+    private $commentaire;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->photos = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->commentaire = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -296,5 +302,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->mail = $mail;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaire(): Collection
+    {
+        return $this->commentaire;
     }
 }

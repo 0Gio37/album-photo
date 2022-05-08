@@ -4,18 +4,21 @@ namespace App\Controller;
 
 use App\Entity\Album;
 use App\Entity\Comment;
+use App\Entity\Commentaire;
 use App\Entity\Image;
 use App\Entity\LienCommentPhoto;
 use App\Entity\LienTagPhoto;
 use App\Entity\Photo;
 use App\Entity\Tag;
 use App\Form\AlbumType;
+use App\Form\CommentaireType;
 use App\Form\CommentType;
 use App\Form\ImageType;
 use App\Form\LienCommentPhotoType;
 use App\Form\LienTagPhotoType;
 use App\Form\PhotoType;
 use App\Form\TagType;
+use App\Repository\CommentaireRepository;
 use App\Repository\CommentRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\ImageRepository;
@@ -221,36 +224,59 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-comment", name="add_comment")
      */
-    public function addComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em)
+    public function addComment(Request $request, UserRepository $UserRepository, LienCommentPhotoRepository $lienCommentPhotoRepository, CommentaireRepository $commentaireRepository, CommentRepository $commentsRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em)
     {
-        $comment = new Comment();
-        $formComment = $this->createForm(CommentType::class,$comment);
-        $formComment->handleRequest($request);
         $currentUserId = $this->security->getUser()->getId();
+
+//        $comment = new Comment();
+//        $formComment = $this->createForm(CommentType::class,$comment);
+//        $formComment->handleRequest($request);
+
+        //ajout commentaire form
+        $commentaire = new Commentaire();
+        $formCommentaire = $this->createForm(CommentaireType::class, $commentaire);
+        $formCommentaire->handleRequest($request);
+
 
         $linkCommentPhoto = new LienCommentPhoto();
         $formLinkCommentPhoto = $this->createForm(LienCommentPhotoType::class, $linkCommentPhoto);
         $formLinkCommentPhoto->handleRequest($request);
 
-        if ($formComment->isSubmitted() && $formComment->isValid()) {
+//        if ($formComment->isSubmitted() && $formComment->isValid()) {
+            if ($formCommentaire->isSubmitted() && $formCommentaire->isValid()) {
 
             $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
-            $comment->setAuteur($currentUserObject);
-            $dataComment = $formComment->getData();
-            $em->persist($dataComment);
+                $photoList= $PhotoRepository-> findBy([],['id'=>'DESC'],1);
+                $photoId = $photoList[0];
+
+
+//            $comment->setAuteur($currentUserObject);
+                $commentaire->setAuteurId($currentUserObject);
+                $commentaire->setPhotoId($photoId);
+
+//            $dataComment = $formComment->getData();
+                $dataCommentaire = $formCommentaire->getData();
+
+//            $em->persist($dataComment);
+                $em->persist($dataCommentaire);
+
             $em->flush();
 
-            $CommentList = $commentsRepository-> findBy([],['id'=>'DESC'],1);
-            $commentId = $CommentList[0];
-            $linkCommentPhoto->setComment($commentId);
+//            $CommentList = $commentsRepository-> findBy([],['id'=>'DESC'],1);
+                $CommentaireList = $commentaireRepository-> findBy([],['id'=>'DESC'],1);
 
-            $photoList= $PhotoRepository-> findBy([],['id'=>'DESC'],1);
-            $photoId = $photoList[0];
-            $linkCommentPhoto->setPhoto($photoId);
+//                $commentId = $CommentList[0];
+                //$commentId = $CommentaireList[0];
 
-            $dataLinkCommentPhoto= $formLinkCommentPhoto->getData();
-            $em->persist($dataLinkCommentPhoto);
-            $em->flush();
+            //$linkCommentPhoto->setComment($commentId);
+
+            //$photoList= $PhotoRepository-> findBy([],['id'=>'DESC'],1);
+           // $photoId = $photoList[0];
+           // $linkCommentPhoto->setPhoto($photoId);
+
+            //$dataLinkCommentPhoto= $formLinkCommentPhoto->getData();
+           // $em->persist($dataLinkCommentPhoto);
+           // $em->flush();
         }
 
         $commentPhoto = [];
@@ -258,15 +284,19 @@ class AddPhotoController extends AbstractController
         $photoList= $PhotoRepository-> findBy([],['id'=>'DESC'],1);
         $photoId = $photoList[0];
 
-        $listCommentIdEquivalent = $lienCommentPhotoRepository->findBy(['photo'=>$photoId]);
-        foreach ($listCommentIdEquivalent as $idEquivalent){
-            $comment = $commentsRepository->findby(['id'=>$idEquivalent->getComment()->getId()]);
-            array_push($commentPhoto, $comment);
+        //$listCommentIdEquivalent = $lienCommentPhotoRepository->findBy(['photo'=>$photoId]);
+        $listComment = $commentaireRepository->findBy(['photo_id'=>$photoId]);
+//        foreach ($listCommentIdEquivalent as $idEquivalent){
+            foreach ($listComment as $idEquivalent){
+//            $comment = $commentsRepository->findby(['id'=>$idEquivalent->getComment()->getId()]);
+//            array_push($commentPhoto, $comment);
+                array_push($commentPhoto, $idEquivalent);
         }
 
         return $this->render(
             'home/addComment.html.twig', [
-                'commentForm'=>$formComment->createView(),
+//                'commentForm'=>$formComment->createView(),
+                'commentForm'=>$formCommentaire->createView(),
                 'commentPhoto'=>$commentPhoto,
             ]
         );

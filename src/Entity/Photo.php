@@ -74,6 +74,11 @@ class Photo
      */
     private $lieu;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="photo_id")
+     */
+    private $commentaires;
+
 
     public function __construct()
     {
@@ -81,6 +86,7 @@ class Photo
         $this->comments = new ArrayCollection();
         $this->lienTagPhotos = new ArrayCollection();
         $this->lienCommentPhotos = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function __toString():string
@@ -287,6 +293,36 @@ class Photo
     public function setLieu(?string $lieu): self
     {
         $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setPhotoId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getPhotoId() === $this) {
+                $commentaire->setPhotoId(null);
+            }
+        }
 
         return $this;
     }
