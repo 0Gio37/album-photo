@@ -101,7 +101,7 @@ class AddPhotoController extends AbstractController
 
         if ($formAlbum->isSubmitted() && $formAlbum->isValid()) {
             $data = $formAlbum->getData();
-            $album->setTitre($album->getTitre().' '.'('.$album->getTheme()->getTitre().') ');
+            $album->setTitre($album->getTitre());
             $em->persist($data);
             $em->flush();
             $this->addFlash('addAlbum', 'album ajouté !');
