@@ -9,6 +9,7 @@ use App\Entity\LienCommentPhoto;
 use App\Entity\LienTagPhoto;
 use App\Entity\Photo;
 use App\Entity\Tag;
+use App\Entity\Theme;
 use App\Form\AlbumType;
 use App\Form\CommentType;
 use App\Form\ImageType;
@@ -16,6 +17,7 @@ use App\Form\LienCommentPhotoType;
 use App\Form\LienTagPhotoType;
 use App\Form\PhotoType;
 use App\Form\TagType;
+use App\Form\ThemeType;
 use App\Repository\CommentRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\ImageRepository;
@@ -64,6 +66,12 @@ class AddPhotoController extends AbstractController
         $album = new Album();
         $formAlbum = $this->createForm(AlbumType::class, $album);
         $formAlbum->handleRequest($request);
+
+        $theme = new Theme();
+        $formTheme = $this->createForm(ThemeType::class, $theme);
+        $formTheme->handleRequest($request);
+
+
 
 
         if ($imageForm->isSubmitted() && $imageForm->isValid()) {
