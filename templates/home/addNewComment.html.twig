@@ -26,7 +26,6 @@
                 <button id="displayTagListBtn" class="flex mt-6 m-auto px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
                     Ajouter
                 </button>
-
                 {{ form_end(formComment) }}
                 {% if commentPhoto %}
                     {% include 'modal/displayComment.html.twig' with {'commentPhoto':commentPhoto} only %}
