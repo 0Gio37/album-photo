@@ -5,7 +5,6 @@
 {% block body %}
 
     <div class="pt-6">
-        <p id="test"> {{titleAlbum  }}</p>
         <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-screen">
             <div class="flex justify-center mb-2 col-start-6 fixed top-18 right-24">
                <a href= "{{ path('detailsPhoto', {titleAlbum:titleAlbum, idPhoto:photoId, status:status, count:count} ) }}" >

@@ -91,39 +91,22 @@
             <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4">
                 <div>
                     {% set showComm = true %}
-{#                    {% if lienCommentPhotoList %}#}
                     {% if commentaireList %}
-
                         <p class="text-left mb-4">A propos</p>
-
-{#                        {% for lien in lienCommentPhotoList %}#}
-{#                            {% if lien.photo.id == selectedPhoto.id %}#}
-
-{#                                {% for comm in commentList %}#}
-                    {% for comm in commentaireList %}
-{#                    {{ dump(comm) }}#}
-{#                                    {% if  lien.comment.id == comm.id %}#}
-                                    {% set showComm = false %}
-{#                                        {%  if lien.comment.id is even %}#}
-                    {%  if comm.id is even %}
-                                            <div class="flex justify-start">
-                                            {% else %}
-                                            <div class="flex justify-end">
-                                        {% endif %}
-                                            <div class="bg-gray-400 w-2/3 text-gray-800 text-sm rounded-xl my-2 p-2">
-{#                                                <p class="font-bold">" {{ lien.comment.texte }} "</p>#}
-                                                <p class="font-bold">" {{ comm.texte }} "</p>
-
-{#                                                <p class="text-xs text-right italic">Par {{ lien.comment.auteur.username }} - {{ lien.comment.createAt | format_date(locale='fr', pattern=" dd/MM/YYYY")  }} </p>#}
-                                                <p class="text-xs text-right italic">Par {{ comm.auteurId.username }} - {{ comm.createdAt | format_date(locale='fr', pattern=" dd/MM/YYYY")  }} </p>
-
-                                            </div>
-                                            </div>
-{#                                        {% endif %}#}
-                                    {% endfor %}
-{#                                {% endif %}#}
-{#                            {% endfor %}#}
-                        {% endif %}
+                        {% for comm in commentaireList %}
+                            {% set showComm = false %}
+                            {%  if comm.id is even %}
+                                <div class="flex justify-start">
+                                {% else %}
+                                    <div class="flex justify-end">
+                                {% endif %}
+                                    <div class="bg-gray-400 w-2/3 text-gray-800 text-sm rounded-xl my-2 p-2">
+                                        <p class="font-bold">" {{ comm.texte }} "</p>
+                                        <p class="text-xs text-right italic">Par {{ comm.auteurId.username }} - {{ comm.createdAt | format_date(locale='fr', pattern=" dd/MM/YYYY")  }} </p>
+                                    </div>
+                                </div>
+                        {% endfor %}
+                    {% endif %}
                         {% if showComm is same as(true) %}
                             <p class="italic text-center text-gray-400"> "Aucun commentaire ..."</p>
                         {% endif %}
