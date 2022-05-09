@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\AlbumRepository;
+use App\Repository\CommentaireRepository;
 use App\Repository\CommentRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\LienCommentPhotoRepository;
@@ -202,7 +203,7 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
      */
-    public function detailsPhoto(AlbumRepository $AlbumRepository, CommentRepository $CommentsRepository, LienCommentPhotoRepository $LienCommentPhotoRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
+    public function detailsPhoto(AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository,CommentRepository $CommentsRepository, LienCommentPhotoRepository $LienCommentPhotoRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
@@ -210,8 +211,8 @@ class DisplayAllController extends AbstractController
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
         $lienCommentPhotoList = $LienCommentPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
-        $commentList = $CommentsRepository->findAll();
-
+        //$commentList = $CommentsRepository->findAll();
+        $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto]);
 
         if($status == 1){
             $selectedPhoto  = $selectedPhotoArray[0];
@@ -236,11 +237,11 @@ class DisplayAllController extends AbstractController
             'lienTagPhotoList'=>$lienTagPhotoList,
             'lienCommentPhotoList'=>$lienCommentPhotoList,
             'tagList'=>$tagList,
-            'commentList'=>$commentList,
+            //'commentList'=>$commentList,
+            'commentaireList'=>$commentaireList,
             'count'=>$count,
             'currentAlbumId'=>$currentAlbumId,
         ]);
     }
-
 
 }
