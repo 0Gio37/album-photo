@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CommentaireRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Commentaire
 {
@@ -23,7 +24,7 @@ class Commentaire
     private $texte;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaire"
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaire")
      * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $auteur_id;
@@ -35,7 +36,7 @@ class Commentaire
     private $photo_id;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $created_at;
 
