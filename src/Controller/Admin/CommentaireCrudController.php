@@ -2,20 +2,19 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Comment;
+use App\Entity\Commentaire;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class CommentCrudController extends AbstractCrudController
+class CommentaireCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Comment::class;
+        return Commentaire::class;
     }
 
 
@@ -24,8 +23,8 @@ class CommentCrudController extends AbstractCrudController
 
         return [
             TextField::new('texte', 'Texte'),
-            DateField::new('createAt', 'Créé le'),
-            AssociationField::new('auteur', 'Par'),
+            DateField::new('created_at', 'Créé le'),
+            AssociationField::new('auteur_id', 'Par'),
         ];
     }
 
