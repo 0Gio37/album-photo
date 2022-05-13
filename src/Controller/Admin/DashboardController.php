@@ -3,8 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Album;
-use App\Entity\Comment;
-use App\Entity\LienTagPhoto;
+use App\Entity\Commentaire;
 use App\Entity\Photo;
 use App\Entity\Tag;
 use App\Entity\Theme;
@@ -49,6 +48,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Albums', 'fas fa-book', Album::class);
         yield MenuItem::linkToCrud('Photos', 'fas fa-camera', Photo::class);
         yield MenuItem::linkToCrud('Personnes identifiées', 'fas fa-users', Tag::class);
-        yield MenuItem::linkToCrud('Commentaires', 'fas fa-comment', Comment::class);
+        yield MenuItem::linkToCrud('Commentaires', 'fas fa-comment', Commentaire::class);
     }
 }
