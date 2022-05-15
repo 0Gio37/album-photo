@@ -47,7 +47,7 @@
                 </button>
                 {{ form_end(commentForm) }}
                 {% if commentPhoto %}
-                    {% include 'modal/displayComment.html.twig' with {'commentPhoto':commentPhoto} only %}
+                    {% include 'display/displayComment.html.twig' with {'commentPhoto':commentPhoto} only %}
                 {% endif %}
             </section>
         </div>
