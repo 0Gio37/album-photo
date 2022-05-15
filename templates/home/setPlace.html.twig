@@ -27,7 +27,7 @@
                 </button>
                 {{ form_end(setPlaceForm) }}
                 {% if currentPlace %}
-                    {% include 'modal/displayPlace.html.twig' with {'currentPlace':currentPlace} only %}
+                    {% include 'display/displayPlace.html.twig' with {'currentPlace':currentPlace} only %}
                 {% endif %}
             </section>
         </div>
