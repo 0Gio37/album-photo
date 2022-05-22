@@ -37,11 +37,11 @@ class Comment
      */
     private $createAt;
 
-    /**
-     * @ORM\OneToMany(targetEntity=LienCommentPhoto::class, mappedBy="comment")
-     * @ORM\JoinColumn(onDelete = "CASCADE")
-     */
-    private $photo;
+//    /**
+//     * @ORM\OneToMany(targetEntity=LienCommentPhoto::class, mappedBy="comment")
+//     * @ORM\JoinColumn(onDelete = "CASCADE")
+//     */
+//    private $photo;
 
     public function __construct()
     {

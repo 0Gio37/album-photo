@@ -80,7 +80,6 @@ class ManageItemsController extends AbstractController
         $this->addFlash('supp', 'photo supprimée !');
 
         return $this->redirectToRoute("displayAllPhotoAntiChrono");
-        //return $this->redirectToRoute("displayOneAlbumAntiChrono", ['titleAlbum'=>$titleAlbum,'idAlbum'=>$idAlbum ]);
     }
 
     /**
