@@ -58,15 +58,6 @@ class DisplayAllController extends AbstractController
     {
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
         $listAlbumsByTheme = $AlbumRepository->findBy(['theme'=>$idTheme], ['titre'=>'ASC']);
-/*
-        $pattern ='/[A-Z0-9]+/';
-        $replacement = '';
-        foreach ($listAlbumsByTheme as $item){
-            $test=preg_replace($pattern, $replacement, $item->getTitre());
-            $noSpace = trim($test);
-            $noSpace = ucfirst($noSpace);
-            $item->setTitre($noSpace);}
-        */
 
         return $this->render('display/single-theme.html.twig', [
             'listAlbumsByTheme'=>$listAlbumsByTheme,
@@ -86,14 +77,6 @@ class DisplayAllController extends AbstractController
         $albumList = $AlbumRepository->findBy([], ['titre'=>'DESC']);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
 
-        /*$pattern ='/[A-Z0-9]+/';
-        $replacement = '';
-        foreach ($albumList as $item){
-            $test=preg_replace($pattern, $replacement, $item->getTitre());
-            $noSpace = trim($test);
-            $noSpace = ucfirst($noSpace);
-            $item->setTitre($noSpace);}
-*/
         return $this->render('display/all-albums.html.twig', [
             'albumList' => $albumList,
             'photoList'=>$photoList,
@@ -110,15 +93,6 @@ class DisplayAllController extends AbstractController
 
         $albumList = $AlbumRepository->findBy([], ['titre'=>'ASC']);
         $photoList = $PhotoRepository->findBy([], ['id'=>'ASC']);
-/*
-        $pattern ='/[A-Z0-9]+/';
-        $replacement = '';
-        foreach ($albumList as $item){
-            $test=preg_replace($pattern, $replacement, $item->getTitre());
-            $noSpace = trim($test);
-            $noSpace = ucfirst($noSpace);
-            $item->setTitre($noSpace);}
-*/
 
         return $this->render('display/all-albums.html.twig', [
             'albumList' => $albumList,
@@ -203,15 +177,13 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
      */
-    public function detailsPhoto(AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository,CommentRepository $CommentsRepository, LienCommentPhotoRepository $LienCommentPhotoRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
+    public function detailsPhoto(AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
         $currentAlbumId = $currentAlbum[0]->getId();
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
-        $lienCommentPhotoList = $LienCommentPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
-        //$commentList = $CommentsRepository->findAll();
         $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto]);
 
         if($status == 1){
@@ -235,9 +207,7 @@ class DisplayAllController extends AbstractController
             'idPhoto'=>$idPhoto,
             'titleAlbum'=>$titleAlbum,
             'lienTagPhotoList'=>$lienTagPhotoList,
-            'lienCommentPhotoList'=>$lienCommentPhotoList,
             'tagList'=>$tagList,
-            //'commentList'=>$commentList,
             'commentaireList'=>$commentaireList,
             'count'=>$count,
             'currentAlbumId'=>$currentAlbumId,
