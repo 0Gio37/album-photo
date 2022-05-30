@@ -34,20 +34,17 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/all-year", name="displayAllYear")
      */
-    public function displayAllYear(PhotoRepository $photoRepository, AlbumRepository $albumRepository): Response
+    public function displayAllYear(PhotoRepository $photoRepository): Response
     {
-
         $yearListSorted =[];
-        $listAlbum = $albumRepository->findAll();
         $yearListBrut = $photoRepository->findBy([], ['annee'=>'DESC']);
-        foreach ($yearListBrut as $year){
-            array_push($yearListSorted, $year->getAnnee());
+        foreach ($yearListBrut as $photo){
+            array_push($yearListSorted, $photo->getAnnee());
     }
         $yearListSortedUnique = array_unique($yearListSorted);
 
         return $this->render('display/all-years.html.twig', [
             'yearListSortedUnique' => $yearListSortedUnique,
-            'listAlbum'=>$listAlbum,
         ]);
     }
 
@@ -104,7 +101,7 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/single-year/{photoAnnee}", name="displaySingleYear")
      */
-    public function displaySingleYear(PhotoRepository $photoRepository, AlbumRepository $AlbumRepository, $photoAnnee): Response
+    public function displaySingleYear(PhotoRepository $photoRepository, $photoAnnee): Response
     {
         $photoListByYear = $photoRepository->findBy(['annee'=>$photoAnnee], ['id'=>'ASC']);
 
