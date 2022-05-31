@@ -174,7 +174,9 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
      */
-    public function detailsPhoto(AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
+    public function detailsPhoto(
+        AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository,
+        TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
     {
         $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
         $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
