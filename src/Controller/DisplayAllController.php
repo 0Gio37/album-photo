@@ -175,34 +175,44 @@ class DisplayAllController extends AbstractController
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
      */
     public function detailsPhoto(
-        AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository,
+        AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $PhotoRepository,
+        LienTagPhotoRepository $LienTagPhotoRepository,
         TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
     {
-        $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
-        $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
-        $currentAlbumId = $currentAlbum[0]->getId();
+        $photoDisplayed  = $PhotoRepository->findBy(['id'=>$idPhoto])[0];
+        $albumParentPhotoDisplayed = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
+        $currentAlbumId = $albumParentPhotoDisplayed[0]->getId();
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
         $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto]);
 
-        if($status == 1){
-            $selectedPhoto  = $selectedPhotoArray[0];
-        }else{
-            $currentArrayAlbumPhoto = $PhotoRepository->findBy(['album'=>$currentAlbumId]);
-            if($count >= count($currentArrayAlbumPhoto)){
+        if($status == 0){
+            $tempArrayToDisplayPhotosFromAlbumParent = [];
+            array_push($tempArrayToDisplayPhotosFromAlbumParent,$photoDisplayed);
+
+            $allPhotosFromAlbumParent = $PhotoRepository->findBy(['album'=>$currentAlbumId]);
+            foreach ($allPhotosFromAlbumParent as $photo){
+                if (!in_array($photo, $tempArrayToDisplayPhotosFromAlbumParent))
+                {
+                    array_push($tempArrayToDisplayPhotosFromAlbumParent, $photo);
+                }
+            }
+
+            if($count >= count($tempArrayToDisplayPhotosFromAlbumParent)){
                 $count = 0;
-                $selectedPhoto = $currentArrayAlbumPhoto[$count];
+                $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
             }elseif ($count < 0){
-                $count = count($currentArrayAlbumPhoto)-1;
-                $selectedPhoto = $currentArrayAlbumPhoto[$count];
+                $count = count($tempArrayToDisplayPhotosFromAlbumParent)-1;
+                $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
             }
             else{
-                $selectedPhoto = $currentArrayAlbumPhoto[$count];
+                $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
             }
         }
+
         return $this->render(
             'display/detailsPhoto.html.twig',[
-            'selectedPhoto'=>$selectedPhoto,
+            'selectedPhoto'=>$photoDisplayed,
             'idPhoto'=>$idPhoto,
             'titleAlbum'=>$titleAlbum,
             'lienTagPhotoList'=>$lienTagPhotoList,
@@ -212,5 +222,4 @@ class DisplayAllController extends AbstractController
             'currentAlbumId'=>$currentAlbumId,
         ]);
     }
-
 }
