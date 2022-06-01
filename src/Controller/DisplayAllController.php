@@ -11,6 +11,7 @@ use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
 use App\Repository\ThemeRepository;
+use App\Service\Services;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -175,34 +176,38 @@ class DisplayAllController extends AbstractController
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
      */
     public function detailsPhoto(
-        AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $PhotoRepository, LienTagPhotoRepository $LienTagPhotoRepository,
-        TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
+        AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $photoRepository,
+        LienTagPhotoRepository $LienTagPhotoRepository,
+        TagRepository $TagRepository, $idPhoto, $titleAlbum, $status, $count, Services $photoSlider): Response
     {
-        $selectedPhotoArray = $PhotoRepository->findBy(['id'=>$idPhoto]);
-        $currentAlbum = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
-        $currentAlbumId = $currentAlbum[0]->getId();
+        $photoDisplayed  = $photoRepository->findBy(['id'=>$idPhoto])[0];
+        $albumParentPhotoDisplayed = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
+        $currentAlbumId = $albumParentPhotoDisplayed[0]->getId();
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
         $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto]);
 
-        if($status == 1){
-            $selectedPhoto  = $selectedPhotoArray[0];
-        }else{
-            $currentArrayAlbumPhoto = $PhotoRepository->findBy(['album'=>$currentAlbumId]);
-            if($count >= count($currentArrayAlbumPhoto)){
-                $count = 0;
-                $selectedPhoto = $currentArrayAlbumPhoto[$count];
-            }elseif ($count < 0){
-                $count = count($currentArrayAlbumPhoto)-1;
-                $selectedPhoto = $currentArrayAlbumPhoto[$count];
-            }
-            else{
-                $selectedPhoto = $currentArrayAlbumPhoto[$count];
+        if($status == 0){
+            $tempArrayToDisplayPhotosFromAlbumParent = $photoSlider->Slider($photoDisplayed, $photoRepository, $currentAlbumId);
+
+            switch ($count) {
+                case $count < 0:
+                    $count = count($tempArrayToDisplayPhotosFromAlbumParent)-1;
+                    $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
+                    break;
+                case $count >= count($tempArrayToDisplayPhotosFromAlbumParent) :
+                    $count = 0;
+                    $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
+                    break;
+                default :
+                    $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
+                    break;
             }
         }
+
         return $this->render(
             'display/detailsPhoto.html.twig',[
-            'selectedPhoto'=>$selectedPhoto,
+            'selectedPhoto'=>$photoDisplayed,
             'idPhoto'=>$idPhoto,
             'titleAlbum'=>$titleAlbum,
             'lienTagPhotoList'=>$lienTagPhotoList,
@@ -212,5 +217,4 @@ class DisplayAllController extends AbstractController
             'currentAlbumId'=>$currentAlbumId,
         ]);
     }
-
 }
