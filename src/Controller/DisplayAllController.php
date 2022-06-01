@@ -11,6 +11,7 @@ use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
 use App\Repository\ThemeRepository;
+use App\Service\Services;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -175,11 +176,11 @@ class DisplayAllController extends AbstractController
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
      */
     public function detailsPhoto(
-        AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $PhotoRepository,
+        AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $photoRepository,
         LienTagPhotoRepository $LienTagPhotoRepository,
-        TagRepository $TagRepository, $idPhoto, $titleAlbum, $status,$count ): Response
+        TagRepository $TagRepository, $idPhoto, $titleAlbum, $status, $count, Services $photoSlider): Response
     {
-        $photoDisplayed  = $PhotoRepository->findBy(['id'=>$idPhoto])[0];
+        $photoDisplayed  = $photoRepository->findBy(['id'=>$idPhoto])[0];
         $albumParentPhotoDisplayed = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
         $currentAlbumId = $albumParentPhotoDisplayed[0]->getId();
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
@@ -187,26 +188,20 @@ class DisplayAllController extends AbstractController
         $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto]);
 
         if($status == 0){
-            $tempArrayToDisplayPhotosFromAlbumParent = [];
-            array_push($tempArrayToDisplayPhotosFromAlbumParent,$photoDisplayed);
+            $tempArrayToDisplayPhotosFromAlbumParent = $photoSlider->Slider($photoDisplayed, $photoRepository, $currentAlbumId);
 
-            $allPhotosFromAlbumParent = $PhotoRepository->findBy(['album'=>$currentAlbumId]);
-            foreach ($allPhotosFromAlbumParent as $photo){
-                if (!in_array($photo, $tempArrayToDisplayPhotosFromAlbumParent))
-                {
-                    array_push($tempArrayToDisplayPhotosFromAlbumParent, $photo);
-                }
-            }
-
-            if($count >= count($tempArrayToDisplayPhotosFromAlbumParent)){
-                $count = 0;
-                $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
-            }elseif ($count < 0){
-                $count = count($tempArrayToDisplayPhotosFromAlbumParent)-1;
-                $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
-            }
-            else{
-                $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
+            switch ($count) {
+                case $count < 0:
+                    $count = count($tempArrayToDisplayPhotosFromAlbumParent)-1;
+                    $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
+                    break;
+                case $count >= count($tempArrayToDisplayPhotosFromAlbumParent) :
+                    $count = 0;
+                    $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
+                    break;
+                default :
+                    $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
+                    break;
             }
         }
 
