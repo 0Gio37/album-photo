@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Photo;
 use App\Repository\AlbumRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\CommentRepository;
@@ -178,7 +179,7 @@ class DisplayAllController extends AbstractController
     public function detailsPhoto(
         AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $photoRepository,
         LienTagPhotoRepository $LienTagPhotoRepository,
-        TagRepository $TagRepository, $idPhoto, $titleAlbum, $status, $count, Services $photoSlider): Response
+        TagRepository $TagRepository, $idPhoto, $titleAlbum, $status, $count, Services $photoSlider ): Response
     {
         $photoDisplayed  = $photoRepository->findBy(['id'=>$idPhoto])[0];
         $albumParentPhotoDisplayed = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
@@ -186,23 +187,21 @@ class DisplayAllController extends AbstractController
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
         $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto]);
+        $count = (int)$count;
 
         if($status == 0){
             $tempArrayToDisplayPhotosFromAlbumParent = $photoSlider->Slider($photoDisplayed, $photoRepository, $currentAlbumId);
 
             switch ($count) {
-                case $count < 0:
+                case $count <= 0:
                     $count = count($tempArrayToDisplayPhotosFromAlbumParent)-1;
-                    $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
                     break;
                 case $count >= count($tempArrayToDisplayPhotosFromAlbumParent) :
                     $count = 0;
-                    $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
-                    break;
-                default :
-                    $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
                     break;
             }
+            $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
+            $commentaireList = $commentaireRepository->findBy(['photo_id'=>$photoDisplayed->getId()]);
         }
 
         return $this->render(
