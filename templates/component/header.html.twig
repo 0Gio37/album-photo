@@ -57,14 +57,11 @@
 
     <div class="col-start-6 flex justify-end px-8">
         <div class="relative inline-block">
-            <button onclick="toggleDD('myDropdown')" class="drop-button text-white text-sm focus:outline-none"> <span class="pr-2"><i class="far fa-user-circle"></i></span>
-                {% if app.user.prenom %}
-                    Bonjour, {{ app.user.prenom }} <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                {%  else %}
-                    <a href="{{ path('login') }}" class="p-2 text-red-500 text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i>  Se connecter </a>
-                {% endif %}
-
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg></button>
+            <button onclick="toggleDD('myDropdown')"  class="drop-button text-white text-sm focus:outline-none">
+                <span class="pr-2"><i class="far fa-user-circle"></i></span>
+                    Bonjour, {{ app.user.prenom }}
+                <span class="text-white pl-2"><i class="fas fa-chevron-down"></i></span>
+            </button>
             <div id="myDropdown" class="dropdownlist w-full absolute text-white right-0 overflow-auto z-30 invisible" style="background-color: #161616">
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="mt-3 rounded-full bg-gray-700 hover:bg-blue-600">
@@ -78,4 +75,3 @@
         </div>
     </div>
 </nav>
-
