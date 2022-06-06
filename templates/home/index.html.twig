@@ -55,7 +55,9 @@
             </div>
         </section>
         <section>
-            {% include 'search/search.html.twig' with {'formSearchByTag':formSearchByTag, 'formSearchByYear':formSearchByYear,'formSearchByTheme':formSearchByTheme, 'formSearchPlace':formSearchPlace} only %}
+            {% include 'search/search.html.twig' with
+                {'formSearchByTag':formSearchByTag, 'formSearchByYear':formSearchByYear,'formSearchByTheme':formSearchByTheme, 'formSearchPlace':formSearchPlace}
+                only %}
         </section>
         </div>
     </div>

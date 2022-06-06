@@ -25,7 +25,7 @@
             transition: opacity 0.25s ease;
         }
         body.modal-active {
-            overflow-x: hidden;
+           overflow-x: hidden;
             overflow-y: visible !important;
         }
         .opacity-95 {opacity: .95;}
@@ -77,7 +77,6 @@
     document.getElementById("menuNav").addEventListener("click", ()=> {
         document.getElementById("menuList").classList.toggle("hidden")
     })
-
     /*Toggle dropdown list*/
     function toggleDD(myDropMenu) {
         document.getElementById(myDropMenu).classList.toggle("invisible");
@@ -97,7 +96,7 @@
             }
         }
     }
-    // Close the dropdown menu if the user clicks outside of it
+    /* Close the dropdown menu if the user clicks outside of it */
     window.onclick = function(event) {
         if (!event.target.matches(".drop-button") && !event.target.matches(".drop-search")) {
             let dropdowns = document.getElementsByClassName("dropdownlist");
@@ -110,19 +109,34 @@
         }
     }
 
+    //Modal management to search pages
     let openModal = document.querySelectorAll('.modal-open')
     for (let i = 0; i < openModal.length; i++) {
-        openModal[i].addEventListener("click", function(event){
-            event.preventDefault()
-            toggleModal()
+        openModal[i].addEventListener("click", toggleModal);
+    }
+    let closeModal = document.querySelector('.modal-close');
+    closeModal.addEventListener("click", toggleModal);
+
+    //display modal on/off
+    function toggleModal () {
+        const body = document.querySelector('body')
+        const modal = document.querySelector('.modal')
+        modal.classList.toggle('opacity-0')
+        modal.classList.toggle('pointer-events-none')
+        body.classList.toggle('modal-active')
+    }
+
+    // display modal for each searching items from aside bar
+    //convert nodeList given by queryselectorAll in array
+    let activeModal =  Array.from(document.querySelectorAll('.active-modal'));
+    let modalManage =  Array.from(document.querySelectorAll('.modal-manage'));
+
+    for (let i in activeModal){
+        activeModal[i].addEventListener('click', () => {
+            modalManage.map(item => item.setAttribute("style", "display:none"));
+            modalManage[i].setAttribute("style", "display:bloc");
         })
-    }
-
-
-    let closeModal = document.querySelectorAll('.modal-close')
-    for (let i = 0; i < closeModal.length; i++) {
-        closeModal[i].addEventListener("click", toggleModal)
-    }
+}
 
     document.onkeydown = function(evt) {
         evt = evt || window.event
@@ -137,51 +151,6 @@
         }
     };
 
-    function toggleModal () {
-        const body = document.querySelector('body')
-        const modal = document.querySelector('.modal')
-        modal.classList.toggle('opacity-0')
-        modal.classList.toggle('pointer-events-none')
-        body.classList.toggle('modal-active')
-    }
-
-    //gestion de la modale home page => search
-    let modal1 = document.getElementById('modal1');
-    let modal2 = document.getElementById('modal2');
-    let modal3 = document.getElementById('modal3');
-    let modal4 = document.getElementById('modal4');
-    let modal5 = document.getElementById('modal5');
-    let modal6 = document.getElementById('modal6');
-    let allModal = [modal1, modal2, modal3, modal4, modal5, modal6];
-
-    let activeModal1 = document.getElementById('activeModal1');
-    let activeModal2 = document.getElementById('activeModal2');
-    let activeModal3 = document.getElementById('activeModal3');
-    let activeModal4 = document.getElementById('activeModal4');
-    let activeModal5 = document.getElementById('activeModal5');
-    let activeModal6 = document.getElementById('activeModal6');
-    let allActive = [activeModal1, activeModal2, activeModal3, activeModal4,activeModal5,activeModal6]
-
-  for (let i in allActive){
-      allActive[i].addEventListener("click", () => {
-          allModal.map(item => item.setAttribute("style", "display:none"));
-          allModal[i].setAttribute("style", "display:bloc");
-      })
-  }
-
-
-// a tester pour refacto
-
-    /*let modalManage = document.getElementsByClassName('modalManage');
-  let activeModal = document.getElementsByClassName('activeModal');
-
-    for (let i in activeModal){
-    activeModal[i].addEventListener('click', () => {
-        modalManage.map(item => item.setAttribute("style", "display:none"));
-        modalManage[i].setAttribute("style", "display:bloc");
-    })
-}
-   */
 
 </script>
 
