@@ -28,11 +28,12 @@ class AlbumType extends AbstractType
                 'attr' => ['class' => 'w-96 rounded-lg p-4'],
                 'label'=>false
             ])
+            /*
             ->add('annee', TextType::class,  [
                 'data'=>$currentYear,
                 'attr' => ['class' => 'w-96 rounded-lg p-4'],
                 'label'=>false
-            ])
+            ])*/
         ;
     }
 
