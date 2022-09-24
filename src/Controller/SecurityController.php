@@ -64,7 +64,7 @@ class SecurityController extends AbstractController
             $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
 
             //Ajout du role par défaut
-            $user->setRoles(["ROLE_USER"]);
+            $user->setUserole(["ROLE_USER"]);
 
             //Ajout du statut de validation par défaut
            $user->setIsValid(false);
