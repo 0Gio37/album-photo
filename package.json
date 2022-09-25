@@ -19,8 +19,8 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "webpack -p --config ./webpack.config.js --display-error-details",
-        "heroku-postbuild": "webpack -p --config ./webpack.config.js && php bin/console d:s:u --force"
+        "build": "encore -p --config ./webpack.config.js --display-error-details",
+        "heroku-postbuild": "encore -p --config ./webpack.config.js && php bin/console d:s:u --force"
     },
     "engines": {
         "node": "v14.16.*",
