@@ -6,6 +6,8 @@ use App\Entity\Album;
 use App\Entity\Theme;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +29,7 @@ class AlbumType extends AbstractType
                 'attr' => ['class' => 'bg-gray-100 rounded-md text-gray-800 w-96 rounded-lg p-4'],
                 'label'=>false
             ])
-            ->add('annee', TextType::class,  [
+            ->add('annee', IntegerType::class,  [
                 'attr' => ['class' => 'bg-gray-100 rounded-md text-gray-800 w-96 rounded-lg p-4'],
                 'required' => false,
                 'label'=>false
