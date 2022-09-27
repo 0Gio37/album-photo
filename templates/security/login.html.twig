@@ -44,11 +44,6 @@
                     <p class="my-6">FORMULAIRE DE CONNEXION</p>
 
                     <form method="post" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
-                        {% if error %}
-                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                        {% endif %}
-
-
                         <div class="pb-2 pt-4">
                             <input type="text" value="{{ last_username }}" placeholder="Pseudo" name="username"  class="form-control block w-full p-4 text-lg rounded-sm bg-black" autocomplete="username" required autofocus>
 
@@ -63,6 +58,10 @@
                         {#  <div class="checkbox mb-3">
                             <label><input type="checkbox" name="_remember_me"> Se souvenir de moi</label>
                         </div>#}
+
+                        {% if error %}
+                            <div class="alert alert-danger my-2 text-red-800">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
 
                         <div class="px-4 pb-2 pt-4">
                             <button class="btn btn-lg btn-primary uppercase block w-full p-4 text-lg rounded-full bg-blue-900 hover:bg-blue-700 focus:outline-none" type="submit">VALIDER</button>

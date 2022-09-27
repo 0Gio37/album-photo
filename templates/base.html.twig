@@ -50,8 +50,8 @@
 {% if app.user.isValid is same as(false) %}
 
     <section class="mt-48 text-center">
-        <h1 class="text-base text-5xl font-bold text-blue-600 mb-12">Accès de ce compte non autorisé</h1>
-        <h2 class="text-base text-2xl font-bold text-white mb-12">Pour plus d'informations, veuillez contacter l'administrateur : <a href="#">contact@famille-messanges.fr</a></h2>
+        <h1 class="text-base text-5xl text-blue-600 mb-12">Accès de ce compte non autorisé</h1>
+        <h2 class="text-base text-2xl text-gray-300 mb-12">Pour plus d'informations, veuillez contacter l'administrateur : <a href="#" class="underline">contact@famille-messanges.fr</a></h2>
         <div class="flex justify-center m-10 px-20">
             <a href="{{ path('logout') }}">
                 <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
