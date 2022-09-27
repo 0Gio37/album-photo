@@ -97,6 +97,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "google/recaptcha": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.1",
+            "ref": "e5a4aa21f2e98d7440ae9aab6b56e307f99dd084"
+        },
+        "files": [
+            "./config/packages/google_recaptcha.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.4.3"
     },
@@ -640,6 +652,18 @@
     },
     "twig/twig": {
         "version": "v3.3.3"
+    },
+    "victor-prdh/recaptcha-bundle": {
+        "version": "1.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.5",
+            "ref": "f604d862b3ce4434d131a0e9b3a2eb7bb1784aff"
+        },
+        "files": [
+            "./config/packages/recaptcha.yaml"
+        ]
     },
     "webmozart/assert": {
         "version": "1.10.0"

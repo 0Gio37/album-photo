@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
 
 class UserType extends AbstractType
 {
@@ -54,6 +55,7 @@ class UserType extends AbstractType
                     'placeholder' => 'Mot de passe ',
                     'class' => 'form-control block w-full p-4 text-lg rounded-sm bg-black']
             ])
+            ->add('captcha', ReCaptchaType::class)
         ;
     }
 
