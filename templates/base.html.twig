@@ -77,7 +77,11 @@
     /*responsive menu with Hamburger */
     document.getElementById("menuNav").addEventListener("click", ()=> {
         document.getElementById("menuList").classList.toggle("hidden")
-    })
+    });
+    document.getElementById("closeBurgerList").addEventListener("click", ()=> {
+        document.getElementById("menuList").classList.toggle("hidden")
+    });
+
     /*Toggle dropdown list*/
     function toggleDD(myDropMenu) {
         document.getElementById(myDropMenu).classList.toggle("invisible");
