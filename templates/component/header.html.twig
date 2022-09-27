@@ -1,4 +1,4 @@
-<nav class="lg:grid lg:grid-cols-6 lg:justify-between lg:pt-1 p-2 mt-0 h-auto fixed w-full z-20 top-0 border-b border-gray-600 shadow-lg flex justify-between">
+<nav class="grid grid-cols-4 lg:grid lg:grid-cols-6 lg:justify-between lg:pt-1 p-2 mt-0 h-auto fixed w-full z-20 top-0 border-b border-gray-600 shadow-lg flex justify-between">
 
     <div class="flex justify-center">
         <a class="flex text-white no-underline hover:text-white hover:no-underline" href="{{ path('home') }}">
@@ -10,7 +10,7 @@
 
 
     {# responsive menu : burger #}
-    <div class="flex col-span-4  block lg:hidden flex justify-center col-span-4">
+    <div class="flex col-span-4 block lg:hidden flex justify-center col-span-4">
         <button>
             <svg id="menuNav" class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
@@ -18,26 +18,27 @@
         </button>
 
         {# responsive menu : block list #}
-        <div id="menuList" class="absolute top-0 w-3/5 m-auto hidden p-12" style="background-color: #161616">
-            <div class="flex justify-end mr-2">
-                <button id="closeBurgerList" class="p-2 text-2xl text-red-700 hover:text-red-300 flex justify-end transform transition duration-100">X</button>
+        <div id="menuList" class="absolute top-0 z-10 rounded-lg right-0 w-full m-auto hidden p-12 bg-gray-900">
+            <div class="flex justify-end mr-10">
+                <button id="closeBurgerList" class="p-3 text-2xl text-red-700 hover:text-red-300 flex justify-end transform transition duration-100 rounded-full border border-white">X</button>
             </div>
             <ul class="text-center md:flex-none justify-items-center px-5">
                 <li class="pb-8">
-                    <a class="inline-block py-2 px-4 text-white hover:text-blue-500 hover:underline transform transition duration-500" href="{{ path('displayAllTheme') }}">THEMES</a>
+                    <a class="inline-block py-2 px-4 text-lg text-white hover:text-blue-500 hover:underline transform transition duration-500" href="{{ path('displayAllTheme') }}">THEMES</a>
                 </li>
                 <li class="pb-8">
-                    <a class="inline-block py-2 px-4 text-white hover:text-blue-500 transform transition duration-500" href="{{ path('displayAllYear') }}">ANNEES</a>
+                    <a class="inline-block py-2 px-4 text-lg text-white hover:text-blue-500 transform transition duration-500" href="{{ path('displayAllYear') }}">ANNEES</a>
                 </li>
                 <li class="pb-8">
-                    <a class="inline-block py-2 px-4 text-white hover:text-blue-500 transform transition duration-500" href="{{ path('displayAllAlbumAlpha') }}">ALBUMS</a>
+                    <a class="inline-block py-2 px-4 text-lg text-white hover:text-blue-500 transform transition duration-500" href="{{ path('displayAllAlbumAlpha') }}">ALBUMS</a>
                 </li>
                 <li class="pb-8">
-                    <a class="inline-block py-2 px-4 text-white hover:text-blue-500 transform transition duration-500" href="{{ path('displayAllPhotoAntiChrono') }}">PHOTOS</a>
+                    <a class="inline-block py-2 px-4 text-lg text-white hover:text-blue-500 transform transition duration-500" href="{{ path('displayAllPhotoAntiChrono') }}">PHOTOS</a>
                 </li>
             </ul>
         </div>
     </div>
+
     <div class="hidden lg:block flex col-span-4 m-auto">
         <ul class="list-reset flex m-auto md:flex-none items-center">
             <li class="mx-10">
@@ -74,4 +75,5 @@
             </div>
         </div>
     </div>
+
 </nav>
