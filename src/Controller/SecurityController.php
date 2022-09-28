@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Service\Mailer;
 
 class SecurityController extends AbstractController
 {
@@ -51,7 +52,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/sigin", name="sigin")
      */
-    public function new(Request $request, UserPasswordHasherInterface $passwordEncoder):Response
+    public function new(Request $request, UserPasswordHasherInterface $passwordEncoder, Mailer $mailerService):Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -59,6 +60,22 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             $user = $form->getData();
+
+
+            //send email to admin for validation
+            $mailerService->sendMail(
+                "gmessanges@hotmail.fr",
+                "gmessanges@gmail.com",
+                "Mon Album de Famille - Nouvelle inscription",
+                "email/valid-user-by-admin.html.twig",
+                [
+                    "lastname" =>  $user->getNom(),
+                    "firstname" =>  $user->getPrenom(),
+                    "email" =>  $user->getMail(),
+                    "pseudo" => $user -> getUsername(),
+                ]
+            );
+
 
             // Encoder le mot de passe
             $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
@@ -70,11 +87,22 @@ class SecurityController extends AbstractController
            $user->setIsValid(false);
            $this->entityManager->persist($user);
            $this->entityManager->flush();
-           return $this->redirectToRoute('login');
+           return $this->redirectToRoute('confirmSignInMessage');
         }
 
         return $this->render(
             'security/sign-in.html.twig', [
                 'form'=>$form->createView()]);
     }
+    /**
+     * @Route("/confirmation-sign-in", name="confirmSignInMessage")
+     */
+    public function confirmSignIn():Response
+    {
+        return $this->render('security/confirm-message-sign-in.html.twig', []);
+
+    }
+
+
+
 }
