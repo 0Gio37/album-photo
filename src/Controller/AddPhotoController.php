@@ -81,8 +81,16 @@ class AddPhotoController extends AbstractController
             $file = $imageForm->get('fileName')->getData();
             $newFilename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('photo_directory'), $newFilename);
+            $path = $this->getParameter('photo_directory');
             $image->setFileName($newFilename);
-            $upload->upload($file);
+
+            //dd($file);
+
+            $upload->upload($path."/".$newFilename, [
+                'public_id' => 'test',
+                'use_filename' => TRUE,
+                'overwrite' => TRUE]);
+
             $data = $imageForm->getData();
             $em->persist($data);
             $em->flush();

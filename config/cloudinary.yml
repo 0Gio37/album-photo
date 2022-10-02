@@ -1,0 +1,12 @@
+development:
+  cloud_name: hmkspkft9
+  api_key: '245717352691178'
+  api_secret: api_secret
+  enhance_image_tag: true
+  static_image_support: true
+production:
+  cloud_name: hmkspkft9
+  api_key: '245717352691178'
+  api_secret: api_secret
+  enhance_image_tag: true
+  static_image_support: true
