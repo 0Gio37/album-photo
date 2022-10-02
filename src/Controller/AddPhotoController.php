@@ -27,6 +27,7 @@ use App\Repository\LienTagPhotoRepository;
 use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
 use App\Repository\UserRepository;
+use Cloudinary\Api\Upload\UploadApi;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,6 +36,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+
+
 
 class AddPhotoController extends AbstractController
 {
@@ -48,7 +51,7 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-photo", name="add_photo")
      */
-    public function addPhoto(Request $request, ImageRepository $ImageRepository,  UserRepository $UserRepository,  EntityManagerInterface $em ): Response
+    public function addPhoto(Request $request, ImageRepository $ImageRepository, UserRepository $UserRepository,  EntityManagerInterface $em ): Response
     {
         $visibleTaggedPersonnBtn = false;
         $showCurrentPhotoTwig = false;
@@ -71,11 +74,15 @@ class AddPhotoController extends AbstractController
         if ($imageForm->isSubmitted() && $imageForm->isValid()) {
 
             $showCurrentPhotoTwig = true;
+            $upload= new UploadApi();
+
+
 
             $file = $imageForm->get('fileName')->getData();
             $newFilename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('photo_directory'), $newFilename);
             $image->setFileName($newFilename);
+            $upload->upload($file);
             $data = $imageForm->getData();
             $em->persist($data);
             $em->flush();
