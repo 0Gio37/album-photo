@@ -39,7 +39,7 @@
 
             <div class="text-center text-base text-gray-600 font-normal pt-2 pb-6">
                 <p class=" mb-1">
-                    - Posté le {{ selectedPhoto.createAt | format_datetime('short','none', pattern=" dd/M/YYYY", locale='en') }}, par {{ selectedPhoto.auteur.username }} -
+                    - Posté le {{ selectedPhoto.createAt | format_datetime('short','none', pattern="dd/m/YYYY") }}, par {{ selectedPhoto.auteur.username }} -
                 </p>
                 <p>
                     - Album : {{ selectedPhoto.album.titre }} | Thématique : {{ selectedPhoto.album.theme.titre }} -
@@ -107,7 +107,7 @@
                                 {% endif %}
                                     <div class="bg-gray-400 w-2/3 text-gray-800 text-sm rounded-xl my-2 p-2">
                                         <p class="font-bold">" {{ comm.texte }} "</p>
-                                        <p class="text-xs text-right italic">Par {{ comm.auteurId.username }} - {{ comm.createdAt | format_datetime('short','none', pattern=" dd/M/YYYY", locale='en') }} </p>
+                                        <p class="text-xs text-right italic">Par {{ comm.auteurId.username }} - {{ comm.createdAt | format_datetime('short','none', pattern="dd/m/YYYY") }} </p>
                                     </div>
                                 </div>
                         {% endfor %}
