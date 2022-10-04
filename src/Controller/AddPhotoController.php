@@ -28,7 +28,9 @@ use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use Cloudinary\Api\Upload\UploadApi;
+use Cloudinary\Cloudinary;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -51,12 +53,12 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-photo", name="add_photo")
      */
-    public function addPhoto(Request $request, ImageRepository $ImageRepository, UserRepository $UserRepository,  EntityManagerInterface $em ): Response
+    public function addPhoto(Request $request, ImageRepository $ImageRepository, UserRepository $UserRepository,  EntityManagerInterface $em): Response
     {
         $visibleTaggedPersonnBtn = false;
         $showCurrentPhotoTwig = false;
         $currentImageFileName = '';
-        
+
         $image = new Image();
         $imageForm = $this->createForm(ImageType::class, $image);
         $imageForm->handleRequest($request);
@@ -73,31 +75,36 @@ class AddPhotoController extends AbstractController
 
         if ($imageForm->isSubmitted() && $imageForm->isValid()) {
 
-            $showCurrentPhotoTwig = true;
-            $upload= new UploadApi();
-
-
-
             $file = $imageForm->get('fileName')->getData();
-            $newFilename = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move($this->getParameter('photo_directory'), $newFilename);
-            $path = $this->getParameter('photo_directory');
+
+            if($this->getParameter('upload_images_destination') == 'local'){
+                $newFilename = md5(uniqid()) . '.' . $file->guessExtension();
+                //send image in local storage
+                $file->move($this->getParameter('photo_directory'), $newFilename);
+
+            } else{
+                $newFilename = md5(uniqid());
+                //send image in cloudinary prod
+                $cloudinary =  new Cloudinary([
+                    'cloud' => [
+                        'cloud_name' => $_ENV['CLOUDINARY_CLOUD_NAME'],
+                        'api_key'  => $_ENV['CLOUDINARY_API_KEY'],
+                        'api_secret' => $_ENV['CLOUDINARY_API_SECRET'],
+                        'url' => [
+                            'secure' => true]]]);
+                $cloudinary->uploadApi()->upload($file->getPathName(),
+                    ['public_id' => $newFilename]);
+            }
+
+            //update image in bdd
             $image->setFileName($newFilename);
-
-            //dd($file);
-
-            $upload->upload($path."/".$newFilename, [
-                'public_id' => 'test',
-                'use_filename' => TRUE,
-                'overwrite' => TRUE]);
-
+            $showCurrentPhotoTwig = true;
             $data = $imageForm->getData();
             $em->persist($data);
             $em->flush();
 
             $currentImage = $ImageRepository->findBy([],['id'=>'DESC'],1);
             $currentImageFileName = $currentImage[0]->getFileName();
-
         }
 
         if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {
@@ -106,13 +113,13 @@ class AddPhotoController extends AbstractController
 
             $currentImage = $ImageRepository->findBy([],['id'=>'DESC'],1);
             $currentImageFileName = $currentImage[0]->getFileName();
-
             $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
             $photo->setAuteur($currentUserObject);
             $photo->setFile($currentImageFileName);
             $data = $formPhoto->getData();
             $em->persist($data);
             $em->flush();
+
             $this->addFlash('addPhoto', 'photo ajoutée !');
         }
 
@@ -133,6 +140,7 @@ class AddPhotoController extends AbstractController
             'formAlbum'=>$formAlbum->createView(),
             'showCurrentPhotoTwig'=>$showCurrentPhotoTwig,
             'currentImageFileName'=>$currentImageFileName,
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 

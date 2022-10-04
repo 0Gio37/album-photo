@@ -121,6 +121,8 @@ class HomeController extends AbstractController
             'formSearchByYear' => $formSearchByYear->createView(),
             'formSearchByTheme' => $formSearchByTheme->createView(),
             'formSearchPlace' => $formSearchPlace->createView(),
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 }
