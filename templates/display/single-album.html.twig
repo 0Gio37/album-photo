@@ -50,7 +50,7 @@
                 </div>
                 <div class="border-b-2 border-gray-500 w-full"></div>
                 <div class="text-center">
-                    <p class="text-xs text-gray-800 font-normal">Posté le {{ photo.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}</p>
+                    <p class="text-xs text-gray-800 font-normal">Posté le {{ photo.createAt | format_datetime('short', 'none', locale='en', pattern='dd/MM/yyyy')  }}</p>
                     <p class="text-xs text-gray-800 font-normal">Par : {{ photo.auteur.username }}</p>
                 </div>
 
@@ -65,7 +65,7 @@
                         </a>
                     </div>
                     <div class="text-center py-8 sm:py-6 mb-4">
-                        <p class="text-xs text-gray-800 font-normal">Posté le {{ photo.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}</p>
+                        <p class="text-xs text-gray-800 font-normal">Posté le {{ photo.createAt | format_datetime('short', 'none', locale='en', pattern='dd/MM/yyyy')  }}</p>
                         <p class="text-xs text-gray-800 font-normal">Par : {{ photo.auteur.username }}</p>
                     </div>
 
