@@ -75,6 +75,8 @@ class AddPhotoController extends AbstractController
 
         if ($imageForm->isSubmitted() && $imageForm->isValid()) {
 
+            $showCurrentPhotoTwig = true;
+
             $file = $imageForm->get('fileName')->getData();
 
             if($this->getParameter('upload_images_destination') == 'local'){
@@ -98,7 +100,6 @@ class AddPhotoController extends AbstractController
 
             //update image in bdd
             $image->setFileName($newFilename);
-            $showCurrentPhotoTwig = true;
             $data = $imageForm->getData();
             $em->persist($data);
             $em->flush();
