@@ -62,8 +62,8 @@ class SecurityController extends AbstractController
             $user = $form->getData();
 
 
-            //send email to admin for validation
-            $mailerService->sendMail(
+            //send email to admin for validation -> a activer apres feat/uploadFile
+ /*           $mailerService->sendMail(
                 "gmessanges@hotmail.fr",
                 "gmessanges@gmail.com",
                 "Mon Album de Famille - Nouvelle inscription",
@@ -74,7 +74,7 @@ class SecurityController extends AbstractController
                     "email" =>  $user->getMail(),
                     "pseudo" => $user -> getUsername(),
                 ]
-            );
+            );*/
 
 
             // Encoder le mot de passe

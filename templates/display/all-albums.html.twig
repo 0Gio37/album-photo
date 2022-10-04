@@ -41,8 +41,12 @@
                             <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('img/unexist.jpg') }}' alt="Pas de photo">
                         {% else %}
                             <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre})  }}" >
-                                <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
-                        {% endif %}
+                                {% if uploadImagesDestination is same as('local') %}
+                                    <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                                {% else %}
+                                    <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ urlCloudinary~equi }}' alt="Photo de couverture">
+                                {% endif %}
+                            {% endif %}
                             </a>
                     </div>
 

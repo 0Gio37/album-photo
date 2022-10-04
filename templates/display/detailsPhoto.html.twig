@@ -23,7 +23,12 @@
                 <div class="px-36">
                     {% set equi = '' %}
                     {% set equi = selectedPhoto.file %}
-                    <img class="m-auto border border-1 border-blue-700 shadow-lg rounded-lg max-h-full" src='{{ asset('uploads/'~equi) }}' alt="photo gros plan">
+                    {% if uploadImagesDestination is same as('local') %}
+                        <img class="m-auto border border-1 border-blue-700 shadow-lg rounded-lg max-h-full" src='{{ asset('uploads/'~equi) }}' alt="photo gros plan">
+                    {% else %}
+                        <img class="m-auto border border-1 border-blue-700 shadow-lg rounded-lg max-h-full" src='{{ urlCloudinary~equi }}' alt="photo gros plan">
+                    {% endif %}
+
                 </div>
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count+1} ) }}" >
                     <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-900 hover:bg-blue-700 shadow-md">

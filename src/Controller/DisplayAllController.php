@@ -80,6 +80,9 @@ class DisplayAllController extends AbstractController
             'albumList' => $albumList,
             'photoList'=>$photoList,
             'toggleBtn'=> $this->toggleBtn,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
+
         ]);
     }
 
@@ -97,6 +100,8 @@ class DisplayAllController extends AbstractController
             'albumList' => $albumList,
             'photoList'=>$photoList,
             'toggleBtn'=> $this->toggleBtn,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 
@@ -110,6 +115,8 @@ class DisplayAllController extends AbstractController
         return $this->render('display/single-year.html.twig', [
             'photoListByYear' => $photoListByYear,
             'photoAnnee'=>$photoAnnee,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 
@@ -126,6 +133,8 @@ class DisplayAllController extends AbstractController
             'titleAlbum'=>$titleAlbum,
             'listPhotoAlbum'=>$listPhotoAlbum,
             'toggleBtn'=> $this->toggleBtn,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 
@@ -142,6 +151,8 @@ class DisplayAllController extends AbstractController
             'titleAlbum'=>$titleAlbum,
             'listPhotoAlbum'=>$listPhotoAlbum,
             'toggleBtn'=> $this->toggleBtn,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 
@@ -156,6 +167,8 @@ class DisplayAllController extends AbstractController
         return $this->render('display/all-photos.html.twig', [
             'photoAllList' => $photoAllList,
             'toggleBtn'=> $this->toggleBtn,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 
@@ -214,6 +227,8 @@ class DisplayAllController extends AbstractController
             'commentaireList'=>$commentaireList,
             'count'=>$count,
             'currentAlbumId'=>$currentAlbumId,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 }

@@ -43,7 +43,7 @@
             <section class="mt-6">
                 {% if  visibleTaggedPersonnBtn == false %}
                 {{ form_start(imageForm) }}
-                    <p class="text-gray-100 text-xl text-center mb-2">Charger une image <span class="text-sm italic">(inférieure à 6Mo)</span></p>
+                    <p class="text-gray-100 text-xl text-center mb-2">Charger une image <span class="text-sm italic">(inférieure à 5Mo)</span></p>
                     {{ form_row(imageForm.fileName) }}
                     {% if  showCurrentPhotoTwig == false %}
                         <button class="flex m-auto mt-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
@@ -55,7 +55,12 @@
 
                 {% if  showCurrentPhotoTwig == true %}
                     <div class="flex justify-center m-auto my-6 w-1/5 border border-1 border-blue-700 shadow-lg">
-                        <img class="#" src='{{ asset('uploads/'~currentImageFileName) }}' alt="current-photo" />
+                        {% if uploadImagesDestination is same as('local') %}
+                            <img class="#" src='{{ asset('uploads/'~currentImageFileName) }}' alt="current-photo" />
+                        {% else %}
+                            <img class="#" src='{{ urlCloudinary~currentImageFileName }}' alt="current-photo" />
+                        {% endif %}
+
                     </div>
                 {% endif %}
             </section>

@@ -23,13 +23,14 @@ class ImageType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new File([
-                        'maxSize' => '6000k',
+                        'maxSize' => '5001k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/jpg',
                             'image/png',
+                            'image/svg',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'Format invalide : .jpeg, .jpg, .png, .svg',
                     ])
                 ],
             ])
