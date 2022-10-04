@@ -41,7 +41,7 @@
                               </a>
                         </div>
                         <div class="h-2/6 text-center mb-4">
-                            <p class="text-base text-gray-800 font-normal italic">Posté le {{ photo.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}</p>
+                            <p class="text-base text-gray-800 font-normal italic">Posté le {{ photo.createAt | format_datetime('short','none', pattern=" dd/M/YYYY", locale='en')  }}</p>
                             <p class="text-base text-gray-800 font-normal">Par {{ photo.auteur.username }}</p>
                             <p class="text-base text-gray-800 font-normal">
                                 <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:photo.album.id, titleAlbum:photo.album.titre} )  }}" >
