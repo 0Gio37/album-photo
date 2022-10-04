@@ -39,7 +39,9 @@
 
             <div class="text-center text-base text-gray-600 font-normal pt-2 pb-6">
                 <p class=" mb-1">
+                    {#
                     - Posté le {{ selectedPhoto.createAt | format_date(locale='fr', pattern=" dd MMMM YYYY")  }}, par {{ selectedPhoto.auteur.username }} -
+                    #}
                 </p>
                 <p>
                     - Album : {{ selectedPhoto.album.titre }} | Thématique : {{ selectedPhoto.album.theme.titre }} -
@@ -107,7 +109,9 @@
                                 {% endif %}
                                     <div class="bg-gray-400 w-2/3 text-gray-800 text-sm rounded-xl my-2 p-2">
                                         <p class="font-bold">" {{ comm.texte }} "</p>
+                                        {#
                                         <p class="text-xs text-right italic">Par {{ comm.auteurId.username }} - {{ comm.createdAt | format_date(locale='fr', pattern=" dd/MM/YYYY")  }} </p>
+                                    #}
                                     </div>
                                 </div>
                         {% endfor %}
