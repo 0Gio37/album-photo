@@ -140,6 +140,7 @@ class AddPhotoController extends AbstractController
             'formAlbum'=>$formAlbum->createView(),
             'showCurrentPhotoTwig'=>$showCurrentPhotoTwig,
             'currentImageFileName'=>$currentImageFileName,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
             'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
