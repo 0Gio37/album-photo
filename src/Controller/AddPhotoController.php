@@ -234,7 +234,7 @@ class AddPhotoController extends AbstractController
         }
 
         return $this->render(
-            'home/addNewtag.html.twig', [
+            'home/addNewTag.html.twig', [
                 'tagForm'=>$formTag->createView(),
                 'photoId'=>$photoId,
                 'taggedPersonns' => $taggedPersonns,
@@ -321,7 +321,7 @@ class AddPhotoController extends AbstractController
         }
 
         return $this->render(
-            'home/addNewcomment.html.twig', [
+            'home/addNewComment.html.twig', [
                 'formComment' => $formCommentaire->createView(),
                 'photoId' => $photoId,
                 'titleAlbum' => $titleAlbum,
