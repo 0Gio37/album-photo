@@ -56,6 +56,8 @@ class HomeController extends AbstractController
             return $this->render('search/by-tag.html.twig', [
                 'dataSearched'=>$dataSearched,
                 'lientagPhoto'=>$lientagPhoto,
+                'urlCloudinary'=> $_ENV['URL_CLOUDINARY'],
+                'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
             ]);
         }
 
@@ -74,6 +76,8 @@ class HomeController extends AbstractController
             return $this->render('search/by-place.html.twig', [
                 'dataSearched'=>$dataSearched,
                 'photoList'=>$photoList,
+                'urlCloudinary'=> $_ENV['URL_CLOUDINARY'],
+                'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
             ]);
         }
 
@@ -93,6 +97,8 @@ class HomeController extends AbstractController
             return $this->render('search/by-year.html.twig', [
                 'dataSearched'=>$dataSearched,
                 'photoList'=>$photoList,
+                'urlCloudinary'=> $_ENV['URL_CLOUDINARY'],
+                'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
             ]);
         }
 
@@ -112,6 +118,8 @@ class HomeController extends AbstractController
             return $this->render('search/by-theme.html.twig', [
                 'dataSearched'=>$dataSearchedTheme,
                 'photoList'=>$photoList,
+                'urlCloudinary'=> $_ENV['URL_CLOUDINARY'],
+                'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
             ]);
         }
 
