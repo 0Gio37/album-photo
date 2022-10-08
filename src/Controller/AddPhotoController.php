@@ -288,18 +288,21 @@ class AddPhotoController extends AbstractController
     }
 
     /**
-     * @Route("/add-new-comment/{titleAlbum}/{photoId}/{status}/{count}", name="add_new_comment")
+     * @Route("/add-new-comment/{username}/{titleAlbum}/{photoId}/{status}/{count}", name="add_new_comment")
      */
-    public function addNewComment(Request $request, CommentaireRepository $commentaireRepository, UserRepository $UserRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId, $titleAlbum, $status, $count) :Response
+    public function addNewComment(Request $request, CommentaireRepository $commentaireRepository, UserRepository $UserRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId, $username, $titleAlbum, $status, $count) :Response
     {
-        $currentUserId = $this->security->getUser()->getId();
+        //$currentUserId = $this->security->getUser()->getId();
 
         $commentaire = new Commentaire();
         $formCommentaire = $this->createForm(CommentaireType::class, $commentaire);
         $formCommentaire->handleRequest($request);
 
         if ($formCommentaire->isSubmitted() && $formCommentaire->isValid()) {
-            $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
+
+            //$currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
+            $currentUserObject= $UserRepository->findOneBy(['username'=> $username]);
+            //dd($currentUserObject);
 
             $commentaire->setAuteurId($currentUserObject);
             $currentPhoto= $PhotoRepository-> findOneBy(['id'=>$photoId]);
