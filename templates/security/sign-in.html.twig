@@ -34,6 +34,12 @@
             <div class="w-full py-6 z-20">
                 <p class="my-6">FORMULAIRE D'INSCRIPTION</p>
 
+                {% for message in app.flashes('supp') %}
+                    <div class="bg-red-300 text-white text-center italic text-sm w-1/2 rounded-full py-1 my-4 mx-auto">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
                 <div class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                     {{ form_start(form) }}
                     <div class="my-custom-class-for-errors">{{ form_errors(form) }}</div>

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
+use Doctrine\DBAL\Exception\ConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,7 +54,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/sigin", name="sigin")
      */
-    public function new(Request $request, UserPasswordHasherInterface $passwordEncoder, Mailer $mailerService):Response
+    public function new(Request $request, UserPasswordHasherInterface $passwordEncoder, UserRepository $userRepository, Mailer $mailerService):Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -60,6 +62,15 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             $user = $form->getData();
+            $userName = $user->getUsername();
+            $userMail = $user->getMail();
+            $errorMsgDoubleUserInDB = "";
+
+            if($userRepository->findBy(["username"=>$userName])){
+                $errorMsgDoubleUserInDB = "Pseudo déjà utilisé ! ";
+            }if ($userRepository->findBy(["mail"=>$userMail])){
+                $errorMsgDoubleUserInDB = "E-mail déjà existant ! ";
+            }
 
 
             //send email to admin for validation -> a activer apres feat/uploadFile
@@ -76,33 +87,33 @@ class SecurityController extends AbstractController
                 ]
             );*/
 
-
-            // Encoder le mot de passe
+            // Hashing password
             $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
 
             //Ajout du role par défaut
             $user->setRoles(["ROLE_USER"]);
 
-            //Ajout du statut de validation par défaut
+            //Add default status: ROLE_USER
            $user->setIsValid(false);
-           $this->entityManager->persist($user);
-           $this->entityManager->flush();
-           return $this->redirectToRoute('confirmSignInMessage');
+           try{$this->entityManager->persist($user);
+               $this->entityManager->flush();
+               return $this->redirectToRoute('confirmSignInMessage');
+           }catch (ConstraintViolationException $e){
+               $this->addFlash('supp', $errorMsgDoubleUserInDB);
+               return $this->redirectToRoute('sigin');
+           }
         }
 
         return $this->render(
             'security/sign-in.html.twig', [
                 'form'=>$form->createView()]);
     }
+
     /**
      * @Route("/confirmation-sign-in", name="confirmSignInMessage")
      */
     public function confirmSignIn():Response
     {
         return $this->render('security/confirm-message-sign-in.html.twig', []);
-
     }
-
-
-
 }
