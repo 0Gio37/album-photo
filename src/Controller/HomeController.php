@@ -16,6 +16,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -83,7 +84,7 @@ class HomeController extends AbstractController
 
         $defaultDataYear = ['message' => 'null'];
         $formSearchByYear = $this->createFormBuilder($defaultDataYear)
-            ->add('annee', TextType::class, [
+            ->add('annee', IntegerType::class, [
                 'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 w-96 p-4'],
                 'label'=>false,
                 'required'=>true,
