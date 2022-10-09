@@ -25,7 +25,7 @@ class CommentaireCrudController extends AbstractCrudController
         return [
             TextField::new('texte', 'Texte'),
 
-            DateField::new('created_at', 'Créé le')->setFormat(DateTimeField::FORMAT_NONE)->setFormat('dd/MM/yyyy')->setTimezone('en'),
+            DateField::new('created_at', 'Créé le')->setFormat(DateTimeField::FORMAT_SHORT)->setFormat('dd/MM/yyyy')->setTimezone('Europe/London'),
 
             AssociationField::new('auteur_id', 'Par'),
         ];
