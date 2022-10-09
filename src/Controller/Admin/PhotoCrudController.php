@@ -26,9 +26,6 @@ class PhotoCrudController extends AbstractCrudController
     {
         return [
             //DateField::new('createAt', 'Créé le')->hideOnForm(),
-
-            DateField::new('created_at', 'Créé le')->setFormat(DateTimeField::FORMAT_SHORT)->setTimezone('Europe/London')->hideOnForm(),
-
             AssociationField::new('auteur', 'Par')->hideOnForm(),
             AssociationField::new('album', 'album' )->hideOnForm(),
             TextField::new('annee', 'Année (4 chiffres)'),
