@@ -23,7 +23,7 @@ class CommentaireCrudController extends AbstractCrudController
 
         return [
             TextField::new('texte', 'Texte'),
-            DateField::new('created_at', 'Créé le'),
+            //DateField::new('created_at', 'Créé le'),
             AssociationField::new('auteur_id', 'Par'),
         ];
     }

@@ -24,7 +24,7 @@ class PhotoCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            DateField::new('createAt', 'Créé le')->hideOnForm(),
+            //DateField::new('createAt', 'Créé le')->hideOnForm(),
             AssociationField::new('auteur', 'Par')->hideOnForm(),
             AssociationField::new('album', 'album' )->hideOnForm(),
             TextField::new('annee', 'Année (4 chiffres)'),
