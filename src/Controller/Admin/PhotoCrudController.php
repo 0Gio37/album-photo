@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -25,6 +26,9 @@ class PhotoCrudController extends AbstractCrudController
     {
         return [
             //DateField::new('createAt', 'Créé le')->hideOnForm(),
+
+            DateField::new('created_at', 'Créé le')->setFormat(DateTimeField::FORMAT_NONE)->setFormat('dd/MM/yyyy')->setTimezone('en')->hideOnForm(),
+
             AssociationField::new('auteur', 'Par')->hideOnForm(),
             AssociationField::new('album', 'album' )->hideOnForm(),
             TextField::new('annee', 'Année (4 chiffres)'),

@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class CommentaireCrudController extends AbstractCrudController
@@ -23,7 +24,9 @@ class CommentaireCrudController extends AbstractCrudController
 
         return [
             TextField::new('texte', 'Texte'),
-            //DateField::new('created_at', 'Créé le'),
+
+            DateField::new('created_at', 'Créé le')->setFormat(DateTimeField::FORMAT_NONE)->setFormat('dd/MM/yyyy')->setTimezone('en'),
+
             AssociationField::new('auteur_id', 'Par'),
         ];
     }
