@@ -30,7 +30,9 @@ class PhotoCrudController extends AbstractCrudController
             AssociationField::new('album', 'album' )->hideOnForm(),
             TextField::new('annee', 'Année (4 chiffres)'),
             ImageField::new('file', 'Fichier')->setBasePath('uploads/')->onlyOnIndex(),
-        ];
+            ImageField::new('file', 'Fichier')->setBasePath( $_ENV['URL_CLOUDINARY'])->onlyOnIndex(),
+
+            ];
     }
 
     public function configureActions(Actions $actions): Actions
