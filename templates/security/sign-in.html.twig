@@ -15,6 +15,24 @@
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
+    <style>
+        label{
+            color:darkgrey;
+            font-style: italic;
+            font-size: small;
+        }
+        .input-pswd{
+            position: relative;
+        }
+        #eye{
+            height: 20px;
+            width: 20px;
+            position: absolute;
+            right: 10px;
+            top: 60px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -47,7 +65,6 @@
                     <div class="grid grid-cols-2 gap-2 pb-2 pt-4">
                         {{ form_row(form.prenom) }}
                         {{ form_errors(form.prenom) }}
-
                         {{ form_row(form.nom) }}
                         {{ form_errors(form.nom) }}
                     </div>
@@ -57,8 +74,11 @@
                     <div class="pb-2 pt-4">{{ form_row(form.mail) }}</div>
                     <div class="pb-2 pt-4">{{ form_errors(form.mail) }}</div>
 
-                    <div class="pb-2 pt-4">{{ form_row(form.password) }}</div>
-                    <div class="pb-2 pt-4">{{ form_errors(form.password) }}</div>
+                    <div class="input-pswd">
+                        <img id="eye" src="{{ asset('img/icon-form-pswd-eye-closed.png') }}" alt='icon show password'/>
+                        <div class="pb-2 pt-4">{{ form_row(form.password) }}</div>
+                        <div class="pb-2 pt-4">{{ form_errors(form.password) }}</div>
+                    </div>
 
                     <input id="password2" type="password" class="pb-2 pt-4 form-control block w-full p-4 text-lg rounded-sm bg-black" placeholder="Confirmer le mot de passe">
 
@@ -79,7 +99,7 @@
 
 
 <script>
-    /*tester les mots de passe identiques */
+    /*test same password */
     pass1 = document.getElementById("user_password");
     pass2 = document.getElementById("password2");
     validPwdBtn = document.getElementById("validPwdBtn");
@@ -87,6 +107,21 @@
     if(!(pass1.value === pass2.value)){
         alert("les mots de passe ne sont pas identiques !")
         e.preventDefault();}
+    })
+
+    /* dislay password toggle*/
+    let hideIconPswd = true;
+    iconTogglePswd = document.getElementById("eye");
+    iconTogglePswd.addEventListener("click", (e)=>{
+        if(hideIconPswd){
+            pass1.setAttribute("type", "text");
+            iconTogglePswd.src="img/icon-form-pswd-eye-opened.png";
+            hideIconPswd = false;
+        }else{
+            pass1.setAttribute("type", "password");
+            iconTogglePswd.src="img/icon-form-pswd-eye-closed.png";
+            hideIconPswd = true;
+        }
     })
 </script>
 </body>
