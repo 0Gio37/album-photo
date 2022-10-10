@@ -49,10 +49,12 @@ class UserType extends AbstractType
                     'class' => 'form-control block w-full p-4 text-lg rounded-sm bg-black']
             ])
             ->add('password', PasswordType::class, [
-                'required'        => true,
-                'label'=> ' ',
+                'required' => true,
+                'label'=> '6 à 9 caractères, dont 1 chiffre et 1 lettre minimum',
                 'attr' => [
-                    'placeholder' => 'Mot de passe ',
+                    'placeholder' => 'Mot de passe',
+                    'pattern'=> '^(?=.*[a-z])(?=.*[0-9]).{6,9}$',
+                    'spellcheck'=> 'false',
                     'class' => 'form-control block w-full p-4 text-lg rounded-sm bg-black']
             ])
             ->add('captcha', ReCaptchaType::class)
