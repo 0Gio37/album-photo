@@ -51,7 +51,7 @@
                         </div>
                         {% if is_granted('ROLE_ADMIN') %}
                             <div class="ml-auto h-1/6">
-                                <a href="{{ path('deletePhotoFromHome', {idPhoto:photo.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
+                                <a href="{{ path('deletePhotoFromHome', {idPhoto:photo.id}) }}" title="supprimer" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-300 bg-red-400 hover:bg-red-600 hover:scale-105 hover:text-white transform transition duration-500">
                                     X
                                 </a>
                             </div>

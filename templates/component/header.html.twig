@@ -18,13 +18,13 @@
         </button>
 
         {# responsive menu : block list #}
-        <div id="menuList" class="absolute top-0 z-10 rounded-lg right-0 w-full m-auto hidden p-12 bg-gray-900">
+        <div id="menuList" class="absolute top-0 z-10 shadow-xl right-0 w-full m-auto hidden p-12" style ="background-color: #161616">
             <div class="flex justify-end mr-10">
-                <button id="closeBurgerList" class="p-3 text-2xl text-red-700 hover:text-red-300 flex justify-end transform transition duration-100 rounded-full border border-white">X</button>
+                <button id="closeBurgerList" class="p-3 text-4xl text-white hover:text-red-500 flex justify-end transform transition duration-500">X</button>
             </div>
             <ul class="text-center md:flex-none justify-items-center px-5">
                 <li class="pb-8">
-                    <a class="inline-block py-2 px-4 text-lg text-white hover:text-blue-500 hover:underline transform transition duration-500" href="{{ path('displayAllTheme') }}">THEMES</a>
+                    <a class="inline-block py-2 px-4 text-lg text-white hover:text-blue-500 transform transition duration-500" href="{{ path('displayAllTheme') }}">THEMES</a>
                 </li>
                 <li class="pb-8">
                     <a class="inline-block py-2 px-4 text-lg text-white hover:text-blue-500 transform transition duration-500" href="{{ path('displayAllYear') }}">ANNEES</a>
