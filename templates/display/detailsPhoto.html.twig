@@ -5,14 +5,14 @@
 {% block body %}
 
     <div class="fixed right-1 pt-6 pr-6">
-        <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" title="fermer" class="modal-close px-3 py-2 text-xs rounded-lg text-gray-300 bg-red-900 hover:bg-red-700 hover:text-white transform transition duration-500">FERMER</a>
+        <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" title="fermer" class="modal-close px-3 py-2 text-xs rounded-lg text-gray-300 bg-red-700 hover:bg-red-500 hover:text-white transform transition duration-500">FERMER</a>
     </div>
 
     <section class="h-full grid grid-cols-12 -mt-12">
         <div class=" flex flex-col col-start-1 col-span-8 gap-4 justify-between p-4 m-4 bg-black border border-1 border-gray-600 shadow-lg rounded-lg">
             <div class="flex justify-between items-center">
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count-1} ) }}" >
-                    <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-900 hover:bg-blue-700 shadow-md">
+                    <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-700 hover:bg-blue-500 shadow-md transform transition duration-500">
                         <i class="fas fa-chevron-left"></i>
                     </div>
                 </a>
@@ -27,7 +27,7 @@
 
                 </div>
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count+1} ) }}" >
-                    <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-900 hover:bg-blue-700 shadow-md">
+                    <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-700 hover:bg-blue-500 shadow-md transform transition duration-500">
                         <i class="fas fa-chevron-right"></i>
                     </div>
                 </a>
@@ -44,29 +44,30 @@
         </div>
 
         <div class="text-base text-gray-600 flex flex-col col-start-9 col-span-3 p-2 mt-16 ml-1 -mr-4 my-10">
-
-            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-1 mb-4">
-                <div>
-                    <p class="text-left">Localisation</p>
-                    {% if selectedPhoto.lieu %}
-                        <div class="text-center text-lg text-gray-400">{{ selectedPhoto.lieu}}</div>
-                    {% else %}
-                        <p class="italic text-center text-gray-400"> "Non renseigné ..."</p>
-                    {% endif %}
-
-                </div>
-                <div class="flex justify-end px-4 pb-4">
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4">
+                <div class="flex justify-between">
+                    <p>Localisation</p>
                     <a href="{{ path('add_place', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
-                        <i title="modifier le lieu" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
+                        <i title="modifier ou ajouter un lieu" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
                     </a>
                 </div>
+                {% if selectedPhoto.lieu %}
+                    <div class="text-center text-lg text-gray-400">{{ selectedPhoto.lieu}}</div>
+                {% else %}
+                    <p class="italic text-center text-gray-400"> "Non renseigné ..."</p>
+                {% endif %}
             </div>
 
             <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4">
                 <div>
+                    <div class="flex justify-between">
+                        <p>Sur la photo</p>
+                        <a href="{{ path('add_new_tag', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
+                            <i title="ajouter une personne" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
+                        </a>
+                    </div>
                     {% set showPersonne = true %}
                     {% if lienTagPhotoList %}
-                        <p class="text-left mb-2">Sur la photo</p>
                         {% for lien in lienTagPhotoList %}
                             {% if lien.photo.id == selectedPhoto.id %}
                                 {% for tag in tagList %}
@@ -82,18 +83,18 @@
                         <p class="italic text-center text-gray-400">"Personne identifié ..."</p>
                     {% endif %}
                 </div>
-                <div class="flex justify-end mt-4">
-                    <a href="{{ path('add_new_tag', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
-                        <i title="ajouter une personne" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
-                    </a>
-                </div>
             </div>
 
             <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4">
                 <div>
+                    <div class="flex justify-between">
+                        <p>Commentaires</p>
+                        <a href="{{ path('add_new_comment', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
+                            <i title="ajouter un commentaire" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
+                        </a>
+                    </div>
                     {% set showComm = true %}
                     {% if commentaireList %}
-                        <p class="text-left mb-4">Ajouter un commentaire</p>
                         {% for comm in commentaireList %}
                             {% set showComm = false %}
                             {%  if comm.id is even %}
@@ -111,11 +112,6 @@
                         {% if showComm is same as(true) %}
                             <p class="italic text-center text-gray-400"> "Aucun commentaire ..."</p>
                         {% endif %}
-                    </div>
-                    <div class="flex justify-end mt-4">
-                        <a href="{{ path('add_new_comment', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
-                            <i title="ajouter un commentaire" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
-                        </a>
                     </div>
                 </div>
             </div>

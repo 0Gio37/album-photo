@@ -4,27 +4,23 @@
 
 {% block body %}
 
-<div class="pt-6">
-    <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-screen">
+    <div class="fixed right-1 pt-6 pr-6">
+        <a href= "{{ path('detailsPhoto', {titleAlbum:titleAlbum, idPhoto:photoId, status:status, count:count} ) }}" title="fermer" class="modal-close px-3 py-2 text-xs rounded-lg text-gray-300 text-gray-300 bg-red-700 hover:bg-red-500 hover:text-white transform transition duration-500">FERMER</a>
+    </div>
 
-        <div class="fixed right-1 pt-6 pr-6">
-            <a href= "{{ path('detailsPhoto', {titleAlbum:titleAlbum, idPhoto:photoId, status:status, count:count} ) }}" title="fermer" class="modal-close px-3 py-2 text-xs rounded-lg text-gray-300 bg-red-900 hover:bg-red-700 hover:text-white transform transition duration-500">FERMER</a>
-        </div>
+    <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 -m-10 px-10 lg:px-28 lg:p-10 p-4 mx-60 shadow-lg">
 
-        <section class="rounded-full py-4 bg-green-900 font-bold text-center text-gray-400 px-8">
-            Ajouter de nouveaux commentaires
-        </section>
+        <p class="lg:text-4xl text-xl text-white text-center">Nouveau commentaire</p>
 
         <section class="formComment">
             {{ form_start(formComment) }}
-            <p class="text-gray-100 text-lg text-center mt-4 mb-2"></p>
+            <p class="text-gray-100 text-center mt-4 mb-2"></p>
             {{ form_row(formComment.texte) }}
-            <button id="displayTagListBtn" class="flex mt-6 m-auto px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+            <button id="displayTagListBtn" class="flex mt-10 m-auto px-3 py-2 rounded-lg text-gray-300 bg-blue-700 hover:bg-blue-500 hover:text-white transform transition duration-500">
                 Ajouter
             </button>
             {{ form_end(formComment) }}
         </section>
     </div>
-</div>
 
 {% endblock %}

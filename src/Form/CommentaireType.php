@@ -17,7 +17,7 @@ class CommentaireType extends AbstractType
             ->add('texte', TextareaType::class, [
                 'required'=>false,
                 'label'=>false,
-                'attr' => ['class' => 'bg-gray-800 rounded-md text-gray-100 flex justify-start m-auto h-56 px-4 w-3/5 py-2'],
+                'attr' => ['class' => 'bg-gray-800 rounded-md text-gray-100 flex justify-start m-auto h-56 px-4 w-full py-2 lg:text-lg text-sm'],
             ])
         ;
     }
