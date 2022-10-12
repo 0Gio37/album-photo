@@ -4,56 +4,56 @@
         <div class="modal-content mx-m h-auto p-60">
             <div class="bg-gray-700 rounded-lg">
                 <div class="flex justify-end pt-6 pr-6">
-                    <a href="#" class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">FERMER</a>
+                    <a href="#" title="fermer" class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700 hover:text-white transform transition duration-500">FERMER</a>
                 </div>
 
                 <section class="modal-manage" style="display: none">
                     <div class="text-center pb-2">
-                        <p class="text-base text-3xl font-bold text-blue-500">Recherche de photos par personne</p>
+                        <p class="text-base text-4xl text-white">Recherche par personne</p>
                     </div>
                     <div class="flex justify-center w-full py-6">
                         {{ form_start(formSearchByTag) }}
-                        <p class="text-white text-center text-xl pb-2 pt-6">Prénom</p>
+                        <p class="text-white text-center text-xl pb-2 pt-6 focused">Prénom</p>
                         {{ form_row(formSearchByTag.prenom) }}
                         <p class="text-white text-center text-xl pb-2 pt-6">Nom</p>
                         {{ form_row(formSearchByTag.nom) }}
-                        <button class="flex justify-center mt-6 font-bold text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Valider</button>
+                        <button class="flex justify-center mt-6 text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 hover:text-white transform transition duration-500 w-full">Valider</button>
                         {{ form_end(formSearchByTag) }}
                     </div>
                 </section>
 
                 <section class="modal-manage" style="display: none">
                     <div class="text-center pb-2">
-                        <p class="text-base text-3xl font-bold text-blue-500">Recherche de photos par lieu</p>
+                        <p class="text-base text-4xl text-white">Recherche par lieu</p>
                     </div>
                     <div class="flex justify-center w-full py-6">
                         {{ form_start(formSearchPlace) }}
                         {{ form_row(formSearchPlace.lieu) }}
-                        <button class="flex justify-center mt-6 font-bold text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Valider</button>
+                        <button class="flex justify-center mt-6 text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 hover:text-white transform transition duration-500 w-full">Valider</button>
                         {{ form_end(formSearchPlace) }}
                     </div>
                 </section>
 
                 <section class="modal-manage" style="display: none">
                     <div class="text-center pb-2">
-                        <p class="text-base text-3xl font-bold text-blue-500">Recherche de photos par année</p>
+                        <p class="text-base text-4xl text-white">Recherche par année</p>
                     </div>
                     <div class="flex justify-center w-full py-6">
                         {{ form_start(formSearchByYear) }}
                         {{ form_row(formSearchByYear.annee) }}
-                        <button class="flex justify-center mt-6 font-bold text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Valider</button>
+                        <button class="flex justify-center mt-6 text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 hover:text-white transform transition duration-500 w-full">Valider</button>
                         {{ form_end(formSearchByYear) }}
                     </div>
                 </section>
 
                 <section class="modal-manage" style="display: none">
                     <div class="text-center pb-2">
-                        <p class="text-base text-3xl font-bold text-blue-500">Recherche de photos par Thématique</p>
+                        <p class="text-base text-4xl text-white">Recherche par Thématique</p>
                     </div>
                     <div class="flex justify-center w-full py-6">
                         {{ form_start(formSearchByTheme) }}
                         {{ form_row(formSearchByTheme.Nom) }}
-                        <button class="flex justify-center mt-6 font-bold text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Valider</button>
+                        <button class="flex justify-center mt-6 text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 hover:text-white transform transition duration-500 w-full">Valider</button>
                         {{ form_end(formSearchByTheme) }}
                 </section>
 

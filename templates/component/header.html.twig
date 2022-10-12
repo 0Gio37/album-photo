@@ -18,13 +18,13 @@
         </button>
 
         {# responsive menu : block list #}
-        <div id="menuList" class="absolute top-0 z-10 rounded-lg right-0 w-full m-auto hidden p-12 bg-gray-900">
+        <div id="menuList" class="absolute top-0 z-10 shadow-xl right-0 w-full m-auto hidden p-12" style ="background-color: #161616">
             <div class="flex justify-end mr-10">
-                <button id="closeBurgerList" class="p-3 text-2xl text-red-700 hover:text-red-300 flex justify-end transform transition duration-100 rounded-full border border-white">X</button>
+                <button id="closeBurgerList" class="p-3 text-4xl text-white hover:text-red-500 flex justify-end transform transition duration-500">X</button>
             </div>
             <ul class="text-center md:flex-none justify-items-center px-5">
                 <li class="pb-8">
-                    <a class="inline-block py-2 px-4 text-lg text-white hover:text-blue-500 hover:underline transform transition duration-500" href="{{ path('displayAllTheme') }}">THEMES</a>
+                    <a class="inline-block py-2 px-4 text-lg text-white hover:text-blue-500 transform transition duration-500" href="{{ path('displayAllTheme') }}">THEMES</a>
                 </li>
                 <li class="pb-8">
                     <a class="inline-block py-2 px-4 text-lg text-white hover:text-blue-500 transform transition duration-500" href="{{ path('displayAllYear') }}">ANNEES</a>
@@ -58,19 +58,19 @@
 
     <div class="col-start-6 flex justify-end px-8">
         <div class="relative inline-block">
-            <button onclick="toggleDD('myDropdown')"  class="drop-button text-white text-sm focus:outline-none">
+            <button onclick="toggleDD('myDropdown')"  class="drop-button text-white text-sm focus:outline-none hover:text-blue-500 transform transition duration-500">
                 <span class="pr-2"><i class="far fa-user-circle"></i></span>
                     Bonjour, {{ app.user.prenom }}
                 <span class="text-white pl-2"><i class="fas fa-chevron-down"></i></span>
             </button>
             <div id="myDropdown" class="dropdownlist w-full absolute text-white right-0 overflow-auto z-30 invisible" style="background-color: #161616">
                 {% if is_granted('ROLE_ADMIN') %}
-                    <div class="mt-3 rounded-full bg-gray-700 hover:bg-blue-600">
-                        <a href="{{ path('admin') }}" class="p-2 text-white text-xs no-underline hover:no-underline block"><i class="fas fa-user-shield"></i>  Mon DashBoard</a>
+                    <div class="mt-3 rounded-full bg-gray-700 hover:bg-blue-500 transform transition duration-500">
+                        <a href="{{ path('admin') }}" class="p-2 text-blue-500 text-xs no-underline hover:no-underline block hover:text-white transform transition duration-500"><i class="fas fa-user-shield"></i>  Mon DashBoard</a>
                     </div>
                 {% endif %}
-                <div class="mt-3 rounded-full bg-gray-700 hover:bg-blue-600">
-                    <a href="{{ path('logout') }}" class="p-2 text-red-500 text-xs no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i>  Se déconnecter</a>
+                <div class="mt-3 rounded-full bg-gray-700 hover:bg-red-500 transform transition duration-500">
+                    <a href="{{ path('logout') }}" class="p-2 text-red-500 text-xs no-underline hover:no-underline block hover:text-white transform transition duration-500"><i class="fas fa-sign-out-alt fa-fw"></i>  Se déconnecter</a>
                 </div>
             </div>
         </div>

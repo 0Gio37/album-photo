@@ -1,30 +1,42 @@
-<div class="hidden lg:block md:mt-28 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+<div class="mt-28 text-gray-400 fixed content-center text-center lg:text-left">
 
-     <div class="text-xs xl:text-base text-white mt-6 px-8 underline">RECHERCHE DE PHOTOS</div>
+    <div class="hidden lg:block text-xs xl:text-base mt-6 px-8 underline">RECHERCHE DE PHOTOS</div>
 
-    <ul class="text-white list-reset flex flex-row md:flex-col text-xs xl:text-base">
+
+    <div class="lg:hidden block m-auto">
+            <a href="{{ path('add_photo') }}">
+                <div class="m-auto rounded-full py-2 text-center text-4xl bg-blue-700 px-4 hover:scale-105 hover:bg-blue-500 hover:text-white transform transition duration-500">
+                   +
+                </div>
+            </a>
+    </div>
+
+
+    <ul class="list-reset md:flex-col text-xs xl:text-base">
         <li class="mt-10 ml-3 hover:text-blue-500 transform transition duration-500">
             <a href="#" class="active-modal block py-1 md:py-3 pl-1 align-middle no-underline modal-open">
-                <i class="fas fa-users text-blue-500 pr-3"></i><span class="pb-1 md:pb-0 block md:inline-block">PAR PERSONNE</span>
+                <i title ="recherche par personne" class="fas fa-users hover:scale-105 text-3xl lg:text-lg lg:text-blue-500 text-gray-400 pr-3 hover:text-blue-500 transform transition duration-500"></i><span class="hidden lg:inline-block pb-1 md:pb-0">PAR PERSONNE</span>
             </a>
         </li>
 
         <li class="mt-10 ml-3 hover:text-blue-500 transform transition duration-500">
             <a href="#" class="active-modal block py-1 md:py-3 pl-1 align-middle no-underline modal-open">
-                <i class="fas fa-location-arrow text-blue-500 pr-3"></i><span class="pb-1 md:pb-0 block md:inline-block">PAR LIEU</span>
+                <i title ="recherche par lieu" class="fas fa-location-arrow hover:scale-105 text-3xl lg:text-lg lg:text-blue-500 text-gray-400 pr-3 hover:text-blue-500 transform transition duration-500"></i><span class="hidden lg:inline-block pb-1 md:pb-0">PAR LIEU</span>
             </a>
         </li>
         <li class="mt-10 ml-3 hover:text-blue-500 transform transition duration-500">
             <a href="#" class="active-modal block py-1 md:py-3 pl-1 align-middle no-underline modal-open">
-                <i class="fas fa-calendar-alt text-blue-500 pr-3"></i><span class="pb-1 md:pb-0 block md:inline-block">PAR DATE</span>
+                <i title ="recherche par date" class="fas fa-calendar-alt hover:scale-105 text-3xl lg:text-lg lg:text-blue-500 text-gray-400 pr-3 hover:text-blue-500 transform transition duration-500"></i><span class="hidden lg:inline-block pb-1 md:pb-0">PAR DATE</span>
             </a>
         </li>
         <li class="mt-10 ml-3 hover:text-blue-500 transform transition duration-500">
             <a href="#" class="active-modal block py-1 md:py-3 pl-1 align-middle no-underline modal-open">
-                <i class="fas fa-sitemap text-blue-500 pr-3"></i><span class="pb-1 md:pb-0 block md:inline-block">PAR THEME</span>
+                <i title ="recherche par thème" class="fas fa-sitemap hover:scale-105 text-3xl lg:text-lg lg:text-blue-500 text-gray-400 pr-3 hover:text-blue-500 transform transition duration-500"></i><span class="hidden lg:inline-block pb-1 md:pb-0">PAR THEME</span>
             </a>
         </li>
     </ul>
 </div>
 
-<a  href="{{  path('home') }}#home" class="fixed bottom-0"><p class="text-white">Haut de page <i class="fas fa-arrow-circle-up"></i></p></a>
+<div class="fixed bottom-3 left-5 text-2xl lg:text-lg pr-3 text-white hover:text-red-500 transform transition duration-500">
+    <a href="{{  path('home') }}#home" class="lg:text-sm"><p class="hidden lg:inline-block">Haut de page </p><i title ="retour haut de page" class="fas fa-arrow-circle-up hover:scale-105 ml-1"></i></a>
+</div>

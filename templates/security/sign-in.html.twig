@@ -72,7 +72,7 @@
                     <div class="pb-2 pt-4">{{ form_row(form.username) }}</div>
                     <div class="pb-2 pt-4">{{ form_row(form.mail) }}</div>
                     <div class="input-pswd">
-                        <img id="eye" src="{{ asset('img/icon-form-pswd-eye-closed.png') }}" alt='icon show password'/>
+                        <img id="eye" src="{{ asset('img/icon-form-pswd-eye-closed.png') }}" title="Afficher le mot de passe" alt='icon show password'/>
                         <div class="pb-2 pt-4">{{ form_row(form.password) }}</div>
                         <div class="pb-2 pt-4">{{ form_errors(form.password) }}</div>
                     </div>
@@ -106,16 +106,18 @@
         e.preventDefault();}
     })
 
-    /* dislay password toggle*/
+    /* dislay password */
     let hideIconPswd = true;
     iconTogglePswd = document.getElementById("eye");
     iconTogglePswd.addEventListener("click", (e)=>{
         if(hideIconPswd){
             pass1.setAttribute("type", "text");
+            iconTogglePswd.setAttribute("title", "Masquer le mot de passe");
             iconTogglePswd.src="img/icon-form-pswd-eye-opened.png";
             hideIconPswd = false;
         }else{
             pass1.setAttribute("type", "password");
+            iconTogglePswd.setAttribute("title", "Afficher le mot de passe");
             iconTogglePswd.src="img/icon-form-pswd-eye-closed.png";
             hideIconPswd = true;
         }
