@@ -63,7 +63,11 @@
     </section>
 
     {%  else %}
-        {% if app.request.get('_route') is same as('detailsPhoto') %}
+        {% if (app.request.get('_route') is same as('detailsPhoto')
+            or app.request.get('_route') is same as('add_new_comment')
+            or app.request.get('_route') is same as('add_new_tag')
+            or app.request.get('_route') is same as('add_place')
+            )%}
         {%  else %}
             <header>
                 {% include 'component/header.html.twig' %}
