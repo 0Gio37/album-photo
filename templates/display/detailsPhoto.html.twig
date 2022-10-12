@@ -4,12 +4,10 @@
 
 {% block body %}
 
-    <div class="flex justify-center mb-2 col-start-6 fixed top-6 right-16">
-        <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" >
-            <button class="px-5 py-2 text-md rounded-full text-gray-300 bg-red-900 hover:bg-red-700">
-                X
-            </button>
-        </a>
+    <div class="fixed right-1">
+        <div class="pt-6 pr-6">
+            <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" title="fermer" class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700 hover:text-white transform transition duration-500">FERMER</a>
+        </div>
     </div>
 
     <section class="h-full grid grid-cols-12 -mt-12">
@@ -47,7 +45,7 @@
             </div>
         </div>
 
-        <div class="text-base text-gray-600 flex flex-col col-start-9 col-span-3 p-2 ml-1 -mr-4 my-10">
+        <div class="text-base text-gray-600 flex flex-col col-start-9 col-span-3 p-2 mt-16 ml-1 -mr-4 my-10">
 
             <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-1 mb-4">
                 <div>

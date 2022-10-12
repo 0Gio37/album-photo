@@ -183,6 +183,8 @@ class DisplayAllController extends AbstractController
         return $this->render('display/all-photos.html.twig', [
             'photoAllList' => $photoAllList,
             'toggleBtn'=> $this->toggleBtn,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 
