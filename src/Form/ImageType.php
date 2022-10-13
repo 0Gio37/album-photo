@@ -23,7 +23,7 @@ class ImageType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new File([
-                        'maxSize' => '5001k',
+                        'maxSize' => '2001k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/jpg',

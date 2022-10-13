@@ -10,13 +10,13 @@
 
     <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 -m-10 px-10 lg:px-28 lg:p-10 p-4 mx-60 shadow-lg">
 
-        <p class="lg:text-4xl text-xl text-white text-center">Nouveau commentaire</p>
+        <p class="lg:text-4xl text-xl text-white text-center">Nouveaux commentaires</p>
 
         <section class="formComment">
             {{ form_start(formComment) }}
             <p class="text-gray-100 text-center mt-4 mb-2"></p>
             {{ form_row(formComment.texte) }}
-            <button id="displayTagListBtn" class="flex mt-10 m-auto px-3 py-2 rounded-lg text-gray-300 bg-blue-700 hover:bg-blue-500 hover:text-white transform transition duration-500">
+            <button id="displayTagListBtn" class="flex mt-10 m-auto px-3 py-2 text-sm lg:text-base rounded-lg text-gray-300 bg-blue-700 hover:bg-blue-500 hover:text-white transform transition duration-500">
                 Ajouter
             </button>
             {{ form_end(formComment) }}

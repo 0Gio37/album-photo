@@ -4,31 +4,22 @@
 
 {% block body %}
 
+    <div class="fixed right-1 pt-6 pr-6">
+        <a href= "{{ path('detailsPhoto', {titleAlbum:titleAlbum, idPhoto:photoId, status:status, count:count} ) }}" title="fermer" class="modal-close px-3 py-2 text-xs rounded-lg text-gray-300 text-gray-300 bg-red-700 hover:bg-red-500 hover:text-white transform transition duration-500">FERMER</a>
+    </div>
+
     <div class="pt-6">
-        <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-screen">
-            <div class="flex justify-center mb-2 col-start-6 fixed top-18 right-24">
-                <a href= "{{ path('detailsPhoto', {titleAlbum:titleAlbum, idPhoto:photoId, status:status, count:count} ) }}" >
-                    <button class="px-5 py-2 text-md rounded-full text-gray-300 bg-red-900 hover:bg-red-700">
-                        X
-                    </button>
-                </a>
-            </div>
-            </section>
-            <section class="rounded-full py-4 bg-green-900 font-bold text-center text-gray-400 px-8">
-                Renseignez un lieu
-            </section>
+        <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 -m-10 px-10 lg:px-28 lg:p-10 p-4 mx-60 shadow-lg">
+
+            <p class="lg:text-4xl text-xl text-white text-center mb-10">Renseignez le Lieu</p>
 
             <section class="formTag">
                 {{ form_start(setPlaceForm) }}
-                <p class="text-gray-100 text-xl font-bold text-center mt-4 mb-2">lieu</p>
                 {{ form_row(setPlaceForm.lieu) }}
-                <button id="displayTagListBtn" class="flex mt-6 m-auto px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                <button id="displayTagListBtn" class="flex mt-10 m-auto px-3 py-2 text-sm lg:text-base rounded-lg text-gray-300 bg-blue-700 hover:bg-blue-500 hover:text-white transform transition duration-500">
                     Ajouter
                 </button>
                 {{ form_end(setPlaceForm) }}
-                {% if currentPlace %}
-                    {% include 'display/displayPlace.html.twig' with {'currentPlace':currentPlace} only %}
-                {% endif %}
             </section>
         </div>
     </div>

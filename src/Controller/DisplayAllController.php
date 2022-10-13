@@ -201,7 +201,7 @@ class DisplayAllController extends AbstractController
         $currentAlbumId = $albumParentPhotoDisplayed[0]->getId();
         $lienTagPhotoList = $LienTagPhotoRepository->findAll();
         $tagList = $TagRepository->findAll();
-        $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto]);
+        $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto], ['created_at'=>'DESC']);
         $count = (int)$count;
 
         if($status == 0){
