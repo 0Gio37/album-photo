@@ -14,15 +14,15 @@
             {% for year in yearListSortedUnique %}
                 {% if year == null %}
                     <a href="{{ path('displaySingleYear', {photoAnnee:0000} )  }}" > <div class="hover:bg-blue-600   w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex justify-center items-center items-stretch">
-                            <div class="text-center hover:text-blue-700 text-3xl text-gray-800 font-bold mb-2 py-8 sm:py-6">
-                                Sans date
+                            <div class="text-center hover:text-white text-3xl text-gray-800 font-bold mb-2 py-8 sm:py-6 transform transition duration-500">
+                                SANS DATE
                             </div>
                         </div>
                     </a>
                 {% else %}
                     <a href="{{ path('displaySingleYear', {photoAnnee:year} )  }}" >
-                        <div class="hover:bg-blue-600   w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex justify-center items-center items-stretch">
-                            <div class="text-center hover:text-blue-700 text-3xl text-gray-800 font-bold mb-2 py-8 sm:py-6">
+                        <div class="w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg overflow-hidden flex justify-center items-center items-stretch">
+                            <div class="text-center hover:text-white text-3xl text-gray-800 font-bold mb-2 py-8 sm:py-6 transform transition duration-500">
                                 {{ year }}
                             </div>
                         </div>

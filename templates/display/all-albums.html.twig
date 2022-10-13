@@ -30,6 +30,11 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {% for album in albumList %}
                 <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
+                    <div class="text-center mb-2 text-white">
+                        <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre})  }}" >
+                            <p class="text-base hover:text-blue-500 transform transition duration-500">{{ album.titre|upper }}</p>
+                        </a>
+                    </div>
                     <div class="h-3/6 mb-4">
                         {% set equi = '' %}
                         {% for photo in photoList %}
@@ -50,28 +55,24 @@
                             </a>
                     </div>
 
-                    <div class="text-center mb-4">
-                        <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre})  }}" >
-                            <p class="text-base text-gray-800 font-bold hover:text-blue-600 hover:underline">{{ album.titre }}</p>
-                        </a>
+                    <div class="text-center mb-1">
                         {% if album.annee == null %}
-                            <p class="text-base text-gray-800 hover:font-bold"> - </p>
+                            <p class="text-base italic text-gray-800 hover:font-bold">sans date</p>
                         {% else %}
                             <p class="text-base text-gray-800 hover:font-bold">{{ album.annee }}</p>
                         {% endif %}
-
                     </div>
                     <div class="border-b-2 border-gray-500 w-full"></div>
 
                     <div class="text-center">
-                        <p class="text-base text-left text-gray-800 font-bold">Theme:</p>
+                        <p class="text-base text-left text-gray-800 font-bold">Theme</p>
                         <a href="{{ path('displayOneTheme', {idTheme:album.theme.id, titreTheme:album.theme.titre} )  }}" >
-                            <p class="text-base text-gray-800 hover:font-bold hover:text-blue-600 hover:underline">{{ album.theme.titre|upper}}</p>
+                            <p class="text-base text-gray-800 hover:font-bold hover:text-blue-700 transform transition duration-500">{{ album.theme.titre|upper}}</p>
                         </a>
                     </div>
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="ml-auto h-1/6">
-                            <a href="{{ path('deleteAlbum', {idAlbum:album.id}) }}" onclick="return confirm('Confirmer la suppression de cet album ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
+                            <a href="{{ path('deleteAlbum', {idAlbum:album.id}) }}" onclick="return confirm('Confirmer la suppression de cet album ?')" title="supprimer la photo" class="px-2 py-1 text-xs border border-solid border-blue-500 hover:border-red-700 rounded-full text-red-700 bg-transparent hover:bg-red-700 hover:scale-105 hover:text-white transform transition duration-500">
                                 X
                             </a>
                         </div>

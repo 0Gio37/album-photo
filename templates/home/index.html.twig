@@ -6,7 +6,7 @@
 
     <div id="home" class="grid grid-cols-6 h-full md:flex-row p-2">
 
-        <aside class="col-span-1 border-r border-gray-600  shadow-lg bg-customColorMainBG">
+        <aside class="col-span-1 border-r border-gray-600  shadow-lg">
             {% include 'component/aside-search.html.twig'%}
         </aside>
 
@@ -51,7 +51,7 @@
                         </div>
                         {% if is_granted('ROLE_ADMIN') %}
                             <div class="ml-auto h-1/6">
-                                <a href="{{ path('deletePhotoFromHome', {idPhoto:photo.id}) }}" title="supprimer" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-300 bg-red-400 hover:bg-red-600 hover:scale-105 hover:text-white transform transition duration-500">
+                                <a href="{{ path('deletePhotoFromHome', {idPhoto:photo.id}) }}" title="supprimer la photo" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs border border-solid border-blue-500 hover:border-red-700 rounded-full text-red-700 bg-transparent hover:bg-red-700 hover:scale-105 hover:text-white transform transition duration-500">
                                     X
                                 </a>
                             </div>
