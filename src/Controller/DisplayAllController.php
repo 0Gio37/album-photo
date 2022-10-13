@@ -30,6 +30,8 @@ class DisplayAllController extends AbstractController
 
         return $this->render('display/all-themes.html.twig', [
             'themeList' => $themeList,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 
@@ -47,6 +49,8 @@ class DisplayAllController extends AbstractController
 
         return $this->render('display/all-years.html.twig', [
             'yearListSortedUnique' => $yearListSortedUnique,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 
@@ -62,6 +66,8 @@ class DisplayAllController extends AbstractController
             'listAlbumsByTheme'=>$listAlbumsByTheme,
             'titreTheme'=>$titreTheme,
             'photoList'=>$photoList,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
     }
 
@@ -110,7 +116,13 @@ class DisplayAllController extends AbstractController
      */
     public function displaySingleYear(PhotoRepository $photoRepository, $photoAnnee): Response
     {
-        $photoListByYear = $photoRepository->findBy(['annee'=>$photoAnnee], ['id'=>'ASC']);
+        if($photoAnnee == 0){
+            $photoListByYear = $photoRepository->findBy(['annee'=>null], ['id'=>'ASC']);
+        }else{
+            $photoListByYear = $photoRepository->findBy(['annee'=>$photoAnnee], ['id'=>'ASC']);
+        }
+
+        //$photoListByYear = $photoRepository->findBy(['annee'=>$photoAnnee], ['id'=>'ASC']);
 
         return $this->render('display/single-year.html.twig', [
             'photoListByYear' => $photoListByYear,

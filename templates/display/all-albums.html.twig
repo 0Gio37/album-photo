@@ -8,7 +8,7 @@
 
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div class="pb-12">
-            <p class="text-base text-2xl text-gray-400">> <span class="text-xl text-blue-600"> > Tous les albums</span></p>
+            <p class="text-blue-600 underline italic">/ Tous les albums</p>
         </div>
         {% for message in app.flashes('supp') %}
             <div class="bg-red-300 text-white text-center italic text-sm w-1/2 rounded-full py-1 my-4 mx-auto">
@@ -57,11 +57,12 @@
 
                     <div class="text-center mb-1">
                         {% if album.annee == null %}
-                            <p class="text-base italic text-gray-800 hover:font-bold">sans date</p>
+                            <p class="text-base italic text-gray-800 hover:font-bold">Sans date</p>
                         {% else %}
                             <p class="text-base text-gray-800 hover:font-bold">{{ album.annee }}</p>
                         {% endif %}
                     </div>
+
                     <div class="border-b-2 border-gray-500 w-full"></div>
 
                     <div class="text-center">

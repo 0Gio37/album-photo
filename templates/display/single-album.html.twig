@@ -9,20 +9,20 @@
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div class="pb-12">
             {% if listPhotoAlbum %}
-                <p class="text-base text-2xl text-gray-400">{{ titleAlbum | upper}} > <span class="text-xl text-blue-600"> > Toutes les photos</span></p>
+                <p class="text-gray-400 italic">Album {{ titleAlbum | upper}} / <span class="text-blue-600 underline">Toutes les photos</span></p>
             {% else %}
                 <p class="text-base text-2xl text-gray-400">Album Vide</p>
             {% endif %}
         </div>
 
-        <div class="flex justify-end">
+        <div class="flex justify-end mb-3 hover:text-red-400 text-gray-200 transform transition duration-500">
             {% if toggleBtn == true %}
                 <a href="{{ path('displayOneAlbumChrono', {idAlbum:idAlbum, titleAlbum:titleAlbum} )  }}" >
-                    <div class="text-blue-400 hover:text-gray-300"><i class="fas fa-arrow-circle-up"></i> Plus ancien au plus recent <i class="fas fa-arrow-circle-up"></i></div>
+                    <div><i class="fas fa-arrow-circle-up"></i> Plus ancien au plus recent <i class="fas fa-arrow-circle-up"></i></div>
                 </a>
             {% else %}
                 <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:idAlbum, titleAlbum:titleAlbum} )  }}" >
-                    <div class="text-blue-400 hover:text-gray-300"><i class="fas fa-arrow-circle-down"></i> Plus récent au plus ancien <i class="fas fa-arrow-circle-down"></i></div>
+                    <div><i class="fas fa-arrow-circle-down"></i> Plus récent au plus ancien <i class="fas fa-arrow-circle-down"></i></div>
                 </a>
             {% endif %}
         </div>
