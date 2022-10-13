@@ -15,14 +15,14 @@
                 {{ message }}
             </div>
         {% endfor %}
-        <div class="flex justify-end mb-3">
+        <div class="flex justify-end mb-3 hover:text-red-400 text-gray-200 transform transition duration-500">
             {% if toggleBtn == true %}
                 <a href="{{ path('displayAllAlbumAlpha')  }}" >
-                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-up"></i> Voir par ordre alphabétique <i class="fas fa-arrow-circle-up"></i></div>
+                    <div><i class="fas fa-arrow-circle-up"></i> Voir par ordre alphabétique <i class="fas fa-arrow-circle-up"></i></div>
                 </a>
             {% else %}
                 <a href="{{ path('displayAllAlbumNonAlpha')  }}" >
-                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-down"></i> Voir par order non alphabétique <i class="fas fa-arrow-circle-down"></i></div>
+                    <div><i class="fas fa-arrow-circle-down"></i> Voir par order non alphabétique <i class="fas fa-arrow-circle-down"></i></div>
                 </a>
             {% endif %}
         </div>

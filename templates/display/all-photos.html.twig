@@ -15,14 +15,14 @@
                 {{ message }}
             </div>
         {% endfor %}
-        <div class="flex justify-end mb-3">
+        <div class="flex justify-end mb-3 hover:text-red-400 text-gray-200 transform transition duration-500">
             {% if toggleBtn == true %}
                 <a href="{{ path('displayAllPhotoChrono')  }}" >
-                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-up"></i> Voir de la plus ancienne à plus récente <i class="fas fa-arrow-circle-up"></i></div>
+                    <div><i class="fas fa-arrow-circle-up"></i> Voir de la plus ancienne à plus récente <i class="fas fa-arrow-circle-up"></i></div>
                 </a>
             {% else %}
                 <a href="{{ path('displayAllPhotoAntiChrono')  }}" >
-                    <div class="text-red-400 hover:text-gray-300"><i class="fas fa-arrow-circle-down"></i> Voir de la plus récente à la plus ancienne <i class="fas fa-arrow-circle-down"></i></div>
+                    <div><i class="fas fa-arrow-circle-down"></i> Voir de la plus récente à la plus ancienne <i class="fas fa-arrow-circle-down"></i></div>
                 </a>
             {% endif %}
         </div>
