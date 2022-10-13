@@ -35,11 +35,11 @@ class PhotoType extends AbstractType
             ])
             ->add('annee', IntegerType::class,[
                 'required'=> false,
-                'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white text-center w-4/5 m-auto px-4 py-2 w-1/2'],
+                'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white text-center m-auto px-4 py-2 w-1/2'],
     ])
             ->add('lieu', TextType::class,[
                 'required'=> false,
-                'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white text-center w-4/5 m-auto px-4 py-2 w-1/2'],
+                'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white text-center m-auto px-4 py-2 w-1/2'],
             ])
         ;
     }

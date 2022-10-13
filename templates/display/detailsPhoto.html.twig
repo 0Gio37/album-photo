@@ -9,11 +9,11 @@
     </div>
 
     <section class="h-full grid grid-cols-12 -mt-12">
-        <div class=" flex flex-col col-start-1 col-span-8 gap-4 justify-between p-4 m-4 bg-black border border-1 border-gray-600 shadow-lg rounded-lg">
+        <div class="flex flex-col col-start-1 col-span-8 gap-4 justify-between p-4 m-4 bg-black border border-1 border-gray-600 shadow-lg rounded-lg">
             <div class="flex justify-between items-center">
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count-1} ) }}" >
                     <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-700 hover:bg-blue-500 shadow-md transform transition duration-500">
-                        <i class="fas fa-chevron-left"></i>
+                    <i class="fas fa-chevron-left"></i>
                     </div>
                 </a>
                 <div class="px-36">
@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class="text-base text-gray-600 flex flex-col col-start-9 col-span-3 p-2 mt-16 ml-1 -mr-4 my-10">
+        <div class="lg:text-base text-sm text-gray-600 flex flex-col col-start-9 col-span-3 p-4 mt-16 ml-1 -mr-4 mt-10">
             <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4">
                 <div class="flex justify-between">
                     <p>Localisation</p>
@@ -58,7 +58,7 @@
                 {% endif %}
             </div>
 
-            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4">
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4 max-h-60 overflow-auto">
                 <div>
                     <div class="flex justify-between">
                         <p>Sur la photo</p>
@@ -73,7 +73,7 @@
                                 {% for tag in tagList %}
                                     {% if  lien.tag.id == tag.id %}
                                         {% set showPersonne = false %}
-                                        <div class="text-center text-xl text-gray-400">- {{ lien.tag.prenom }}  {{ lien.tag.nom }} -</div>
+                                        <div class="text-center text-gray-400">- {{ lien.tag.prenom }}  {{ lien.tag.nom }} -</div>
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4">
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 max-h-screen overflow-auto">
                 <div>
                     <div class="flex justify-between">
                         <p>Commentaires</p>
@@ -102,7 +102,7 @@
                                 {% else %}
                                     <div class="flex justify-end">
                                 {% endif %}
-                                    <div class="bg-gray-400 w-2/3 text-gray-800 text-sm rounded-xl my-2 p-2">
+                                    <div class="bg-gray-400 w-2/3 text-gray-800 rounded-xl my-2 p-2">
                                         <p class="font-bold">" {{ comm.texte }} "</p>
                                         <p class="text-xs text-right italic">Par {{ comm.auteurId.username }} - {{ comm.createdAt | format_datetime('short', 'none', locale='en', pattern='dd/MM/yyyy')  }} </p>
                                     </div>

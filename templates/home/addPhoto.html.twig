@@ -43,7 +43,7 @@
             <section class="mt-6">
                 {% if  visibleTaggedPersonnBtn == false %}
                 {{ form_start(imageForm) }}
-                    <p class="text-gray-100 text-xl text-center mb-2">Charger une image <span class="text-sm italic">(inférieure à 5Mo)</span></p>
+                    <p class="text-gray-100 text-xl text-center mb-2">Charger une image <span class="text-sm italic">(Maximum 2Mo)</span></p>
                     {{ form_row(imageForm.fileName) }}
                     {% if  showCurrentPhotoTwig == false %}
                         <button class="flex m-auto mt-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">

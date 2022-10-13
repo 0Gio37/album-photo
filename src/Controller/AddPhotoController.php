@@ -342,7 +342,7 @@ class AddPhotoController extends AbstractController
             ->add('lieu', TextType::class, [
                 'required'=>false,
                 'label'=>false,
-                'attr' => ['class' => 'bg-gray-800 rounded-lg text-xl text-gray-100 flex justify-start m-auto px-6 w-1/3 py-2'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-xl text-gray-100 flex justify-start m-auto px-6 w-full py-2 lg:text-lg text-sm'],
             ])
             ->getForm();
         $setPlaceForm->handleRequest($request);
