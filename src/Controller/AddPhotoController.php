@@ -32,6 +32,7 @@ use Cloudinary\Cloudinary;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -355,6 +356,44 @@ class AddPhotoController extends AbstractController
         return $this->render(
             'home/setPlace.html.twig', [
                 'setPlaceForm' => $setPlaceForm->createView(),
+                'photoId' => $photoId,
+                'titleAlbum' => $titleAlbum,
+                'count' => $count,
+                'status' => $status,
+                'currentPlace'=>$currentPlace,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/add-year/{titleAlbum}/{photoId}/{status}/{count}", name="add_year")
+     */
+    public function addYear(Request $request, PhotoRepository $photoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status,$count)
+    {
+        $defaultData = ['message' => 'null'];
+        $currentPlace='';
+
+        $setYearForm = $this->createFormBuilder($defaultData)
+            ->add('annee', IntegerType::class, [
+                'required'=>false,
+                'label'=>false,
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-xl text-gray-100 flex justify-start m-auto px-6 w-full py-2 lg:text-lg text-sm'],
+            ])
+            ->getForm();
+        $setYearForm->handleRequest($request);
+
+        if ($setYearForm->isSubmitted() && $setYearForm->isValid()) {
+            $data = $setYearForm->getData();
+            $currentYear = $data['annee'];
+            $photoObject = $photoRepository->findOneBy(['id' => $photoId]);
+            $photoObject->setAnnee($currentYear);
+            $em->persist($photoObject);
+            $em->flush();
+        }
+
+        return $this->render(
+            'home/setYear.html.twig', [
+                'setYearForm' => $setYearForm->createView(),
                 'photoId' => $photoId,
                 'titleAlbum' => $titleAlbum,
                 'count' => $count,

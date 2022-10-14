@@ -45,13 +45,14 @@
         </div>
 
 
-        <div class="lg:text-base text-sm text-gray-600 col-span-3 gap-2 -mr-6 mt-4 h-screen grid grid-flow-col grid-rows-9">
+        <div class="lg:text-base text-sm text-gray-600 col-span-3 gap-2 -mr-6 mt-4 h-screen grid grid-flow-col grid-rows-12">
+
 {# carte loc #}
             <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 row-start-1 row-span-1">
                 <div class="flex justify-between">
                     <p>Localisation</p>
                     <a href="{{ path('add_place', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
-                        <i title="modifier ou ajouter un lieu" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
+                        <i title="modifier ou ajouter le lieu" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
                     </a>
                 </div>
                 {% if selectedPhoto.lieu %}
@@ -62,8 +63,25 @@
             </div>
 {# carte loc #}
 
+{# carte annee #}
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 row-start-2 row-span-1">
+                <div class="flex justify-between">
+                    <p>Date</p>
+                    <a href="{{ path('add_year', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
+                        <i title="modifier ou ajouter la date" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
+                    </a>
+                </div>
+                {% if selectedPhoto.annee %}
+                    <div class="text-center text-lg text-gray-400">{{ selectedPhoto.annee}}</div>
+                {% else %}
+                    <p class="italic text-center text-gray-400"> "Non renseigné ..."</p>
+                {% endif %}
+            </div>
+{# carte annee #}
+
+
 {# carte tag #}
-            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 overflow-auto row-start-2 row-span-2">
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 overflow-auto row-start-3 row-span-1">
                 <div>
                     <div class="flex justify-between">
                         <p>Sur la photo</p>
@@ -92,7 +110,7 @@
 {# carte tag #}
 
 {# carte commentaire #}
-            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4 overflow-auto row-start-4 row-span-6">
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4 overflow-auto row-start-4 row-span-3">
                 <div>
                     <div class="flex justify-between">
                         <p>Commentaires</p>
