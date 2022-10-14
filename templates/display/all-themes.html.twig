@@ -4,12 +4,13 @@
 
 {% block body %}
 
-    {%  include 'component/inputAddPhoto.html.twig' %}
+    {#  {%  include 'component/inputAddPhoto.html.twig' %} #}
 
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
-        <div class="pb-12">
-            <p class="text-blue-600 underline italic">/ Tous les thèmes</p>
-        </div>
+
+        <p class="text-sm text-blue-400 italic mb-12"><a class="hover:text-gray-300 transform transition duration-500 underline" href="{{ path('home') }}">PAGE D'ACCUEIL_</a>
+            <span class="text-xs"> / Tous les thèmes</span>
+        </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-5">
             {% for theme in themeList %}
