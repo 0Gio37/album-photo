@@ -9,7 +9,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {% if dataSearched.nom == null %}
                 <div class="text-center pb-12 col-span-4">
-                    <p class="flex col-span-4 justify-center text-4xl text-blue-500">Recherche des photos avec "{{ dataSearched.nom | upper }} {{ dataSearched.prenom | upper }}"</p>
+                    <p class="flex col-span-4 justify-center text-4xl text-blue-500">Recherche des photos avec " {{ dataSearched.prenom | lower }} {{ dataSearched.nom | upper }}"</p>
                 </div>
                 {% for lien in  lientagPhoto %}
                     {%  if  (lien.tag.nom |lower == dataSearched.prenom|lower ) or (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}
@@ -27,7 +27,7 @@
                                 </a>
                             </div>
                             <div class="text-center py-8 sm:py-6 h-2/6 mb-4">
-                                <p class="text-base text-lg text-gray-800 font-normal">{{ lien.tag.nom|upper }} {{ lien.tag.prenom }}</p>
+                                <p class="text-base text-lg text-gray-800 font-normal">{{ lien.tag.prenom|lower }} {{ lien.tag.nom|upper }} </p>
                                 <p class="text-base text-gray-800 font-bold underline mt-4">Album</p>
                                 <p class="text-base text-gray-800 font-normal">{{ lien.photo.album.titre }}</p>
                             </div>
@@ -43,7 +43,7 @@
                 {% endfor %}
             {% elseif dataSearched.prenom == null %}
                 <div class="text-center pb-12 col-span-4">
-                    <p class="flex col-span-4 justify-center font-bold text-4xl text-blue-600">Photos avec " {{ dataSearched.nom | upper }} {{ dataSearched.prenom | upper }} "</p>
+                    <p class="flex col-span-4 justify-center font-bold text-4xl text-blue-600">Photos avec "{{ dataSearched.prenom | lower }} {{ dataSearched.nom | upper }}"</p>
                 </div>
                  {% for lien in  lientagPhoto %}
                      {%  if  (lien.tag.nom |lower == dataSearched.nom|lower ) or (lien.tag.prenom|lower == dataSearched.nom|lower ) %}
@@ -53,11 +53,15 @@
                          <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
                              <div class="h-3/6 mb-4">
                                  <a href= "{{ path('detailsPhoto', {idPhoto:lien.photo.id, titleAlbum:lien.photo.album.titre,status:1, count:0} ) }}" >
-                                     <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                                     {% if uploadImagesDestination is same as('local') %}
+                                         <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                                     {% else %}
+                                         <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ urlCloudinary~equi }}' alt="Photo de couverture">
+                                     {% endif %}
                                  </a>
                              </div>
                              <div class="text-center py-8 sm:py-6 h-2/6 mb-4">
-                                 <p class="text-base text-lg text-gray-800 font-normal">{{ lien.tag.nom|upper }} {{ lien.tag.prenom }}</p>
+                                 <p class="text-base text-lg text-gray-800 font-normal">{{ lien.tag.prenom|lower }} {{ lien.tag.nom|upper }}</p>
                                  <p class="text-base text-gray-800 font-bold underline mt-4">Album</p>
                                  <p class="text-base text-gray-800 font-normal">{{ lien.photo.album.titre }}</p>
                              </div>
@@ -73,7 +77,7 @@
                  {% endfor %}
             {%  elseif dataSearched.nom != null and dataSearched.prenom != null %}
             <div class="text-center pb-12 col-span-4">
-                <p class="flex col-span-4 justify-center font-bold text-4xl text-blue-600">Photos avec " {{ dataSearched.nom | upper }} {{ dataSearched.prenom | upper }} "</p>
+                <p class="flex col-span-4 justify-center font-bold text-4xl text-blue-600">Photos avec "{{ dataSearched.prenom | lower }} {{ dataSearched.nom | upper }}"</p>
             </div>
             {% for lien in  lientagPhoto %}
                 {%  if  (lien.tag.nom |lower == dataSearched.nom|lower ) and (lien.tag.prenom|lower == dataSearched.prenom|lower ) %}
@@ -83,11 +87,15 @@
                     <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
                         <div class="h-3/6 mb-4">
                             <a href= "{{ path('detailsPhoto', {idPhoto:lien.photo.id, titleAlbum:lien.photo.album.titre, status:1, count:0} ) }}" >
-                                <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                                {% if uploadImagesDestination is same as('local') %}
+                                    <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
+                                {% else %}
+                                    <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ urlCloudinary~equi }}' alt="Photo de couverture">
+                                {% endif %}
                             </a>
                         </div>
                         <div class="text-center py-8 sm:py-6 h-2/6">
-                            <p class="text-base text-lg text-gray-800 font-normal">{{ lien.tag.nom|upper }} {{ lien.tag.prenom }}</p>
+                            <p class="text-base text-lg text-gray-800 font-normal">{{ lien.tag.nom|upper }} {{ lien.tag.prenom | lower }}</p>
                             <p class="text-base text-gray-800 font-bold underline mt-4">Album</p>
                             <p class="text-base text-gray-800 font-normal">{{ lien.photo.album.titre }}</p>
                         </div>

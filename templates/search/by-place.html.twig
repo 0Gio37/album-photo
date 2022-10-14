@@ -8,10 +8,10 @@
         {% set showPlace = true %}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div class="text-center pb-12 col-span-4">
-                <p class="flex col-span-4 justify-center text-4xl text-blue-500">Recherche des photos prises à "{{ dataSearched.lieu }}" </p>
+                <p class="flex col-span-4 justify-center text-4xl text-blue-500">Recherche des photos prises à "{{ dataSearched.lieu | lower }}" </p>
             </div>
             {% for photo in photoList %}
-                {%  if  photo.lieu == dataSearched.lieu %}
+                {%  if  photo.lieu | lower == dataSearched.lieu | lower %}
                     {% set equi = '' %}
                     {% set equi = photo.file %}
                     {% set showPlace = false %}
