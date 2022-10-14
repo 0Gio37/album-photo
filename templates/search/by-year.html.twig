@@ -8,7 +8,7 @@
         {% set showYear = true %}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div class="text-center pb-12 col-span-4">
-                <p class="flex col-span-4 justify-center font-bold text-4xl text-blue-600">Photos de l'année : " {{ dataSearched.annee  }} "</p>
+                <p class="flex col-span-4 justify-center text-4xl text-blue-500">Recherche des photos de l'année : "{{ dataSearched.annee  }}"</p>
             </div>
             {% for photo in photoList %}
                 {%  if  photo.annee == dataSearched.annee %}
@@ -31,7 +31,7 @@
                         </div>
                         {% if is_granted('ROLE_ADMIN') %}
                             <div class="ml-auto h-1/6">
-                                <a href="{{ path('deletePhotoFromAllPhotos', {idPhoto:photo.id}) }}" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs rounded-full text-gray-200 bg-red-400 hover:bg-red-600">
+                                <a href="{{ path('deletePhotoFromAllPhotos', {idPhoto:photo.id}) }}" title="supprimer la photo" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs border border-solid border-blue-500 hover:border-red-700 rounded-full text-red-700 bg-transparent hover:bg-red-700 hover:scale-105 hover:text-white transform transition duration-500">
                                     X
                                 </a>
                             </div>
@@ -40,10 +40,10 @@
                 {% endif %}
             {% endfor %}
             {% if showYear is same as(true) %}
-                <p class="flex col-span-4 justify-center text-xl text-gray-400">Aucune correspondance ! </p>
+                <p class="flex col-span-4 justify-center text-4xl text-white">Aucune correspondance</p>
                 <div class="col-span-4 m-auto ">
                     <a href="{{ path('home') }}">
-                        <button class="px-2 py-1 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
+                        <button class="px-2 py-1 rounded-lg text-gray-300 bg-red-700 hover:bg-red-500 hover:text-white transform transition duration-500">
                             RETOUR PAGE ACCUEIL
                         </button>
                     </a>

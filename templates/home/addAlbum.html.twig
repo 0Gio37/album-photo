@@ -1,23 +1,23 @@
-<div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+<div class="modal z-50 opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
     <div class="modal-overlay absolute w-full h-full bg-black opacity-95"></div>
-    <div class="modal-container fixed w-full h-full z-50 overflow-y-auto">
+    <div class="modal-container fixed w-full h-full overflow-y-auto">
         <div class="modal-content mx-m h-auto p-60">
             <div class="bg-gray-700 rounded-lg">
                 <div class="flex justify-end pt-6 pr-6">
-                    <a href="#" class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">FERMER</a>
+                    <a href="#" class="modal-close px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700 hover:text-white transform transition duration-500">FERMER</a>
                 </div>
                 <div class="text-center pb-2">
-                    <p class="text-base text-3xl font-bold text-blue-500">Créer un Album</p>
+                    <p class="text-base text-4xl text-white">Créer un album</p>
                 </div>
                 <div class="flex justify-center w-full py-6">
                     {{ form_start(formAlbum) }}
-                    <p class="text-white text-center text-xl pb-2 pt-6">Sélectionner la Thématique<span class="text-red-900 font-bold"> *</span></p>
+                    <p class="text-white text-center text-xl pb-2 pt-6">Sélectionner la Thématique<span class="text-red-500 font-bold"> *</span></p>
                     {{ form_row(formAlbum.theme) }}
-                    <p class="text-white text-center text-xl pb-2 pt-6">Titre<span class="text-red-900 font-bold"> *</span></p>
+                    <p class="text-white text-center text-xl pb-2 pt-6">Titre<span class="text-red-500 font-bold"> *</span></p>
                     {{ form_row(formAlbum.titre) }}
                     <p class="text-white text-center text-xl pb-2 pt-6">Année à 4 chiffres (optionel)</p>
                    {{ form_row(formAlbum.annee) }}
-                    <button class="flex justify-center mt-6 font-bold text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">Valider</button>
+                    <button class="flex justify-center mt-6 text-xl my-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 hover:text-white transform transition duration-500 w-full">Valider</button>
                     {{ form_end(formAlbum) }}
                 </div>
             </div>

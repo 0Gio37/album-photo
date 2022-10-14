@@ -35,7 +35,7 @@ class ManageItemsController extends AbstractController
         $item = $this->getDoctrine()->getManager();
         $item->remove($suppPhoto);
         $item->flush();
-        $this->addFlash('supp', 'photo supprimée !');
+        $this->addFlash('supp', 'Photo supprimée !');
         return $this->redirectToRoute('home');
     }
     /**
@@ -55,7 +55,7 @@ class ManageItemsController extends AbstractController
         $item = $this->getDoctrine()->getManager();
         $item->remove($suppPhoto3);
         $item->flush();
-        $this->addFlash('supp', 'photo supprimée !');
+        $this->addFlash('supp', 'Photo supprimée !');
 
         return $this->redirectToRoute('displayAllPhotoAntiChrono');
     }
@@ -77,9 +77,8 @@ class ManageItemsController extends AbstractController
         $item = $this->getDoctrine()->getManager();
         $item->remove($suppPhoto);
         $item->flush();
-        $this->addFlash('supp', 'photo supprimée !');
-
-        return $this->redirectToRoute("displayAllPhotoAntiChrono");
+        $this->addFlash('supp', 'Photo supprimée !');
+        return $this->redirectToRoute("displayAllAlbumAlpha");
     }
 
     /**
@@ -92,7 +91,7 @@ class ManageItemsController extends AbstractController
         $item = $this->getDoctrine()->getManager();
         $item->remove($suppAlbum);
         $item->flush();
-        $this->addFlash('supp', 'album supprimé !');
+        $this->addFlash('supp', 'Album "'. $suppAlbum->getTitre().'" supprimé !');
 
         return $this->redirectToRoute('displayAllAlbumAlpha');
     }
