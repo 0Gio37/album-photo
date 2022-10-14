@@ -110,8 +110,6 @@ class AddPhotoController extends AbstractController
 
         if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {
 
-            $visibleTaggedPersonnBtn = true;
-
             $currentImage = $ImageRepository->findBy([],['id'=>'DESC'],1);
             $currentImageFileName = $currentImage[0]->getFileName();
             $currentUserObject= $UserRepository->findOneBy(['id'=> $currentUserId]);
@@ -120,8 +118,8 @@ class AddPhotoController extends AbstractController
             $data = $formPhoto->getData();
             $em->persist($data);
             $em->flush();
+            return $this->redirectToRoute('home');
 
-            $this->addFlash('addPhoto', 'photo ajoutée !');
         }
 
         if ($formAlbum->isSubmitted() && $formAlbum->isValid()) {
@@ -129,15 +127,13 @@ class AddPhotoController extends AbstractController
             $album->setTitre($album->getTitre());
             $em->persist($data);
             $em->flush();
-            $this->addFlash('addAlbum', 'album ajouté !');
-
+            $this->addFlash('succes', 'Album "'.$album->getTitre().'" correctement ajouté !');
         }
 
         return $this->render(
             'home/addPhoto.html.twig', [
             'imageForm'=>$imageForm->createView(),
             'photoForm' => $formPhoto->createView(),
-            'visibleTaggedPersonnBtn'=>$visibleTaggedPersonnBtn,
             'formAlbum'=>$formAlbum->createView(),
             'showCurrentPhotoTwig'=>$showCurrentPhotoTwig,
             'currentImageFileName'=>$currentImageFileName,

@@ -4,54 +4,35 @@
 
 {% block body %}
 
-    <div class="pt-6">
+    <div class="fixed right-1 top-24 pt- pr-6">
+        <a href="{{ path('home') }}" title="fermer" class="px-3 py-2 text-xs rounded-lg text-gray-300 text-gray-300 bg-red-700 hover:bg-red-500 hover:text-white transform transition duration-500">FERMER</a>
+    </div>
+
+    <div class="">
         <div class="rounded-lg bg-gradient-to-b from-gray-700 to-gray-500 p-8 mx-60 shadow-lg h-auto">
 
-        <div class="flex justify-between mb-6 px-10">
-            <div>
-                <a href="#" class="underline hover:text-white modal-open">
-                    <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-purple-700 hover:bg-purple-500">
-                        Nouvel Album ?
-                    </button>
-                </a>
+        {% for message in app.flashes('succes') %}
+            <div class="bg-green-500 text-gray-900 text-center italic text-sm w-full rounded-full my-6 py-1">
+                {{ message }}
             </div>
-            {% for message in app.flashes('addAlbum') %}
-                <div class="bg-blue-400 text-white text-center italic text-sm w-1/3 rounded-full py-1 mx-auto">
-                    {{ message }}
-                </div>
-            {% endfor %}
-            {% for message in app.flashes('addPhoto') %}
-                <div class="bg-blue-400 text-white text-center italic text-sm w-1/3 rounded-full py-1 mx-auto">
-                    {{ message }}
-                </div>
-            {% endfor %}
-            <div>
-                <a href="{{ path('home') }}">
-                    <button class="px-3 py-2 text-sm rounded-lg text-gray-300 bg-red-900 hover:bg-red-700">
-                        FERMER
-                    </button>
-                </a>
-            </div>
-        </div>
+        {% endfor %}
 
-            {% if  visibleTaggedPersonnBtn == false %}
-                <section class="rounded-full py-4 bg-blue-900 font-bold text-center text-gray-400 px-8">
-                    Ajouter une nouvelle photo
-                </section>
-            {%  endif %}
+
+                <p class="lg:text-4xl text-xl text-white text-center mb-5">Ajouter une nouvelle photo</p>
+
 
             <section class="mt-6">
-                {% if  visibleTaggedPersonnBtn == false %}
+
                 {{ form_start(imageForm) }}
                     <p class="text-gray-100 text-xl text-center mb-2">Charger une image <span class="text-sm italic">(Maximum 2Mo)</span></p>
                     {{ form_row(imageForm.fileName) }}
                     {% if  showCurrentPhotoTwig == false %}
-                        <button class="flex m-auto mt-6 px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                        <button class="flex m-auto mt-6 px-3 py-2 text-sm lg:text-base rounded-lg text-gray-300 bg-blue-700 hover:bg-blue-500 hover:text-white transform transition duration-500">
                             Sélectionner
                         </button>
                     {% endif %}
                 {{ form_end(imageForm) }}
-                {% endif %}
+
 
                 {% if  showCurrentPhotoTwig == true %}
                     <div class="flex justify-center m-auto my-6 w-1/5 border border-1 border-blue-700 shadow-lg">
@@ -65,55 +46,41 @@
                 {% endif %}
             </section>
 
-            <section class="text-gray-100 text-center text-xl pb-6">
+            <section class="text-gray-100 text-center text-xl mt-10 pb-6">
                 {% include 'home/addAlbum.html.twig' %}
 
                 {% if  showCurrentPhotoTwig == true %}
                     {{ form_start(photoForm) }}
-                    <p class="mb-2">Sélectionner son Album</p>
-                    {{ form_row(photoForm.album) }}
-                    <div class="flex">
-                        <div class="w-2/3">
-                            <p class="mb-2 mt-6">Son année (optionnel)</p>
+
+                    <div class="m-auto w-1/3 my-10">
+                        <p class="mb-3">Sélectionner un album existant</p>
+                        {{ form_row(photoForm.album) }}
+                    </div>
+
+                    <p class="mb-5 italic text-sm">Pas dans la liste ?</p>
+
+                    <div class="modal-open text-sm">
+                        <a href="#" class="px-2 py-2 rounded-lg border border-1 border-gray-900 text-gray-800 bg-transparent hover:bg-blue-500 hover:text-white transform transition duration-500">
+                            Créer un nouvel Album
+                        </a>
+                    </div>
+
+                    <div class="flex mt-5">
+                        <div class="w-4/5">
+                            <p class="mb-3">Son année</p>
                             {{ form_row(photoForm.annee) }}
                         </div>
-                        <div class="w-2/3">
-                            <p class="mb-2 mt-6">un lieu (optionnel)</p>
+                        <div class="w-4/5">
+                            <p class="mb-3">Son lieu</p>
                             {{ form_row(photoForm.lieu) }}
                         </div>
                     </div>
-                    <button class="flex mt-6 m-auto px-3 py-2 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700">
+                    <button class="flex mt-10 m-auto px-3 py-2 text-sm lg:text-base rounded-lg text-gray-300 bg-blue-700 hover:bg-blue-500 hover:text-white transform transition duration-500">
                         Ajouter la Photo
                     </button>
                     {{ form_end(photoForm) }}
                 {% endif %}
             </section>
-
-            {% if  visibleTaggedPersonnBtn == true %}
-                    <section class="flex justify-center mt-24">
-                        <div class="mr-6 w-2/5">
-                            <a href="{{ path('add_comment') }}">
-                                <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-green-900 hover:bg-green-700 w-full">
-                                    Mettre un commentaire
-                                </button>
-                            </a>
-                        </div>
-                        <div class="mr-6 w-2/5">
-                            <a href="{{ path('add_tag') }}">
-                                <button class="px-3 py-4 text-sm rounded-lg text-gray-300 bg-green-900 hover:bg-green-700 w-full">
-                                    Identifier des personnes
-                                </button>
-                            </a>
-                        </div>
-                        <div class="ml-6 w-1/5">
-                            <a href="{{ path('add_photo') }}">
-                                <button class="mb-6 px-3 py-4 text-sm rounded-lg text-gray-300 bg-blue-900 hover:bg-blue-700 w-full">
-                                    Ajouter une autre photo
-                                </button>
-                            </a>
-                        </div>
-                    </section>
-            {% endif %}
         </div>
     </div>
 

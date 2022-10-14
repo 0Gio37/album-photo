@@ -20,17 +20,17 @@ class AlbumType extends AbstractType
 
         $builder
             ->add('titre',TextType::class, [
-                'attr' => ['class' => 'bg-gray-100 rounded-md text-gray-800 w-96 rounded-lg p-4'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg  text-gray-100 flex justify-start m-auto w-96 p-4 lg:text-lg text-sm focused'],
                 'label'=>false
     ])
             ->add('theme', EntityType::class, [
                 'class'=>Theme::class,
                 'choice_label'=>'titre',
-                'attr' => ['class' => 'bg-gray-100 rounded-md text-gray-800 w-96 rounded-lg p-4'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg  text-gray-100 flex justify-start m-auto w-96 p-4  lg:text-lg text-sm'],
                 'label'=>false
             ])
             ->add('annee', IntegerType::class,  [
-                'attr' => ['class' => 'bg-gray-100 rounded-md text-gray-800 w-96 rounded-lg p-4'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg  text-gray-100 flex justify-start m-auto w-96 p-4 2 lg:text-lg text-sm'],
                 'required' => false,
                 'label'=>false
             ])
