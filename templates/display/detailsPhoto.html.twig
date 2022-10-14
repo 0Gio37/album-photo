@@ -10,6 +10,7 @@
 
     <section class="h-full grid grid-cols-12 -mt-12">
         <div class="flex flex-col col-start-1 col-span-8 gap-4 justify-between p-4 m-4 bg-black border border-1 border-gray-600 shadow-lg rounded-lg">
+
             <div class="flex justify-between items-center">
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count-1} ) }}" >
                     <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-700 hover:bg-blue-500 shadow-md transform transition duration-500">
@@ -35,7 +36,7 @@
 
             <div class="text-center text-base text-gray-600 font-normal pt-2 pb-6">
                 <p class=" mb-1">
-                    - Posté le {{ selectedPhoto.createAt | format_datetime('short', 'none', locale='en', pattern='dd/MM/yyyy')  }}, par {{ selectedPhoto.auteur.username }} -
+                    - Posté le {{ selectedPhoto.createAt | format_datetime('short', 'none', locale='en', pattern='dd/MM/yyyy')  }}, par : {{ selectedPhoto.auteur.username }} -
                 </p>
                 <p>
                     - Album : {{ selectedPhoto.album.titre }} | Thématique : {{ selectedPhoto.album.theme.titre }} -
@@ -43,8 +44,10 @@
             </div>
         </div>
 
-        <div class="lg:text-base text-sm text-gray-600 flex flex-col col-start-9 col-span-3 p-4 mt-16 ml-1 -mr-4 mt-10">
-            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4">
+
+        <div class="lg:text-base text-sm text-gray-600 col-span-3 gap-2 -mr-6 mt-4 h-screen grid grid-flow-col grid-rows-9">
+{# carte loc #}
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 row-start-1 row-span-1">
                 <div class="flex justify-between">
                     <p>Localisation</p>
                     <a href="{{ path('add_place', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
@@ -57,8 +60,10 @@
                     <p class="italic text-center text-gray-400"> "Non renseigné ..."</p>
                 {% endif %}
             </div>
+{# carte loc #}
 
-            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4 max-h-60 overflow-auto">
+{# carte tag #}
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 overflow-auto row-start-2 row-span-2">
                 <div>
                     <div class="flex justify-between">
                         <p>Sur la photo</p>
@@ -84,8 +89,10 @@
                     {% endif %}
                 </div>
             </div>
+{# carte tag #}
 
-            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 max-h-screen overflow-auto">
+{# carte commentaire #}
+            <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 mb-4 overflow-auto row-start-4 row-span-6">
                 <div>
                     <div class="flex justify-between">
                         <p>Commentaires</p>
@@ -115,6 +122,8 @@
                     </div>
                 </div>
             </div>
+{# carte commentaire #}
+
         </div>
     </section>
 

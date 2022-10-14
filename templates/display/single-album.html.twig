@@ -10,6 +10,9 @@
 
         {% if listPhotoAlbum %}
             <p class="text-sm text-blue-400 italic mb-12"><a class="hover:text-gray-300 transform transition duration-500 underline" href="{{ path('home') }}">PAGE D'ACCUEIL_</a>
+                <span>
+                    <a class="hover:text-gray-300 transform transition duration-500 underline" href="{{ path('displayOneTheme', {idTheme:listPhotoAlbum[0].album.theme.id, titreTheme:listPhotoAlbum[0].album.theme.titre} )  }}" >/ Thème "{{ listPhotoAlbum[0].album.theme.titre }}"</a>
+                </span>
                 <span>/ Album "{{ titleAlbum }}" /</span>
                 <span class="text-xs"> Toutes les photos</span>
             </p>
@@ -33,30 +36,22 @@
             {% for photo in listPhotoAlbum %}
                 {% set equi = '' %}
                 {% set equi = photo.file %}
-
             <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
-                <div class="h-3/6 mb-4">
+                <div class="h-4/6 mb-10">
                     <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre, status:1, count:0} ) }}" >
                         {% if uploadImagesDestination is same as('local') %}
                             <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
                         {% else %}
                             <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ urlCloudinary~equi }}' alt="Photo de couverture">
                         {% endif %}
-                            </a>
-                </div>
-                <div class="text-center mb-4">
-                    <p class="text-base text-left text-gray-800 font-bold">Theme:</p>
-                    <a href="{{ path('displayOneTheme', {idTheme:photo.album.theme.id, titreTheme:photo.album.theme.titre} )  }}" >
-                        <p class="text-base text-gray-800 hover:font-bold hover:text-blue-600 hover:underline">{{ photo.album.theme | upper }}</p>
                     </a>
                 </div>
-                <div class="border-b-2 border-gray-500 w-full"></div>
                 <div class="text-center">
                     <p class="text-xs text-gray-800 font-normal">Posté le {{ photo.createAt | format_datetime('short', 'none', locale='en', pattern='dd/MM/yyyy')  }}</p>
                     <p class="text-xs text-gray-800 font-normal">Par : {{ photo.auteur.username }}</p>
                 </div>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="ml-auto h-1/6">
+                        <div class="ml-auto">
                             <a href="{{ path('deletePhotoFromAlbum', {titleAlbum:titleAlbum, idAlbum:idAlbum, idPhoto:photo.id}) }}" title="supprimer la photo" onclick="return confirm('Confirmer la suppression de cette photo ?')" class="px-2 py-1 text-xs border border-solid border-blue-500 hover:border-red-700 rounded-full text-red-700 bg-transparent hover:bg-red-700 hover:scale-105 hover:text-white transform transition duration-500">
                                 X
                             </a>
