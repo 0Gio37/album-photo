@@ -77,7 +77,7 @@
                         <div class="pb-2 pt-4">{{ form_errors(form.password) }}</div>
                     </div>
 
-                    <input id="password2" type="password" class="pb-2 pt-4 form-control block w-full p-4 text-lg rounded-sm bg-black" placeholder="Confirmer le mot de passe">
+                    <input id="password2" type="password" onpaste="return false" class="pb-2 pt-4 form-control block w-full p-4 text-lg rounded-sm bg-black" placeholder="Confirmer le mot de passe">
 
                     <div class="pt-4 flex justify-center">{{ form_row(form.captcha) }}</div>
                     <div class="pt-4 flex text-red-500 justify-center">{{ form_errors(form.captcha) }}</div>
