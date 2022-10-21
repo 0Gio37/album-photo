@@ -201,9 +201,11 @@ class DisplayAllController extends AbstractController
     }
 
     /**
-     * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
+     * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}", name="detailsPhoto")
      */
-    public function detailsPhoto(
+
+    //code d 'origine
+    /*public function detailsPhoto(
         AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $photoRepository,
         LienTagPhotoRepository $LienTagPhotoRepository,
         TagRepository $TagRepository, $idPhoto, $titleAlbum, $status, $count, Services $photoSlider ): Response
@@ -244,5 +246,75 @@ class DisplayAllController extends AbstractController
             'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
             'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);
+    }*/
+
+
+    public function detailsPhoto(
+    AlbumRepository $albumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $photoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status, Services $slider): Response
+    {
+        $albumParentPhotoDisplayed = $albumRepository->findBy(['titre'=>$titleAlbum]);
+        $currentAlbumId = $albumParentPhotoDisplayed[0]->getId();
+
+        $selectedPhoto = $photoRepository->findBy(['id'=>$idPhoto])[0];
+        $albumIDofCurrentPhoto = $selectedPhoto->getAlbum()->getId();
+        $createdDateOfCurrentPhoto= $selectedPhoto->getCreateAt();
+
+        $lienTagPhotoList = $LienTagPhotoRepository->findAll();
+        $tagList = $TagRepository->findAll();
+        $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto], ['created_at'=>'DESC']);
+
+
+        //album id : doublon de recup :$currentAlbumId et $albumIDofCurrentPhoto
+
+        // service a créer
+        /*if($status != 0 ){
+            $slider->SliderDetailsPhoto($status,$albumIDofCurrentPhoto, $createdDateOfCurrentPhoto);
+        }
+        */
+
+        if($status == 'photo-prec'){
+            //if older photo is displayed, we get the most old young
+            if(!($photoRepository->findSinglePhotoYounger($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto))){
+                $selectedPhoto = $photoRepository->findBy(['album'=>$currentAlbumId], ['createAt'=>'DESC'], 1)[0];
+                $idPhoto = $selectedPhoto->getId();
+                //dd($currentAlbumId,$albumIDofCurrentPhoto );
+            }else{
+                $selectedPhoto = ($photoRepository->findSinglePhotoYounger($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto))[0];
+                $idPhoto = $selectedPhoto->getId();
+            }
+            $commentaireList = $commentaireRepository->findBy(['photo_id'=>$selectedPhoto->getId()]);
+        }
+        if($status == 'photo-suiv'){
+            //if younger photo is displayed, we get the most old photo
+            if(!($photoRepository->findSinglePhotoOlder($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto))){
+                $selectedPhoto = $photoRepository->findBy(['album'=>$currentAlbumId], ['createAt'=>'ASC'], 1)[0];
+                $idPhoto = $selectedPhoto->getId();
+            }else{
+                $selectedPhoto = ($photoRepository->findSinglePhotoOlder($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto))[0];
+                $idPhoto = $selectedPhoto->getId();
+            }
+            $commentaireList = $commentaireRepository->findBy(['photo_id'=>$selectedPhoto->getId()]);
+        }
+
+
+
+
+
+
+        return $this->render(
+            'display/detailsPhoto.html.twig',[
+            'selectedPhoto'=>$selectedPhoto,
+            'idPhoto'=>$idPhoto,
+            'titleAlbum'=>$titleAlbum,
+            'lienTagPhotoList'=>$lienTagPhotoList,
+            'tagList'=>$tagList,
+            'commentaireList'=>$commentaireList,
+            'currentAlbumId'=>$currentAlbumId,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
+        ]);
     }
+
+
+
 }

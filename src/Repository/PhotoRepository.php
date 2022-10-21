@@ -19,6 +19,33 @@ class PhotoRepository extends ServiceEntityRepository
         parent::__construct($registry, Photo::class);
     }
 
+    public function findSinglePhotoOlder(int $id,  \DateTimeInterface $dateTime)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.album = :val1')
+            ->andWhere('p.createAt > :val2')
+            ->setParameter('val1', $id)
+            ->setParameter('val2', $dateTime)
+            ->orderBy('p.createAt', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findSinglePhotoYounger(int $id,  \DateTimeInterface $dateTime)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.album = :val1')
+            ->andWhere('p.createAt < :val2')
+            ->setParameter('val1', $id)
+            ->setParameter('val2', $dateTime)
+            ->orderBy('p.createAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     // /**
     //  * @return Services[] Returns an array of Services objects
     //  */
@@ -34,7 +61,7 @@ class PhotoRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Services
@@ -47,4 +74,7 @@ class PhotoRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+
 }
