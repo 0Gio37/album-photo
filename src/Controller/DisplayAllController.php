@@ -201,9 +201,11 @@ class DisplayAllController extends AbstractController
     }
 
     /**
-     * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}/{count}", name="detailsPhoto")
+     * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}", name="detailsPhoto")
      */
-    public function detailsPhoto(
+
+    //code d 'origine
+    /*public function detailsPhoto(
         AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $photoRepository,
         LienTagPhotoRepository $LienTagPhotoRepository,
         TagRepository $TagRepository, $idPhoto, $titleAlbum, $status, $count, Services $photoSlider ): Response
@@ -241,6 +243,38 @@ class DisplayAllController extends AbstractController
             'commentaireList'=>$commentaireList,
             'count'=>$count,
             'currentAlbumId'=>$currentAlbumId,
+            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
+            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
+        ]);
+    }*/
+
+
+    public function detailsPhoto(CommentaireRepository $commentaireRepository , PhotoRepository $photoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status, Services $slider): Response
+    {
+        $selectedPhoto = $photoRepository->findBy(['id'=>$idPhoto])[0];
+        $albumIDofCurrentPhoto = $selectedPhoto->getAlbum()->getId();
+        $createdDateOfCurrentPhoto= $selectedPhoto->getCreateAt();
+
+        $lienTagPhotoList = $LienTagPhotoRepository->findAll();
+        $tagList = $TagRepository->findAll();
+        $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto], ['created_at'=>'DESC']);
+
+        // Call service / slider
+        if($status != 1 ){
+            $selectedPhoto = $slider->SliderDetailsPhoto($photoRepository, $commentaireRepository, $status, $albumIDofCurrentPhoto, $createdDateOfCurrentPhoto);
+            $idPhoto = $selectedPhoto->getId();
+            $commentaireList = $commentaireRepository->findBy(['photo_id'=>$selectedPhoto->getId()]);
+        }
+
+        return $this->render(
+            'display/detailsPhoto.html.twig',[
+            'selectedPhoto'=>$selectedPhoto,
+            'idPhoto'=>$idPhoto,
+            'titleAlbum'=>$titleAlbum,
+            'lienTagPhotoList'=>$lienTagPhotoList,
+            'tagList'=>$tagList,
+            'commentaireList'=>$commentaireList,
+            'albumIDofCurrentPhoto'=>$albumIDofCurrentPhoto,
             'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
             'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
         ]);

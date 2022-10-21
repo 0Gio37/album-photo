@@ -5,18 +5,21 @@
 {% block body %}
 
     <div class="fixed right-1 pt-6 pr-6">
-        <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" title="fermer" class="modal-close px-3 py-2 text-xs rounded-lg text-gray-300 bg-red-700 hover:bg-red-500 hover:text-white transform transition duration-500">FERMER</a>
+        <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:albumIDofCurrentPhoto, titleAlbum:titleAlbum})  }}" title="fermer" class="modal-close px-2 py-2 text-xs rounded-lg text-gray-300 bg-red-700 hover:bg-red-500 hover:text-white transform transition duration-500">FERMER</a>
     </div>
 
     <section class="h-full grid grid-cols-12 -mt-12">
         <div class="flex flex-col col-start-1 col-span-8 gap-4 justify-between p-4 m-4 bg-black border border-1 border-gray-600 shadow-lg rounded-lg">
 
+            <h2 class="text-blue-400  italic">Album : <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:albumIDofCurrentPhoto, titleAlbum:titleAlbum})  }}" class="hover:text-gray-300 transform transition duration-500 underline">{{ titleAlbum | upper }}</a></h2>
+
             <div class="flex justify-between items-center">
-                <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count-1} ) }}" >
-                    <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-700 hover:bg-blue-500 shadow-md transform transition duration-500">
+                <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:'photo-suiv' } ) }}" >
+                    <div title="photo plus récente" class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-700 hover:bg-blue-500 shadow-md transform transition duration-500">
                     <i class="fas fa-chevron-left"></i>
                     </div>
                 </a>
+
                 <div class="px-36">
                     {% set equi = '' %}
                     {% set equi = selectedPhoto.file %}
@@ -27,8 +30,8 @@
                     {% endif %}
 
                 </div>
-                <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:0, count : count+1} ) }}" >
-                    <div class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-700 hover:bg-blue-500 shadow-md transform transition duration-500">
+                <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:'photo-prec' } ) }}" >
+                    <div title="photo moins récente" class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-700 hover:bg-blue-500 shadow-md transform transition duration-500">
                         <i class="fas fa-chevron-right"></i>
                     </div>
                 </a>
@@ -39,11 +42,10 @@
                     - Posté le {{ selectedPhoto.createAt | format_datetime('short', 'none', locale='en', pattern='dd/MM/yyyy')  }}, par : {{ selectedPhoto.auteur.username }} -
                 </p>
                 <p>
-                    - Album : {{ selectedPhoto.album.titre }} | Thématique : {{ selectedPhoto.album.theme.titre }} -
+                    - Thématique : {{ selectedPhoto.album.theme.titre }} -
                 </p>
             </div>
         </div>
-
 
         <div class="lg:text-base text-sm text-gray-600 col-span-3 gap-2 -mr-6 mt-4 h-screen grid grid-flow-col grid-rows-12">
 
@@ -51,7 +53,7 @@
             <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 row-start-1 row-span-1">
                 <div class="flex justify-between">
                     <p>Localisation</p>
-                    <a href="{{ path('add_place', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
+                    <a href="{{ path('add_place', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1 }) }}">
                         <i title="modifier ou ajouter le lieu" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
                     </a>
                 </div>
@@ -67,7 +69,7 @@
             <div class="bg-black border border-1 border-gray-600 shadow-lg rounded-lg p-4 row-start-2 row-span-1">
                 <div class="flex justify-between">
                     <p>Date</p>
-                    <a href="{{ path('add_year', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
+                    <a href="{{ path('add_year', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1 }) }}">
                         <i title="modifier ou ajouter la date" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
                     </a>
                 </div>
@@ -85,7 +87,7 @@
                 <div>
                     <div class="flex justify-between">
                         <p>Sur la photo</p>
-                        <a href="{{ path('add_new_tag', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
+                        <a href="{{ path('add_new_tag', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, }) }}">
                             <i title="ajouter une personne" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
                         </a>
                     </div>
@@ -114,7 +116,7 @@
                 <div>
                     <div class="flex justify-between">
                         <p>Commentaires</p>
-                        <a href="{{ path('add_new_comment', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1, count:0 }) }}">
+                        <a href="{{ path('add_new_comment', {titleAlbum: titleAlbum, photoId:selectedPhoto.id,status:1 }) }}">
                             <i title="ajouter un commentaire" class="fas fa-plus-circle text-2xl text-blue-700 hover:text-blue-500 transform transition duration-500"></i>
                         </a>
                     </div>
