@@ -5,14 +5,13 @@
 {% block body %}
 
     <div class="fixed right-1 pt-6 pr-6">
-        <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" title="fermer" class="modal-close px-3 py-2 text-xs rounded-lg text-gray-300 bg-red-700 hover:bg-red-500 hover:text-white transform transition duration-500">FERMER</a>
+        <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:albumIDofCurrentPhoto, titleAlbum:titleAlbum})  }}" title="fermer" class="modal-close px-2 py-2 text-xs rounded-lg text-gray-300 bg-red-700 hover:bg-red-500 hover:text-white transform transition duration-500">FERMER</a>
     </div>
-
 
     <section class="h-full grid grid-cols-12 -mt-12">
         <div class="flex flex-col col-start-1 col-span-8 gap-4 justify-between p-4 m-4 bg-black border border-1 border-gray-600 shadow-lg rounded-lg">
 
-            <h2 class="text-blue-400  italic">Album : <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:currentAlbumId, titleAlbum:titleAlbum})  }}" class="hover:text-gray-300 transform transition duration-500 underline">{{ titleAlbum | upper }}</a></h2>
+            <h2 class="text-blue-400  italic">Album : <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:albumIDofCurrentPhoto, titleAlbum:titleAlbum})  }}" class="hover:text-gray-300 transform transition duration-500 underline">{{ titleAlbum | upper }}</a></h2>
 
             <div class="flex justify-between items-center">
                 <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:'photo-suiv' } ) }}" >
@@ -47,7 +46,6 @@
                 </p>
             </div>
         </div>
-
 
         <div class="lg:text-base text-sm text-gray-600 col-span-3 gap-2 -mr-6 mt-4 h-screen grid grid-flow-col grid-rows-12">
 
