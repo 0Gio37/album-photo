@@ -31,7 +31,7 @@
                         <div class="h-3/6 mb-4">
                             {% set equi = '' %}
                             {% set equi = photo.file %}
-                              <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre, status: 1 }) }}" >
+                              <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre, status: "view" }) }}" >
 
                                   {% if uploadImagesDestination is same as('local') %}
                                      <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="photo">

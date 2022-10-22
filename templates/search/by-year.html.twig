@@ -17,7 +17,7 @@
                     {% set showYear = false %}
                     <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
                         <div class="h-3/6 mb-4">
-                            <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre, status:1, count:0} ) }}" >
+                            <a href= "{{ path('detailsPhoto', {idPhoto:photo.id, titleAlbum:photo.album.titre, status:"view" } ) }}" >
                                 {% if uploadImagesDestination is same as('local') %}
                                     <img class="border border-1 border-blue-700 shadow-lg rounded-lg object-center object-cover h-full w-full" src='{{ asset('uploads/'~equi) }}' alt="Photo de couverture">
                                 {% else %}

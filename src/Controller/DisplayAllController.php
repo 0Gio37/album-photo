@@ -203,52 +203,6 @@ class DisplayAllController extends AbstractController
     /**
      * @Route("/display/detail-photo/{titleAlbum}/{idPhoto}/{status}", name="detailsPhoto")
      */
-
-    //code d 'origine
-    /*public function detailsPhoto(
-        AlbumRepository $AlbumRepository, CommentaireRepository $commentaireRepository , PhotoRepository $photoRepository,
-        LienTagPhotoRepository $LienTagPhotoRepository,
-        TagRepository $TagRepository, $idPhoto, $titleAlbum, $status, $count, Services $photoSlider ): Response
-    {
-        $photoDisplayed  = $photoRepository->findBy(['id'=>$idPhoto])[0];
-        $albumParentPhotoDisplayed = $AlbumRepository->findBy(['titre'=>$titleAlbum]);
-        $currentAlbumId = $albumParentPhotoDisplayed[0]->getId();
-        $lienTagPhotoList = $LienTagPhotoRepository->findAll();
-        $tagList = $TagRepository->findAll();
-        $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto], ['created_at'=>'DESC']);
-        $count = (int)$count;
-
-        if($status == 0){
-            $tempArrayToDisplayPhotosFromAlbumParent = $photoSlider->Slider($photoDisplayed, $photoRepository, $currentAlbumId);
-
-            switch ($count) {
-                case $count <= 0:
-                    $count = count($tempArrayToDisplayPhotosFromAlbumParent)-1;
-                    break;
-                case $count >= count($tempArrayToDisplayPhotosFromAlbumParent) :
-                    $count = 0;
-                    break;
-            }
-            $photoDisplayed = $tempArrayToDisplayPhotosFromAlbumParent[$count];
-            $commentaireList = $commentaireRepository->findBy(['photo_id'=>$photoDisplayed->getId()]);
-        }
-
-        return $this->render(
-            'display/detailsPhoto.html.twig',[
-            'selectedPhoto'=>$photoDisplayed,
-            'idPhoto'=>$idPhoto,
-            'titleAlbum'=>$titleAlbum,
-            'lienTagPhotoList'=>$lienTagPhotoList,
-            'tagList'=>$tagList,
-            'commentaireList'=>$commentaireList,
-            'count'=>$count,
-            'currentAlbumId'=>$currentAlbumId,
-            'uploadImagesDestination' => $_ENV['UPLOAD_IMAGES_DESTINATION'],
-            'urlCloudinary'=> $_ENV['URL_CLOUDINARY']
-        ]);
-    }*/
-
-
     public function detailsPhoto(CommentaireRepository $commentaireRepository , PhotoRepository $photoRepository, LienTagPhotoRepository $LienTagPhotoRepository, TagRepository $TagRepository, $idPhoto, $titleAlbum, $status, Services $slider): Response
     {
         $selectedPhoto = $photoRepository->findBy(['id'=>$idPhoto])[0];
@@ -260,7 +214,7 @@ class DisplayAllController extends AbstractController
         $commentaireList = $commentaireRepository->findBy(['photo_id'=>$idPhoto], ['created_at'=>'DESC']);
 
         // Call service / slider
-        if($status != 1 ){
+        if($status != "view" ){
             $selectedPhoto = $slider->SliderDetailsPhoto($photoRepository, $commentaireRepository, $status, $albumIDofCurrentPhoto, $createdDateOfCurrentPhoto);
             $idPhoto = $selectedPhoto->getId();
             $commentaireList = $commentaireRepository->findBy(['photo_id'=>$selectedPhoto->getId()]);
