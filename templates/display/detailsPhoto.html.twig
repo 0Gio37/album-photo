@@ -14,7 +14,7 @@
             <h2 class="text-blue-400  italic">Album : <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:albumIDofCurrentPhoto, titleAlbum:titleAlbum})  }}" class="hover:text-gray-300 transform transition duration-500 underline">{{ titleAlbum | upper }}</a></h2>
 
             <div class="flex justify-between items-center">
-                <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:'prev-photo' } ) }}" >
+                <a href= "{{ path('detailsPhoto', {titleAlbum:titleAlbum, idPhoto:idPhoto, status:'prev-photo' } ) }}" >
                     <div title="photo moins récente" class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-700 hover:bg-blue-500 shadow-md transform transition duration-500">
                     <i class="fas fa-chevron-left"></i>
                     </div>
@@ -30,7 +30,7 @@
                     {% endif %}
 
                 </div>
-                <a href= "{{ path('detailsPhoto', {idPhoto:idPhoto, titleAlbum:titleAlbum, status:'next-photo' } ) }}" >
+                <a href= "{{ path('detailsPhoto', {titleAlbum:titleAlbum, idPhoto:idPhoto, status:'next-photo' } ) }}" >
                     <div title="photo plus récente" class=" px-3 py-10 text-xl rounded-full text-gray-300 bg-blue-700 hover:bg-blue-500 shadow-md transform transition duration-500">
                         <i class="fas fa-chevron-right"></i>
                     </div>

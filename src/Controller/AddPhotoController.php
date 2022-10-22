@@ -196,7 +196,7 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-new-tag/{titleAlbum}/{photoId}/{status}", name="add_new_tag")
      */
-    public function addNewTag(Request $request, TagRepository $TagRepository, LienTagPhotoRepository $LienTagPhotoRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status)
+    public function addNewTag(Request $request, TagRepository $TagRepository, LienTagPhotoRepository $LienTagPhotoRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId,$titleAlbum)
     {
         $tag = new Tag();
         $formTag = $this->createForm(TagType::class, $tag);
@@ -235,8 +235,7 @@ class AddPhotoController extends AbstractController
                 'tagForm'=>$formTag->createView(),
                 'photoId'=>$photoId,
                 'taggedPersonns' => $taggedPersonns,
-                'titleAlbum'=>$titleAlbum,
-                'status'=>$status,
+                'titleAlbum'=>$titleAlbum
             ]
         );
     }
@@ -286,7 +285,7 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-new-comment/{titleAlbum}/{photoId}/{status}", name="add_new_comment")
      */
-    public function addNewComment(Request $request, CommentaireRepository $commentaireRepository, UserRepository $UserRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId, $titleAlbum, $status) :Response
+    public function addNewComment(Request $request, CommentaireRepository $commentaireRepository, UserRepository $UserRepository, PhotoRepository $PhotoRepository, EntityManagerInterface $em, $photoId, $titleAlbum) :Response
     {
         $currentUserId = $this->security->getUser()->getId();
 
@@ -319,7 +318,6 @@ class AddPhotoController extends AbstractController
                 'formComment' => $formCommentaire->createView(),
                 'photoId' => $photoId,
                 'titleAlbum' => $titleAlbum,
-                'status' => $status,
                 'commentPhoto'=>$commentPhoto,
             ]
         );
@@ -328,7 +326,7 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-place/{titleAlbum}/{photoId}/{status}", name="add_place")
      */
-    public function addPlace(Request $request, PhotoRepository $photoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status)
+    public function addPlace(Request $request, PhotoRepository $photoRepository, EntityManagerInterface $em, $photoId,$titleAlbum)
     {
         $defaultData = ['message' => 'null'];
         $currentPlace='';
@@ -356,7 +354,6 @@ class AddPhotoController extends AbstractController
                 'setPlaceForm' => $setPlaceForm->createView(),
                 'photoId' => $photoId,
                 'titleAlbum' => $titleAlbum,
-                'status' => $status,
                 'currentPlace'=>$currentPlace,
             ]
         );
@@ -365,7 +362,7 @@ class AddPhotoController extends AbstractController
     /**
      * @Route("/add-year/{titleAlbum}/{photoId}/{status}", name="add_year")
      */
-    public function addYear(Request $request, PhotoRepository $photoRepository, EntityManagerInterface $em, $photoId,$titleAlbum,$status)
+    public function addYear(Request $request, PhotoRepository $photoRepository, EntityManagerInterface $em, $photoId,$titleAlbum)
     {
         $defaultData = ['message' => 'null'];
         $currentPlace='';
@@ -393,7 +390,6 @@ class AddPhotoController extends AbstractController
                 'setYearForm' => $setYearForm->createView(),
                 'photoId' => $photoId,
                 'titleAlbum' => $titleAlbum,
-                'status' => $status,
                 'currentPlace'=>$currentPlace,
             ]
         );
