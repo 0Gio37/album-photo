@@ -14,7 +14,7 @@ class PageControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
-/**
+
     public function testRedirectionIfUnauthorized(){
         $client = static::createClient();
         $client->request("GET", "/home");
@@ -52,7 +52,4 @@ class PageControllerTest extends WebTestCase
         $this->assertResponseRedirects("/home");
         $client->followRedirect();
     }
- *
- * **/
-
 }

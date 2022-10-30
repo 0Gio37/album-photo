@@ -9,14 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class SliderDetailsPhotoTest extends KernelTestCase
 {
-
-    public function testTrue(){
-        $this->assertTrue(true);
-    }
-
-    /**
-
-
     public function testReturnPrevPhoto(): void
     {
         self::bootKernel();
@@ -50,6 +42,4 @@ class SliderDetailsPhotoTest extends KernelTestCase
         $this->assertEquals($testedIdAlbum, $result->getAlbum()->getId(), "L'ALBUM N'EST PAS LE BON");
         $this->assertSame("2022-10-21 16:54:45", $result->getCreateAt()->format("Y-m-d H:i:s"), "L'ANNEE N'EST PAS CELLE JUSTE APRES");
     }
-
-     * **/
 }

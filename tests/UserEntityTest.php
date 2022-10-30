@@ -9,10 +9,6 @@ use Symfony\Component\Validator\Validation;
 
 class UserEntityTest extends KernelTestCase
 {
-    public function testTrue(){
-        $this->assertTrue(true);
-    }
-    /**
     public function getEntityUser(){
         $newUser =  new User();
         $newUser->setNom("TestUnitNom");
@@ -28,14 +24,10 @@ class UserEntityTest extends KernelTestCase
         self::bootKernel();
         $violations = self::$container->get('validator')->validate($newUser);
         $message= [];
-     * **/
         /** @var ConstraintViolation $violation */
-    /**
         foreach ($violations as $violation){
             $message[] = $violation->getPropertyPath()." ===> ".$violation->getMessage();
         }
         $this->assertCount(0, $violations, implode(',', $message));
     }
-    **/
-
 }

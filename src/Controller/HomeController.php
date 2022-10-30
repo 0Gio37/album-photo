@@ -14,6 +14,7 @@ use App\Form\SearchByYearType;
 use App\Repository\PhotoRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -32,10 +33,9 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_USER")
      * @Route("/home", name="home")
      */
-
+    #[IsGranted('ROLE_USER')]
     public function index(PhotoRepository $PhotoRepository, Request $request): Response
     {
         $photoList = $PhotoRepository->findBy([], ['id'=>'DESC'],16);
