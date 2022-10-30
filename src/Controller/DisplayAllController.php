@@ -215,7 +215,7 @@ class DisplayAllController extends AbstractController
 
         // Call service / slider
         if($status != "view" ){
-            $selectedPhoto = $slider->SliderDetailsPhoto($photoRepository, $commentaireRepository, $status, $albumIDofCurrentPhoto, $createdDateOfCurrentPhoto);
+            $selectedPhoto = $slider->SliderDetailsPhoto($photoRepository, $status, $albumIDofCurrentPhoto, $createdDateOfCurrentPhoto);
             $idPhoto = $selectedPhoto->getId();
             $commentaireList = $commentaireRepository->findBy(['photo_id'=>$selectedPhoto->getId()]);
         }

@@ -32,8 +32,10 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/home", name="home")
      */
+
     public function index(PhotoRepository $PhotoRepository, Request $request): Response
     {
         $photoList = $PhotoRepository->findBy([], ['id'=>'DESC'],16);

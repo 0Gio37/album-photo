@@ -8,7 +8,7 @@ use App\Repository\PhotoRepository;
 
 class Services
 {
-    public function SliderDetailsPhoto(PhotoRepository $photoRepository, CommentaireRepository $commentaireRepository, String $status,int $albumIDofCurrentPhoto, $createdDateOfCurrentPhoto):Photo{
+    public function SliderDetailsPhoto(PhotoRepository $photoRepository,String $status,int $albumIDofCurrentPhoto, $createdDateOfCurrentPhoto):Photo{
         $photoToDisplay = null;
         if($status == 'prev-photo'){
             //if older photo is displayed, we get the most old young
