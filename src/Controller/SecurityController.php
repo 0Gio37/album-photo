@@ -67,9 +67,9 @@ class SecurityController extends AbstractController
             $errorMsgDoubleUserInDB = "";
 
             if($userRepository->findBy(["username"=>$userName])){
-                $errorMsgDoubleUserInDB = "Pseudo déjà utilisé ! ";
+                $errorMsgDoubleUserInDB = "Le pseudonyme est déjà utilisé ! ";
             }if ($userRepository->findBy(["mail"=>$userMail])){
-                $errorMsgDoubleUserInDB = "E-mail déjà existant ! ";
+                $errorMsgDoubleUserInDB = "L'e-mail est déjà existant ! ";
             }
 
 
