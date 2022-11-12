@@ -31,15 +31,15 @@ class PhotoType extends AbstractType
                         ->orderBy('u.titre', 'ASC');},
                 'choice_label'=>'titre',
                 'label'=>false,
-                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 flex justify-center m-auto px-16 cursor-pointer w-4/5 py-2 lg:text-lg text-sm'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 flex justify-center m-auto lg:px-16 px-4 cursor-pointer w-4/5 py-2 lg:text-lg text-sm'],
             ])
             ->add('annee', IntegerType::class,[
                 'required'=> false,
-                'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white text-center m-auto px-4 w-4/5 py-2 lg:text-lg text-sm'],
+                'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white text-center m-auto lg:px-4 px-1 w-4/5 py-2 lg:text-lg text-sm'],
     ])
             ->add('lieu', TextType::class,[
                 'required'=> false,
-                'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white text-center m-auto px-4 w-4/5 py-2 lg:text-lg text-sm'],
+                'label'=> false, 'attr' => ['class' => 'bg-gray-800 rounded-lg text-white text-center m-auto g:px-4 px-1 w-4/5 py-2 lg:text-lg text-sm'],
             ])
         ;
     }
