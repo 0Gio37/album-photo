@@ -41,11 +41,22 @@
                         {% endif %}
                     </div>
 
-                    <div class="text-center mb-4">
+                    <div class="text-center mb-1">
                         {% if album.annee == null %}
                             <p class="text-base italic text-gray-800 hover:font-bold">Sans date</p>
                         {% else %}
                             <p class="text-base text-gray-800 hover:font-bold">{{ album.annee }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="border-b-2 my-1 border-gray-500 w-full"></div>
+
+                    <div class="text-base italic text-gray-800">
+                        {% if  album.photos | length == 0 %}
+                            <p> Aucune photo </p>
+                        {% elseif album.photos | length == 1  %}
+                            <p>  {{ album.photos | length }} photo </p>
+                        {% else %}
+                            <p>  {{ album.photos | length }} photos </p>
                         {% endif %}
                     </div>
 

@@ -42,12 +42,12 @@ class HomeController extends AbstractController
         $defaultDataTag = ['message' => 'null'];
         $formSearchByTag = $this->createFormBuilder($defaultDataTag)
             ->add('nom', TextType::class, [
-                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 w-96 p-4'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 lg:w-96 w-auto lg:p-4 p-2'],
                 'label'=> false,
                 'required'=>false,
             ])
             ->add('prenom', TextType::class, [
-                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 w-96 p-4'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 lg:w-96 w-auto lg:p-4 p-2'],
                 'label'=>false,
                 'required'=>false,
             ])
@@ -67,7 +67,7 @@ class HomeController extends AbstractController
         $defaultDataPlace = ['message' => 'null'];
         $formSearchPlace = $this->createFormBuilder($defaultDataPlace)
             ->add('lieu', TextType::class, [
-                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 w-96 p-4'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 lg:w-96 w-auto lg:p-4 p-2'],
                 'label'=>false,
                 'required'=>true,
             ])
@@ -87,7 +87,7 @@ class HomeController extends AbstractController
         $defaultDataYear = ['message' => 'null'];
         $formSearchByYear = $this->createFormBuilder($defaultDataYear)
             ->add('annee', IntegerType::class, [
-                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 w-96 p-4'],
+                'attr' => ['class' => 'bg-gray-800 rounded-lg text-lg text-gray-100 w-96 lg:w-96 w-auto lg:p-4 p-2'],
                 'label'=>false,
                 'required'=>true,
 

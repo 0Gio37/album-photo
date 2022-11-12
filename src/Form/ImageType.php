@@ -17,7 +17,7 @@ class ImageType extends AbstractType
         $builder
             ->add('fileName', FileType::class,[
                 'label'=>false,
-                'attr' => ['class' => 'text-blue-500 bg-gray-800 rounded-lg italic text-white flex justify-center m-auto px-28 py-4 cursor-pointer'],
+                'attr' => ['class' => 'text-blue-500 bg-gray-800 rounded-lg italic flex justify-center lg:text-base text-xs m-auto lg:px-28 px-4 lg:py-4 py-2 cursor-pointer'],
                 'mapped' => false,
                 'multiple'=>false,
                 'required' => true,

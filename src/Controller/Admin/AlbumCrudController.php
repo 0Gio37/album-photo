@@ -32,7 +32,7 @@ class AlbumCrudController extends AbstractCrudController
     {
 
         return [
-            TextField::new('titre', 'Titre (Format : [THEMATIQUE album année] )'),
+            TextField::new('titre', 'Titre'),
             TextField::new('annee', 'Année (Format : [4 chiffres] )'),
             AssociationField::new('theme', 'Thème')
         ];

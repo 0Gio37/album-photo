@@ -122,8 +122,6 @@ class DisplayAllController extends AbstractController
             $photoListByYear = $photoRepository->findBy(['annee'=>$photoAnnee], ['id'=>'ASC']);
         }
 
-        //$photoListByYear = $photoRepository->findBy(['annee'=>$photoAnnee], ['id'=>'ASC']);
-
         return $this->render('display/single-year.html.twig', [
             'photoListByYear' => $photoListByYear,
             'photoAnnee'=>$photoAnnee,
