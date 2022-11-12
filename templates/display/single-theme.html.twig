@@ -12,7 +12,6 @@
             <span>/ Thème "{{ titreTheme | lower }}" /</span>
             <span class="text-xs"> Tous les albums</span>
         </p>
-
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {% for album in listAlbumsByTheme %}
                 <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
