@@ -27,7 +27,7 @@ class PhotoCrudController extends AbstractCrudController
         return [
             //DateField::new('createAt', 'Créé le')->hideOnForm(),
             AssociationField::new('auteur', 'Par')->hideOnForm(),
-            AssociationField::new('album', 'album' )->hideOnForm(),
+            AssociationField::new('album', 'album' ),
             TextField::new('annee', 'Année (4 chiffres)'),
             ImageField::new('file', 'Fichier')->setBasePath('uploads/')->onlyOnIndex(),
             ImageField::new('file', 'Fichier')->setBasePath( $_ENV['URL_CLOUDINARY'])->onlyOnIndex(),
