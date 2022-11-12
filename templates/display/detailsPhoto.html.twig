@@ -8,7 +8,7 @@
         <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:albumIDofCurrentPhoto, titleAlbum:titleAlbum})  }}" title="fermer" class="modal-close px-2 py-2 text-xs rounded-lg text-gray-300 bg-red-700 hover:bg-red-500 hover:text-white transform transition duration-500">FERMER</a>
     </div>
 
-    <section class="h-full grid grid-cols-12 -mt-12">
+    <section class="h-full lg:grid lg:grid-cols-12 -mt-12 flex-column">
         <div class="flex flex-col col-start-1 col-span-8 gap-4 justify-between p-4 m-4 bg-black border border-1 border-gray-600 shadow-lg rounded-lg">
 
             <h2 class="text-blue-400  italic">Album : <a href="{{ path('displayOneAlbumAntiChrono', {idAlbum:albumIDofCurrentPhoto, titleAlbum:titleAlbum})  }}" class="hover:text-gray-300 transform transition duration-500 underline">{{ titleAlbum | upper }}</a></h2>
