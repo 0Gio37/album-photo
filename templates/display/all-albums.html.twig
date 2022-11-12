@@ -32,12 +32,12 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {% for album in albumList %}
                 <div class="h-80 w-full bg-gradient-to-b from-gray-600 to-gray-400 rounded-lg shadow-lg justify-center p-2 flex flex-col">
-                    <div class="text-center mb-2 text-white">
+                    <div class="text-center mb-1 text-white">
                         <a href= "{{ path('displayOneTheme', {idTheme:album.theme.id, titreTheme:album.theme.titre})  }}" >
                             <p class="text-base hover:text-blue-500 transform transition duration-500">{{ album.theme.titre|upper }}</p>
                         </a>
                     </div>
-                    <div class="text-center mb-2 text-white">
+                    <div class="text-center mb-1 text-white">
                         <a href= "{{ path('displayOneAlbumAntiChrono', {idAlbum:album.id, titleAlbum:album.titre})  }}" >
                             <p class="text-base hover:text-blue-500 transform transition duration-500">{{ album.titre }}</p>
                         </a>
@@ -70,7 +70,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="border-b-2 my-2 border-gray-500 w-full"></div>
+                    <div class="border-b-2 my-1 border-gray-500 w-full"></div>
 
                     <div class="text-base italic text-gray-800">
                         {% if  album.photos | length == 0 %}
