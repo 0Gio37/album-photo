@@ -81,10 +81,9 @@ class AddPhotoController extends AbstractController
             $file = $imageForm->get('fileName')->getData();
 
             if($this->getParameter('upload_images_destination') == 'local'){
-                $newFilename = md5(uniqid()) . '.' . $file->guessExtension();
+                $newFilename = uniqid().time() . '.' . $file->guessExtension();
                 //send image in local storage
                 $file->move($this->getParameter('photo_directory'), $newFilename);
-
             } else{
                 $newFilename = uniqid().time();
                 //send image in cloudinary prod
