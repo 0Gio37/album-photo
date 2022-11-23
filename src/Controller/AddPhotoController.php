@@ -86,7 +86,7 @@ class AddPhotoController extends AbstractController
                 $file->move($this->getParameter('photo_directory'), $newFilename);
 
             } else{
-                $newFilename = md5(uniqid());
+                $newFilename = uniqid().time();
                 //send image in cloudinary prod
                 $cloudinary =  new Cloudinary([
                     'cloud' => [

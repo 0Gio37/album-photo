@@ -10,25 +10,24 @@ class Services
 {
     public function SliderDetailsPhoto(PhotoRepository $photoRepository,String $status,int $albumIDofCurrentPhoto, $createdDateOfCurrentPhoto):Photo{
         $photoToDisplay = null;
-        if($status == 'prev-photo'){
-            //if older photo is displayed, we get the most old young
-            if(!($photoRepository->findSinglePhotoYounger($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto))){
-                $photoToDisplay = $photoRepository->findBy(['album'=>$albumIDofCurrentPhoto], ['createAt'=>'DESC'], 1)[0];
-            }else{
-                $photoToDisplay = ($photoRepository->findSinglePhotoYounger($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto))[0];
-            }
-        }
-        if($status == 'next-photo'){
-            //if younger photo is displayed, we get the most old photo
-            if(!($photoRepository->findSinglePhotoOlder($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto))){
-                $photoToDisplay = $photoRepository->findBy(['album'=>$albumIDofCurrentPhoto], ['createAt'=>'ASC'], 1)[0];
-            }else{
-                $photoToDisplay = ($photoRepository->findSinglePhotoOlder($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto))[0];
-            }
+        switch ($status){
+            case "prev-photo":
+                if($photoRepository->findSinglePhotoYounger($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto)){
+                    $photoToDisplay = ($photoRepository->findSinglePhotoYounger($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto))[0];
+                }else{
+                    //false if current photo displayed is the oldest photo
+                    $photoToDisplay = $photoRepository->findBy(['album'=>$albumIDofCurrentPhoto], ['createAt'=>'DESC'], 1)[0];
+                }
+                break;
+            case "next-photo":
+                if($photoRepository->findSinglePhotoOlder($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto)){
+                    $photoToDisplay = ($photoRepository->findSinglePhotoOlder($albumIDofCurrentPhoto, $createdDateOfCurrentPhoto))[0];
+                }else{
+                    //false if current photo displayed is the youngest photo
+                    $photoToDisplay = $photoRepository->findBy(['album'=>$albumIDofCurrentPhoto], ['createAt'=>'ASC'], 1)[0];
+                }
+                break;
         }
         return $photoToDisplay;
     }
-
-
-
 }
